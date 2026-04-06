@@ -1,96 +1,35 @@
 // =====================================
-// 1. IMPORT STYLE & SWIPER MODULES
+// 1. IMPORT STYLE, SWIPER & LENIS
 // =====================================
 import './style.css';
 import Swiper from 'swiper';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Autoplay, Navigation } from 'swiper/modules'; // <-- Navigation diimport kembali agar tombol panah berfungsi
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import Lenis from 'lenis';
 
 // =====================================
-// 2. DATA PROJECT
+// 2. SMOOTH SCROLLING SETUP (LENIS)
 // =====================================
-const projects = [
-  {
-    title: "Project 1",
-    desc: "Deskripsi lengkap project 1. Ceritakan apa yang kamu buat, teknologi yang digunakan, dan hasil yang dicapai.",
-    img: "https://placehold.co/800x500/222/FFF?text=Project+1",
-    tags: ["HTML", "CSS", "JavaScript"],
-    link: "#"
-  },
-  {
-    title: "Project 2",
-    desc: "Deskripsi lengkap project 2. Ceritakan apa yang kamu buat, teknologi yang digunakan, dan hasil yang dicapai.",
-    img: "https://placehold.co/800x500/222/FFF?text=Project+2",
-    tags: ["Figma",],
-    link: "#"
-  },
-  {
-    title: "Project 3",
-    desc: "Deskripsi lengkap project 3. Ceritakan apa yang kamu buat, teknologi yang digunakan, dan hasil yang dicapai.",
-    img: "https://placehold.co/800x500/222/FFF?text=Project+3",
-    tags: ["Node.js", "MongoDB"],
-    link: "#"
-  },
-  {
-    title: "Project 4",
-    desc: "Deskripsi lengkap project 4.",
-    img: "https://placehold.co/800x500/222/FFF?text=Project+4",
-    tags: ["Vue", "Firebase"],
-    link: "#"
-  },
-  {
-    title: "Project 5",
-    desc: "Deskripsi lengkap project 5.",
-    img: "https://placehold.co/800x500/222/FFF?text=Project+5",
-    tags: ["Python", "Flask"],
-    link: "#"
-  },
-];
+const lenis = new Lenis({
+  duration: 1.2,
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+  smoothWheel: true, 
+});
 
-// =====================================
-// 3. MODAL FUNCTIONS
-// =====================================
-function openModal(index) {
-  const p = projects[index];
-  document.getElementById('modalImg').src = p.img;
-  document.getElementById('modalTitle').textContent = p.title;
-  document.getElementById('modalDesc').textContent = p.desc;
-  document.getElementById('modalLink').href = p.link;
-
-  const tagsEl = document.getElementById('modalTags');
-  tagsEl.innerHTML = p.tags.map(tag =>
-    `<span class="text-xs bg-gray-700 text-gray-300 px-3 py-1 rounded-full">${tag}</span>`
-  ).join('');
-
-  const modal = document.getElementById('projectModal');
-  const box = document.getElementById('modalBox');
-  modal.classList.remove('hidden');
-  setTimeout(() => {
-    box.classList.remove('scale-95', 'opacity-0');
-    box.classList.add('scale-100', 'opacity-100');
-  }, 10);
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
 }
-
-function closeModal() {
-  const modal = document.getElementById('projectModal');
-  const box = document.getElementById('modalBox');
-  box.classList.remove('scale-100', 'opacity-100');
-  box.classList.add('scale-95', 'opacity-0');
-  setTimeout(() => modal.classList.add('hidden'), 300);
-}
-
-// Expose ke HTML (onclick="openModal()")
-window.openModal = openModal;
-window.closeModal = closeModal;
+requestAnimationFrame(raf);
 
 // =====================================
-// 4. KODE UTAMA
+// 3. KODE UTAMA (Animasi & Slider)
 // =====================================
 document.addEventListener("DOMContentLoaded", function () {
 
-  // -- Marquee --
+  // -- Marquee (Teks Berjalan) --
   const marqueeContent = document.getElementById('marqueeContent');
   if (marqueeContent) {
     const textToCopy = marqueeContent.innerHTML;
@@ -124,30 +63,26 @@ document.addEventListener("DOMContentLoaded", function () {
   const scrollElements = document.querySelectorAll('.reveal-on-scroll');
   scrollElements.forEach(el => observer.observe(el));
 
-  // -- Swiper (hanya 1x init) --
+  // -- Swiper (Slider Project) --
   new Swiper('.mySwiper', {
-    modules: [Navigation, Pagination],
+    modules: [Autoplay, Navigation], // <-- Modul Navigation dimasukkan ke sini
     loop: true,
-    slidesPerView: 1.2,
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: false,
+    },
+    slidesPerView: 1, // Untuk HP (1 kartu saja supaya lega)
     spaceBetween: 20,
     grabCursor: true,
     breakpoints: {
-      640:  { slidesPerView: 2.2, spaceBetween: 24 },
-      1024: { slidesPerView: 3,   spaceBetween: 30 },
+      640:  { slidesPerView: 2, spaceBetween: 24 }, // Tablet
+      1024: { slidesPerView: 2, spaceBetween: 30 }, // Desktop: Nampilin 2 kartu
     },
+    // Konfigurasi tombol panah yang dihubungkan ke HTML
     navigation: {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev',
     },
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
-  });
-
-  // -- ESC tutup modal --
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeModal();
   });
 
 });
