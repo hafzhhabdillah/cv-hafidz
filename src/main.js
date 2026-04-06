@@ -1,15 +1,31 @@
 // =====================================
-// 1. IMPORT STYLE & SWIPER MODULES
+// 1. IMPORT STYLE, SWIPER & LENIS
 // =====================================
 import './style.css';
 import Swiper from 'swiper';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { Autoplay, Navigation } from 'swiper/modules'; // <-- Navigation diimport kembali agar tombol panah berfungsi
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import Lenis from 'lenis';
 
 // =====================================
-// 2. KODE UTAMA
+// 2. SMOOTH SCROLLING SETUP (LENIS)
+// =====================================
+const lenis = new Lenis({
+  duration: 1.2,
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+  smoothWheel: true, 
+});
+
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+
+// =====================================
+// 3. KODE UTAMA (Animasi & Slider)
 // =====================================
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -49,45 +65,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // -- Swiper (Slider Project) --
   new Swiper('.mySwiper', {
-    modules: [Navigation, Pagination, Autoplay],
+    modules: [Autoplay, Navigation], // <-- Modul Navigation dimasukkan ke sini
     loop: true,
     autoplay: {
       delay: 3000,
       disableOnInteraction: false,
     },
-    slidesPerView: 1, 
+    slidesPerView: 1, // Untuk HP (1 kartu saja supaya lega)
     spaceBetween: 20,
     grabCursor: true,
     breakpoints: {
-      640:  { slidesPerView: 2, spaceBetween: 24 }, 
-      1024: { slidesPerView: 2, spaceBetween: 30 }, 
+      640:  { slidesPerView: 2, spaceBetween: 24 }, // Tablet
+      1024: { slidesPerView: 2, spaceBetween: 30 }, // Desktop: Nampilin 2 kartu
     },
+    // Konfigurasi tombol panah yang dihubungkan ke HTML
     navigation: {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev',
     },
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
   });
 
 });
-
-// =====================================
-// 3. SMOOTH SCROLLING (LENIS)
-// =====================================
-import Lenis from 'lenis';
-
-const lenis = new Lenis({
-  duration: 1.2,
-  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
-  smoothWheel: true, 
-});
-
-function raf(time) {
-  lenis.raf(time);
-  requestAnimationFrame(raf);
-}
-
-requestAnimationFrame(raf);
