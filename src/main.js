@@ -1,16 +1,13 @@
-// =====================================
-// 1. IMPORT STYLE, SWIPER & LENIS
-// =====================================
 import './style.css';
 import Swiper from 'swiper';
-import { Autoplay, Navigation } from 'swiper/modules'; // <-- Navigation diimport kembali agar tombol panah berfungsi
+import { Autoplay, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import Lenis from 'lenis';
 
 // =====================================
-// 2. SMOOTH SCROLLING SETUP (LENIS)
+// 1. SMOOTH SCROLLING SETUP (LENIS)
 // =====================================
 const lenis = new Lenis({
   duration: 1.2,
@@ -25,9 +22,28 @@ function raf(time) {
 requestAnimationFrame(raf);
 
 // =====================================
-// 3. KODE UTAMA (Animasi & Slider)
+// 2. KODE UTAMA
 // =====================================
 document.addEventListener("DOMContentLoaded", function () {
+
+  // -- Hamburger Menu Mobile Toggle --
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+
+  if (hamburgerBtn && mobileMenu) {
+    // Buka/Tutup menu saat tombol hamburger diklik
+    hamburgerBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('translate-x-full');
+    });
+
+    // Otomatis tutup menu saat link diklik (agar scroll mulus ke section yang dituju)
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('translate-x-full');
+      });
+    });
+  }
 
   // -- Marquee (Teks Berjalan) --
   const marqueeContent = document.getElementById('marqueeContent');
@@ -65,20 +81,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // -- Swiper (Slider Project) --
   new Swiper('.mySwiper', {
-    modules: [Autoplay, Navigation], // <-- Modul Navigation dimasukkan ke sini
+    modules: [Autoplay, Navigation],
     loop: true,
     autoplay: {
       delay: 3000,
       disableOnInteraction: false,
     },
-    slidesPerView: 1, // Untuk HP (1 kartu saja supaya lega)
+    slidesPerView: 1, // 1 kartu saja di Mobile supaya digeser (swipe) nyaman
     spaceBetween: 20,
     grabCursor: true,
     breakpoints: {
-      640:  { slidesPerView: 2, spaceBetween: 24 }, // Tablet
-      1024: { slidesPerView: 2, spaceBetween: 30 }, // Desktop: Nampilin 2 kartu
+      640:  { slidesPerView: 2, spaceBetween: 24 },
+      1024: { slidesPerView: 2, spaceBetween: 30 },
     },
-    // Konfigurasi tombol panah yang dihubungkan ke HTML
     navigation: {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev',
