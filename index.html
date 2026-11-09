@@ -237,6 +237,7 @@
       const closeMenu = () => {
         mobileMenu.classList.add('invisible', '-translate-y-2', 'opacity-0');
         mobileMenu.classList.remove('visible', 'translate-y-0', 'opacity-100');
+        document.body.classList.remove('menu-open');
         menuButton.setAttribute('aria-expanded', 'false');
         menuButton.setAttribute('aria-label', 'Buka menu');
       };
@@ -248,12 +249,19 @@
         } else {
           mobileMenu.classList.remove('invisible', '-translate-y-2', 'opacity-0');
           mobileMenu.classList.add('visible', 'translate-y-0', 'opacity-100');
+          document.body.classList.add('menu-open');
           menuButton.setAttribute('aria-expanded', 'true');
           menuButton.setAttribute('aria-label', 'Tutup menu');
         }
       });
 
       mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && menuButton?.getAttribute('aria-expanded') === 'true') {
+          closeMenu();
+          menuButton.focus();
+        }
+      });
 
       const revealObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
