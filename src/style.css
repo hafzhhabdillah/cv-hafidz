@@ -170,3 +170,51 @@
 @media (prefers-reduced-motion: reduce) {
   .skill-card, .skill-card img, .project-card, .project-image img, .education-card { transition: none !important; }
 }
+
+/* Responsive polish and keyboard accessibility */
+html { scroll-padding-top: 5.5rem; }
+a, button, input, textarea { -webkit-tap-highlight-color: transparent; }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 2px solid #FFB958;
+  outline-offset: 4px;
+}
+body.menu-open { overflow: hidden; }
+
+@media (max-width: 640px) {
+  #home {
+    min-height: auto;
+    padding-top: 6rem;
+  }
+  #home > .mx-auto {
+    gap: 3.5rem;
+    padding-top: 2rem;
+    padding-bottom: 5.5rem;
+  }
+  #home h1 {
+    font-size: clamp(3rem, 13.5vw, 4.5rem);
+    line-height: .98;
+  }
+  #home .fade-right {
+    width: calc(100% - 1.25rem);
+    max-width: 360px;
+  }
+  #home .fade-right > .absolute.-bottom-6 {
+    left: -0.25rem;
+    bottom: -1rem;
+  }
+  .swiper-button-prev, .swiper-button-next {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  .contact-input { min-height: 48px; }
+}
+
+@media (max-width: 380px) {
+  #home h1 { font-size: 3rem; }
+  #home .fade-left > .mb-7 { font-size: 10px; letter-spacing: .12em; }
+  .education-card .location-link { margin-left: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
