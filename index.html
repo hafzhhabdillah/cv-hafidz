@@ -1,740 +1,286 @@
 <!doctype html>
-<html lang="en">
-
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/public/hlog.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
-  <title>Muhammad Hafidz Abdillah</title>
-
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="description" content="Portfolio Muhammad Hafidz Abdillah — Front-end web developer yang berfokus pada pengalaman web modern, responsif, dan interaktif." />
+  <meta property="og:title" content="Muhammad Hafidz Abdillah — Portfolio" />
+  <meta property="og:description" content="Explore selected projects, skills, education, and contact information." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/png" href="/hlog.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
-
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: { sans: ['jakarta', 'sans-serif'] },
-          animation: { 'scroll-text': 'scrollText 10s linear infinite' },
-          keyframes: {
-            scrollText: {
-              '0%': { transform: 'translateX(0)' },
-              '100%': { transform: 'translateX(-50%)' },
-            }
-          }
+          fontFamily: { sans: ['DM Sans', 'sans-serif'], display: ['Manrope', 'sans-serif'] },
+          colors: { ink: '#0a0a0a', panel: '#141414', elevated: '#1b1b1b', accent: '#FFB958' },
+          boxShadow: { glow: '0 0 60px rgba(255,185,88,.12)' }
         }
       }
     }
   </script>
-
-  <link rel="stylesheet" href="/src/style.css">
-
+  <title>Muhammad Hafidz Abdillah — Portfolio</title>
   <style>
-    .fade-up {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
-    }
-
-    .fade-left {
-      opacity: 0;
-      transform: translateX(-40px);
-      transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
-    }
-
-    .fade-right {
-      opacity: 0;
-      transform: translateX(40px);
-      transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
-    }
-
-    .is-visible {
-      opacity: 1 !important;
-      transform: translate(0, 0) !important;
+    :root { color-scheme: dark; scroll-behavior: smooth; }
+    body { background: #0a0a0a; }
+    ::selection { background: #FFB958; color: #111; }
+    .fade-up,.fade-left,.fade-right { opacity: 0; transition: opacity .8s ease, transform .8s cubic-bezier(.2,.75,.25,1); }
+    .fade-up { transform: translateY(28px); }
+    .fade-left { transform: translateX(-28px); }
+    .fade-right { transform: translateX(28px); }
+    .is-visible { opacity: 1 !important; transform: translate(0,0) !important; }
+    .hero-grid { background-image: linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px); background-size: 56px 56px; mask-image: linear-gradient(to bottom,black,transparent 88%); }
+    .text-outline { color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.72); }
+    .accent-line { background: linear-gradient(90deg,#FFB958,rgba(255,185,88,0)); }
+    .swiper-button-prev::after,.swiper-button-next::after { display:none; }
+    .swiper-pagination-bullet { background: #777; opacity: 1; }
+    .swiper-pagination-bullet-active { background: #FFB958; }
+    .menu-open { overflow: hidden; }
+    @media (prefers-reduced-motion: reduce) {
+      *,*::before,*::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+      .fade-up,.fade-left,.fade-right { opacity: 1; transform: none; }
     }
   </style>
 </head>
-
-<body class="bg-[#111] text-white overflow-x-hidden font-sans">
-
-  <button id="hamburgerBtn"
-    class="fixed top-6 right-6 z-[60] md:hidden text-white bg-black/50 p-2 rounded-lg backdrop-blur-sm border border-white/10 hover:bg-black/70 transition">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-    </svg>
-  </button>
-
-  <div id="mobileMenu"
-    class="fixed inset-0 bg-[#111]/95 backdrop-blur-md z-[50] flex flex-col items-center justify-center transition-transform transform translate-x-full duration-300 md:hidden">
-    <ul class="flex flex-col text-center gap-8 text-2xl font-bold">
-      <li><a href="#about" class="mobile-link hover:text-[#FFB958] transition duration-300">About Me</a></li>
-      <li><a href="#skills" class="mobile-link hover:text-[#FFB958] transition duration-300">My Skills</a></li>
-      <li><a href="#project" class="mobile-link hover:text-[#FFB958] transition duration-300">Project</a></li>
-      <li><a href="#education" class="mobile-link hover:text-[#FFB958] transition duration-300">Education</a></li>
-      <li><a href="#contact" class="mobile-link hover:text-[#FFB958] transition duration-300">Contact</a></li>
-    </ul>
-  </div>
-
-  <div class="relative w-full h-screen bg-[url('pohon.png')] bg-cover bg-center bg-blend-overlay bg-black/70">
-    <div
-      class="absolute bottom-0 left-0 w-full h-[40%] bg-gradient-to-t from-[#111] via-[#111]/80 to-transparent z-10 pointer-events-none">
+<body class="overflow-x-hidden font-sans text-white antialiased">
+  <header class="fixed inset-x-0 top-0 z-50 border-b border-white/[.06] bg-[#0a0a0a]/80 backdrop-blur-xl">
+    <div class="mx-auto flex h-[76px] max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-12">
+      <a href="#home" class="group flex items-center gap-3" aria-label="Kembali ke halaman utama">
+        <span class="grid h-10 w-10 place-items-center rounded-xl border border-[#FFB958]/30 bg-[#FFB958]/10 font-display text-sm font-extrabold text-[#FFB958]">HA.</span>
+        <span class="font-display text-sm font-bold tracking-wide sm:text-base">HAFIDZ<span class="text-[#FFB958]">.</span></span>
+      </a>
+      <nav class="hidden items-center gap-8 md:flex" aria-label="Navigasi utama">
+        <a href="#about" class="text-sm text-zinc-400 transition hover:text-[#FFB958]">About</a>
+        <a href="#skills" class="text-sm text-zinc-400 transition hover:text-[#FFB958]">Skills</a>
+        <a href="#project" class="text-sm text-zinc-400 transition hover:text-[#FFB958]">Projects</a>
+        <a href="#education" class="text-sm text-zinc-400 transition hover:text-[#FFB958]">Education</a>
+      </nav>
+      <a href="#contact" class="hidden items-center gap-2 rounded-full border border-[#FFB958]/50 px-5 py-2.5 text-sm font-semibold text-[#FFB958] transition hover:bg-[#FFB958] hover:text-black md:inline-flex">Let's talk <span aria-hidden="true">↗</span></a>
+      <button id="hamburgerBtn" class="grid h-11 w-11 place-items-center rounded-xl border border-white/10 text-white transition hover:border-[#FFB958]/50 md:hidden" aria-label="Buka menu" aria-expanded="false" aria-controls="mobileMenu">
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/></svg>
+      </button>
     </div>
-
-    <h1
-      class="fade-up absolute top-[5%] md:top-[-4%] flex w-full justify-center text-[22vw] md:text-[19vw] font-semibold text-white/90 z-0 leading-none select-none">
-      WELCOME
-    </h1>
-
-    <div
-      class="absolute bottom-[15%] md:bottom-auto md:top-[32%] w-full bg-[#FFB958] py-2 md:py-3 z-10 overflow-hidden whitespace-nowrap shadow-lg">
-      <div id="marqueeContent"
-        class="inline-block text-3xl md:text-5xl font-semibold text-zinc-900 animate-scroll-text hover:[animation-play-state:paused] cursor-pointer">
-        <span>
-          Muhammad Hafidz Abdillah . Muhammad Hafidz Abdillah .
-          Muhammad Hafidz Abdillah . Muhammad Hafidz Abdillah .
-        </span>
-      </div>
-    </div>
-
-
-    <div
-      class="top-[10%] md:top-[13%] absolute inset-0 w-full h-full flex flex-col md:flex-row justify-start md:justify-between items-start md:items-center px-[5%] md:px-[10%] z-30 pointer-events-none">
-
-      <div class="fade-left w-full md:max-w-200 pointer-events-auto mt-10 md:mt-11" style="transition-delay: 400ms;">
-        <span
-          class="bg-white/10 border border-white/20 px-3 py-1.5 md:px-4 md:py-2 rounded text-xs md:text-sm tracking-[0.2em] uppercase backdrop-blur-sm">
-          Hello
-        </span>
-        <div class="mt-4 md:mt-6 inline-block md:block rounded-2xl">
-          <h2 class="text-[3rem] md:text-[5rem] font-black leading-none tracking-tight drop-shadow-md">
-            I'M <span
-              class="text-transparent [-webkit-text-stroke:1.5px_white] md:[-webkit-text-stroke:2px_white]">WEB</span>
-          </h2>
-          <div class="w-full">
-            <h2
-              class="text-[3.2rem] md:text-[4.5rem] font-black leading-none tracking-tight -mt-1 md:-mt-2.5 drop-shadow-md">
-              DEVELOPER
-            </h2>
-          </div>
-          <p
-            class="w-full md:w-[40%] text-[14px] md:text-[20px] text-gray-200 leading-relaxed mt-4 drop-shadow-lg font-medium">
-            "Berfokus pada Front-end Development di SMK Madinatul Qur'an. Membangun pengalaman web modern yang cepat dan
-            responsif."
-          </p>
-        </div>
-      </div>
-
-      <nav class="fade-right pointer-events-auto mt-10 hidden md:block" style="transition-delay: 600ms;">
-        <ul class="flex flex-col text-right">
-          <li><a href="#about" class="hover:text-[#FFB958] text-[20px] transition duration-300 drop-shadow-md">About
-              Me</a></li>
-          <li><a href="#skills" class="hover:text-[#FFB958] text-[20px] transition duration-300 drop-shadow-md">My
-              Skills</a></li>
-          <li><a href="#project"
-              class="hover:text-[#FFB958] text-[20px] transition duration-300 drop-shadow-md">Project</a></li>
-          <li><a href="#education"
-              class="hover:text-[#FFB958] text-[20px] transition duration-300 drop-shadow-md">Education</a></li>
-          <li><a href="#contact"
-              class="hover:text-[#FFB958] text-[20px] transition duration-300 drop-shadow-md">Contact</a></li>
-        </ul>
+    <div id="mobileMenu" class="invisible absolute inset-x-0 top-full -translate-y-2 border-b border-white/10 bg-[#101010] px-6 py-6 opacity-0 shadow-2xl transition-all duration-300 md:hidden">
+      <nav class="flex flex-col gap-1" aria-label="Navigasi mobile">
+        <a href="#about" class="mobile-link rounded-lg px-4 py-3 text-zinc-300 transition hover:bg-white/5 hover:text-[#FFB958]">About me</a>
+        <a href="#skills" class="mobile-link rounded-lg px-4 py-3 text-zinc-300 transition hover:bg-white/5 hover:text-[#FFB958]">My skills</a>
+        <a href="#project" class="mobile-link rounded-lg px-4 py-3 text-zinc-300 transition hover:bg-white/5 hover:text-[#FFB958]">Projects</a>
+        <a href="#education" class="mobile-link rounded-lg px-4 py-3 text-zinc-300 transition hover:bg-white/5 hover:text-[#FFB958]">Education</a>
+        <a href="#contact" class="mobile-link rounded-lg px-4 py-3 text-[#FFB958] transition hover:bg-[#FFB958]/10">Contact ↗</a>
       </nav>
     </div>
-  </div>
+  </header>
 
-  <div id="about"
-    class="relative w-full bg-[#111] text-white px-[5%] md:px-[10%] py-20 md:py-32 z-20 flex flex-col md:flex-row items-center justify-between gap-12 md:gap-16 overflow-hidden">
-
-    <div class="w-full md:w-[55%] fade-right reveal-on-scroll order-2 md:order-1">
-
-      <h2 class="text-[40px] md:text-[55px] lg:text-[65px] font-black leading-[1.1] tracking-tight mb-6 uppercase">
-        About<br>
-        <span class="text-transparent [-webkit-text-stroke:1.5px_white] md:[-webkit-text-stroke:2px_white]">Hafidz
-          Abdillah</span>
-      </h2>
-
-      <p class="text-[15px] md:text-[17px] leading-relaxed font-normal tracking-wide text-gray-300 mb-4 text-justify">
-        "Saya adalah siswa jurusan Rekayasa Perangkat Lunak di SMK Madinatul Qur'an yang memiliki minat besar dalam
-        dunia pengembangan web. Saat ini, saya berfokus mendalami ranah Front-End Development, di mana saya memadukan
-        kreativitas desain antarmuka dengan logika pemrograman untuk membangun website yang responsif, interaktif, dan
-        efisien.
-      </p>
-
-      <p class="text-[15px] md:text-[17px] leading-relaxed font-normal tracking-wide text-gray-300 mb-8 text-justify">
-        Saya sangat menikmati proses mengeksplorasi teknologi web modern (seperti Tailwind CSS dan JavaScript) demi
-        menciptakan pengalaman pengguna yang optimal. Selain itu, saya juga aktif membangun berbagai proyek pribadi dan
-        men-<i>deploy</i> aplikasi secara langsung menggunakan Vercel untuk terus mengasah keterampilan agar selalu
-        relevan dengan standar industri."
-      </p>
-
-      <div class="w-full h-px bg-white/10 mb-8 md:mb-12"></div>
-
-      <div class="flex flex-wrap gap-8 md:gap-16">
-        <div>
-          <h3 class="text-[35px] md:text-[45px] font-bold leading-none text-white">10+</h3>
-          <p class="text-[#FFB958] text-sm mt-3 font-medium">Projects Done</p>
+  <main>
+    <section id="home" class="relative isolate flex min-h-[760px] items-center overflow-hidden pt-28 sm:min-h-[820px] lg:min-h-[900px]">
+      <div class="hero-grid pointer-events-none absolute inset-0 -z-20"></div>
+      <div class="pointer-events-none absolute -right-40 top-20 -z-10 h-[560px] w-[560px] rounded-full bg-[#FFB958]/[.08] blur-[130px]"></div>
+      <div class="pointer-events-none absolute -bottom-52 -left-40 -z-10 h-[500px] w-[500px] rounded-full bg-white/[.035] blur-[120px]"></div>
+      <div class="mx-auto grid w-full max-w-7xl items-center gap-14 px-5 pb-24 pt-12 sm:px-8 lg:grid-cols-[1.1fr_.9fr] lg:gap-10 lg:px-12 lg:pb-32">
+        <div class="fade-left relative z-10">
+          <div class="mb-7 inline-flex items-center gap-2 rounded-full border border-[#FFB958]/25 bg-[#FFB958]/[.07] px-4 py-2 text-xs font-semibold tracking-[.16em] text-[#FFB958] uppercase">
+            <span class="h-2 w-2 rounded-full bg-[#FFB958] shadow-[0_0_12px_#FFB958]"></span> Available to explore opportunities
+          </div>
+          <p class="mb-4 text-sm font-medium tracking-[.24em] text-zinc-500 uppercase">Hello, I'm</p>
+          <h1 class="font-display text-[clamp(3.4rem,8vw,7.2rem)] font-extrabold leading-[.94] tracking-[-.075em]">Muhammad<br><span class="text-outline">Hafidz</span><br>Abdillah<span class="text-[#FFB958]">.</span></h1>
+          <div class="my-8 flex items-center gap-4">
+            <span class="h-px w-12 accent-line"></span>
+            <p class="text-sm font-semibold tracking-[.18em] text-[#FFB958] uppercase">Front-end Developer</p>
+          </div>
+          <p class="max-w-xl text-base leading-8 text-zinc-400 sm:text-lg">Siswa Rekayasa Perangkat Lunak di SMK Madinatul Qur'an yang senang membangun pengalaman web modern, responsif, dan mudah digunakan.</p>
+          <div class="mt-10 flex flex-wrap items-center gap-4">
+            <a href="#project" class="inline-flex items-center gap-3 rounded-full bg-[#FFB958] px-7 py-4 text-sm font-bold text-[#111] shadow-glow transition hover:-translate-y-1 hover:bg-[#ffc879]">Explore my work <span aria-hidden="true">↗</span></a>
+            <a href="#about" class="inline-flex items-center gap-2 rounded-full border border-white/15 px-7 py-4 text-sm font-semibold text-zinc-300 transition hover:border-white/40 hover:text-white">More about me <span aria-hidden="true">↓</span></a>
+          </div>
+          <div class="mt-14 flex items-center gap-5 text-xs font-medium tracking-wider text-zinc-500 uppercase">
+            <span>Based in Indonesia</span><span class="h-1 w-1 rounded-full bg-[#FFB958]"></span><span>Learning by building</span>
+          </div>
         </div>
-        <div>
-          <h3 class="text-[35px] md:text-[45px] font-bold leading-none text-white">80%</h3>
-          <p class="text-[#FFB958] text-sm mt-3 font-medium">Mastering Lessons</p>
-        </div>
-        <div>
-          <h3 class="text-[35px] md:text-[45px] font-bold leading-none text-white">83%</h3>
-          <p class="text-[#FFB958] text-sm mt-3 font-medium">Graphic Design</p>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="w-full md:w-[40%] fade-left reveal-on-scroll flex justify-center order-1 md:order-2">
-      <div
-        class="relative w-full aspect-square md:aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border border-white/10 group">
-        <img src="me.png" alt="About Hafidz"
-          class="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 group-hover:scale-105">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
-      </div>
-    </div>
-
-  </div>
-
-  <div id="skills"
-    class="relative w-full bg-[#111] text-white px-[5%] md:px-[10%] pb-20 md:pb-32 pt-10 z-20 flex flex-col lg:flex-row items-start justify-between gap-8 md:gap-12 overflow-hidden">
-    <div class="w-full lg:w-[35%] sticky top-24 md:top-32 fade-left reveal-on-scroll">
-      <h2 class="text-[50px] md:text-[65px] font-black leading-none tracking-tight">
-        My<br>
-        <span
-          class="text-transparent [-webkit-text-stroke:1.5px_white] md:[-webkit-text-stroke:2px_white]">Skills</span>
-      </h2>
-    </div>
-
-    <div
-      class="w-full lg:w-[65%] grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 fade-right reveal-on-scroll">
-      <div
-        class="group flex flex-col items-center justify-center py-5 px-2 border border-white/5 bg-[#181818] rounded-xl hover:border-[#FFB958] hover:bg-[#FFB958]/5 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg"
-          class="w-8 h-8 md:w-9 md:h-9 mb-3 grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
-          alt="HTML">
-        <h3 class="text-xs md:text-sm font-semibold text-gray-400 group-hover:text-white transition-colors">HTML</h3>
-      </div>
-      <div
-        class="group flex flex-col items-center justify-center py-5 px-2 border border-white/5 bg-[#181818] rounded-xl hover:border-[#FFB958] hover:bg-[#FFB958]/5 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg"
-          class="w-8 h-8 md:w-9 md:h-9 mb-3 grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
-          alt="CSS">
-        <h3 class="text-xs md:text-sm font-semibold text-gray-400 group-hover:text-white transition-colors">CSS</h3>
-      </div>
-      <div
-        class="group flex flex-col items-center justify-center py-5 px-2 border border-white/5 bg-[#181818] rounded-xl hover:border-[#FFB958] hover:bg-[#FFB958]/5 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg"
-          class="w-8 h-8 md:w-9 md:h-9 mb-3 grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
-          alt="Figma">
-        <h3 class="text-xs md:text-sm font-semibold text-gray-400 group-hover:text-white transition-colors">Figma</h3>
-      </div>
-      <div
-        class="group flex flex-col items-center justify-center py-5 px-2 border border-white/5 bg-[#181818] rounded-xl hover:border-[#FFB958] hover:bg-[#FFB958]/5 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"
-          class="w-8 h-8 md:w-9 md:h-9 mb-3 grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
-          alt="JavaScript">
-        <h3 class="text-xs md:text-sm font-semibold text-gray-400 group-hover:text-white transition-colors">JavaScript
-        </h3>
-      </div>
-      <div
-        class="group flex flex-col items-center justify-center py-5 px-2 border border-white/5 bg-[#181818] rounded-xl hover:border-[#FFB958] hover:bg-[#FFB958]/5 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg"
-          class="w-8 h-8 md:w-9 md:h-9 mb-3 grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
-          alt="Tailwind">
-        <h3 class="text-xs md:text-sm font-semibold text-gray-400 group-hover:text-white transition-colors">Tailwind CSS
-        </h3>
-      </div>
-      <div
-        class="group flex flex-col items-center justify-center py-5 px-2 border border-white/5 bg-[#181818] rounded-xl hover:border-[#FFB958] hover:bg-[#FFB958]/5 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg"
-          class="w-8 h-8 md:w-9 md:h-9 mb-3 grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
-          alt="TypeScript">
-        <h3 class="text-xs md:text-sm font-semibold text-gray-400 group-hover:text-white transition-colors">TypeScript
-        </h3>
-      </div>
-      <div
-        class="group flex flex-col items-center justify-center py-5 px-2 border border-white/5 bg-[#181818] rounded-xl hover:border-[#FFB958] hover:bg-[#FFB958]/5 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vite/vite-original.svg"
-          class="w-8 h-8 md:w-9 md:h-9 mb-3 grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
-          alt="Vite">
-        <h3 class="text-xs md:text-sm font-semibold text-gray-400 group-hover:text-white transition-colors">Vite</h3>
-      </div>
-      <div
-        class="group flex flex-col items-center justify-center py-5 px-2 border border-white/5 bg-[#181818] rounded-xl hover:border-[#FFB958] hover:bg-[#FFB958]/5 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
-          class="w-8 h-8 md:w-9 md:h-9 mb-3 grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
-          alt="Git">
-        <h3 class="text-xs md:text-sm font-semibold text-gray-400 group-hover:text-white transition-colors">Git</h3>
-      </div>
-      <div
-        class="group flex flex-col items-center justify-center py-5 px-2 border border-white/5 bg-[#181818] rounded-xl hover:border-[#FFB958] hover:bg-[#FFB958]/5 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"
-          class="w-8 h-8 md:w-9 md:h-9 mb-3 grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300 invert"
-          alt="GitHub">
-        <h3 class="text-xs md:text-sm font-semibold text-gray-400 group-hover:text-white transition-colors">GitHub</h3>
-      </div>
-      <div
-        class="group flex flex-col items-center justify-center py-5 px-2 border border-white/5 bg-[#181818] rounded-xl hover:border-[#FFB958] hover:bg-[#FFB958]/5 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg"
-          class="w-8 h-8 md:w-9 md:h-9 mb-3 grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300 invert"
-          alt="Vercel">
-        <h3 class="text-xs md:text-sm font-semibold text-gray-400 group-hover:text-white transition-colors">Vercel</h3>
-      </div>
-      <div
-        class="group flex flex-col items-center justify-center py-5 px-2 border border-white/5 bg-[#181818] rounded-xl hover:border-[#FFB958] hover:bg-[#FFB958]/5 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-plain.svg"
-          class="w-8 h-8 md:w-9 md:h-9 mb-3 grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
-          alt="Firebase">
-        <h3 class="text-xs md:text-sm font-semibold text-gray-400 group-hover:text-white transition-colors">Firebase
-        </h3>
-      </div>
-    </div>
-  </div>
-
-  <div id="project" class="relative w-full bg-[#111] text-white z-20">
-    <div class="px-[5%] md:px-[10%] py-20 md:py-32">
-      <div class="mb-10 md:mb-16 fade-up reveal-on-scroll">
-        <h2 class="text-[45px] md:text-[55px] font-semibold leading-none tracking-tight md:ml-6">
-          My Project
-        </h2>
-      </div>
-
-      <div class="relative fade-up reveal-on-scroll" style="transition-delay:200ms;">
-
-        <div
-          class="swiper-button-prev hidden md:flex !bg-[#FFB958] !text-black !w-12 !h-12 !rounded-full items-center justify-center hover:!scale-110 transition-transform duration-300 !absolute !-left-6 !top-1/2 !-translate-y-1/2 !z-50 shadow-xl cursor-pointer">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
-          </svg>
-        </div>
-
-        <div class="swiper mySwiper w-full rounded-2xl overflow-hidden shadow-2xl">
-          <div class="swiper-wrapper">
-
-            <div
-              class="swiper-slide rounded-2xl overflow-hidden bg-[#181818] border border-white/5 cursor-pointer group flex flex-col hover:-translate-y-1 hover:shadow-lg hover:shadow-[#FFB958]/10 transition-all duration-300">
-              <div class="w-full h-[300px] md:h-[380px] overflow-hidden relative">
-                <img src="myproject1.png" onerror="this.src='https://placehold.co/400x300/222/FFF?text=Meowketplace'"
-                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  alt="Project 1">
-                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
-              </div>
-              <div class="p-5 flex flex-col grow justify-between">
-                <div>
-                  <h3 class="text-white text-lg md:text-xl font-bold group-hover:text-[#FFB958] transition-colors">
-                    Meowketplace</h3>
-                  <p class="text-gray-400 text-xs md:text-sm mt-1 line-clamp-2">Aplikasi e-commerce khusus untuk
-                    kebutuhan kucing kesayanganmu.</p>
-                </div>
-                <div class="flex flex-wrap gap-2 mt-4">
-                  <span
-                    class="text-[10px] bg-white/5 border border-white/10 text-gray-300 px-2.5 py-1.5 rounded-full font-serif tracking-widest uppercase">HTML</span>
-                  <span
-                    class="text-[10px] bg-white/5 border border-white/10 text-gray-300 px-2.5 py-1.5 rounded-full font-serif tracking-widest uppercase">CSS</span>
-                  <span
-                    class="text-[10px] bg-[#F24E1E]/10 border border-[#F24E1E]/20 text-[#F24E1E] px-2.5 py-1.5 rounded-full font-serif tracking-widest uppercase font-medium">Figma</span>
-                  <span
-                    class="text-[10px] bg-[#38bdf8]/10 border border-[#38bdf8]/20 text-[#38bdf8] px-2.5 py-1.5 rounded-full font-serif tracking-widest uppercase font-medium">Tailwind</span>
-                  <span
-                    class="text-[10px] bg-[#f7df1e]/10 border border-[#f7df1e]/20 text-[#f7df1e] px-2.5 py-1.5 rounded-full font-serif tracking-widest uppercase font-medium">JS</span>
-                </div>
-              </div>
+        <div class="fade-right relative mx-auto w-full max-w-[480px]">
+          <div class="absolute -inset-5 rounded-[2.5rem] border border-[#FFB958]/15"></div>
+          <div class="absolute -right-8 top-12 h-28 w-28 rounded-full border border-[#FFB958]/25"></div>
+          <div class="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/10 bg-[#181818] shadow-2xl">
+            <img src="/me.png" alt="Portrait of Muhammad Hafidz Abdillah" fetchpriority="high" class="h-full w-full object-cover object-center grayscale-[35%] transition duration-700 hover:scale-105 hover:grayscale-0" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/10"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-7 sm:p-9">
+              <p class="text-xs font-semibold tracking-[.2em] text-[#FFB958] uppercase">Personal portfolio</p>
+              <p class="mt-2 font-display text-2xl font-bold sm:text-3xl">Curious mind.<br>Creative builder.</p>
             </div>
+          </div>
+          <div class="absolute -bottom-6 -left-6 rounded-2xl border border-white/10 bg-[#171717]/95 px-5 py-4 shadow-xl backdrop-blur">
+            <p class="text-[11px] tracking-widest text-zinc-500 uppercase">Focus</p>
+            <p class="mt-1 text-sm font-bold text-white">Web Development <span class="text-[#FFB958]">↗</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="absolute bottom-0 left-0 right-0 h-36 bg-gradient-to-t from-[#0a0a0a] to-transparent"></div>
+    </section>
 
-            <div
-              class="swiper-slide rounded-2xl overflow-hidden bg-[#181818] border border-white/5 cursor-pointer group flex flex-col hover:-translate-y-1 hover:shadow-lg hover:shadow-[#FFB958]/10 transition-all duration-300">
-              <div class="w-full h-[300px] md:h-[380px] overflow-hidden relative">
-                <img src="myproject2.png" onerror="this.src='https://placehold.co/800x500/222/FFF?text=Landing+Page'"
-                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  alt="Project 2">
-                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
-              </div>
-              <div class="p-5 flex flex-col grow justify-between">
-                <div>
-                  <h3 class="text-white text-lg md:text-xl font-bold group-hover:text-[#FFB958] transition-colors">
-                    Landing Page Portofolio</h3>
-                  <p class="text-gray-400 text-xs md:text-sm mt-1 line-clamp-2">Eksplorasi desain antarmuka modern.</p>
-                </div>
-                <div class="flex flex-wrap gap-2 mt-4">
-                  <span
-                    class="text-[10px] bg-[#F24E1E]/10 border border-[#F24E1E]/20 text-[#F24E1E] px-2.5 py-1.5 rounded-full font-serif tracking-widest uppercase font-medium">Figma</span>
-                </div>
-              </div>
+    <section id="about" class="scroll-mt-24 border-t border-white/[.05] bg-[#0d0d0d] px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+      <div class="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[.7fr_1.3fr] lg:gap-24">
+        <div class="fade-left">
+          <p class="mb-5 text-xs font-bold tracking-[.25em] text-[#FFB958] uppercase">01 / About me</p>
+          <h2 class="font-display text-5xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl">A little<br><span class="text-outline">about</span><br>myself<span class="text-[#FFB958]">.</span></h2>
+          <div class="mt-8 h-px w-24 accent-line"></div>
+        </div>
+        <div class="fade-right">
+          <p class="text-xl font-medium leading-9 text-zinc-200 sm:text-2xl">Saya adalah siswa jurusan Rekayasa Perangkat Lunak di SMK Madinatul Qur'an yang memiliki minat besar dalam dunia pengembangan web.</p>
+          <p class="mt-7 text-base leading-8 text-zinc-400">Saat ini, saya berfokus mendalami Front-end Development. Saya memadukan kreativitas desain antarmuka dengan logika pemrograman untuk membangun website yang responsif, interaktif, dan efisien.</p>
+          <p class="mt-5 text-base leading-8 text-zinc-400">Saya menikmati proses mengeksplorasi teknologi web modern seperti Tailwind CSS dan JavaScript. Saya juga aktif membangun berbagai proyek pribadi dan men-deploy aplikasi secara langsung menggunakan Vercel untuk terus mengasah keterampilan.</p>
+          <div class="mt-12 grid grid-cols-3 gap-4 border-t border-white/10 pt-8">
+            <div><p class="font-display text-3xl font-extrabold text-white sm:text-4xl">10<span class="text-[#FFB958]">+</span></p><p class="mt-2 text-xs leading-5 text-zinc-500 sm:text-sm">Projects done</p></div>
+            <div><p class="font-display text-3xl font-extrabold text-white sm:text-4xl">80<span class="text-[#FFB958]">%</span></p><p class="mt-2 text-xs leading-5 text-zinc-500 sm:text-sm">Mastering lessons</p></div>
+            <div><p class="font-display text-3xl font-extrabold text-white sm:text-4xl">83<span class="text-[#FFB958]">%</span></p><p class="mt-2 text-xs leading-5 text-zinc-500 sm:text-sm">Graphic design</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="scroll-mt-24 px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+      <div class="mx-auto max-w-7xl">
+        <div class="fade-up mb-14 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+          <div><p class="mb-5 text-xs font-bold tracking-[.25em] text-[#FFB958] uppercase">02 / What I use</p><h2 class="font-display text-5xl font-extrabold tracking-tight sm:text-6xl">Skills<span class="text-[#FFB958]"> & tools.</span></h2></div>
+          <p class="max-w-sm text-sm leading-7 text-zinc-500">Tools and technologies I use while learning, experimenting, and building projects.</p>
+        </div>
+        <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+          <div class="skill-card fade-up"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="" loading="lazy"><span>HTML</span></div>
+          <div class="skill-card fade-up"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" alt="" loading="lazy"><span>CSS</span></div>
+          <div class="skill-card fade-up"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" alt="" loading="lazy"><span>Figma</span></div>
+          <div class="skill-card fade-up"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="" loading="lazy"><span>JavaScript</span></div>
+          <div class="skill-card fade-up"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" alt="" loading="lazy"><span>Tailwind CSS</span></div>
+          <div class="skill-card fade-up"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" alt="" loading="lazy"><span>TypeScript</span></div>
+          <div class="skill-card fade-up"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vite/vite-original.svg" alt="" loading="lazy"><span>Vite</span></div>
+          <div class="skill-card fade-up"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="" loading="lazy"><span>Git</span></div>
+          <div class="skill-card fade-up"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="" loading="lazy"><span>GitHub</span></div>
+          <div class="skill-card fade-up"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg" alt="" loading="lazy"><span>Vercel</span></div>
+          <div class="skill-card fade-up"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-plain.svg" alt="" loading="lazy"><span>Firebase</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="project" class="scroll-mt-24 border-y border-white/[.05] bg-[#0d0d0d] px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+      <div class="mx-auto max-w-7xl">
+        <div class="fade-up mb-12 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+          <div><p class="mb-5 text-xs font-bold tracking-[.25em] text-[#FFB958] uppercase">03 / Selected work</p><h2 class="font-display text-5xl font-extrabold tracking-tight sm:text-6xl">Featured <span class="text-outline">projects.</span></h2></div>
+          <div class="flex items-center gap-3"><button class="swiper-button-prev !static !m-0 !grid !h-11 !w-11 !place-items-center rounded-full border border-white/15 text-white transition hover:!border-[#FFB958] hover:!bg-[#FFB958] hover:!text-black" aria-label="Previous project"><span class="text-xl">←</span></button><button class="swiper-button-next !static !m-0 !grid !h-11 !w-11 !place-items-center rounded-full border border-white/15 text-white transition hover:!border-[#FFB958] hover:!bg-[#FFB958] hover:!text-black" aria-label="Next project"><span class="text-xl">→</span></button></div>
+        </div>
+        <div class="swiper mySwiper overflow-visible">
+          <div class="swiper-wrapper pb-12">
+            <article class="swiper-slide project-card"><div class="project-image"><img src="/myproject1.png" alt="Meowketplace project preview" loading="lazy"></div><div class="p-6 sm:p-7"><p class="project-index">01 / E-commerce</p><h3 class="project-title">Meowketplace</h3><p class="project-desc">Aplikasi e-commerce khusus untuk kebutuhan kucing kesayanganmu.</p><div class="project-tags"><span>HTML</span><span>CSS</span><span>Figma</span><span>Tailwind</span><span>JavaScript</span></div></div></article>
+            <article class="swiper-slide project-card"><div class="project-image"><img src="/myproject2.png" alt="Landing page portfolio design preview" loading="lazy"></div><div class="p-6 sm:p-7"><p class="project-index">02 / UI design</p><h3 class="project-title">Landing Page Portofolio</h3><p class="project-desc">Eksplorasi desain antarmuka modern.</p><div class="project-tags"><span>Figma</span></div></div></article>
+            <article class="swiper-slide project-card"><div class="project-image"><img src="/myproject3.png" alt="Car rental landing page preview" loading="lazy"></div><div class="p-6 sm:p-7"><p class="project-index">03 / Landing page</p><h3 class="project-title">Landing Page Rental Mobil</h3><p class="project-desc">Landing page responsif untuk penyewaan kendaraan.</p><div class="project-tags"><span>Figma</span></div></div></article>
+            <article class="swiper-slide project-card"><div class="project-image"><img src="/myproject4.png" alt="Bbil Furniture landing page preview" loading="lazy"></div><div class="p-6 sm:p-7"><p class="project-index">04 / E-commerce concept</p><h3 class="project-title">Landing Page Bbil Furniture</h3><p class="project-desc">Landing page responsif untuk membeli peralatan rumah.</p><div class="project-tags"><span>HTML</span><span>CSS</span><span>Figma</span><span>Tailwind</span><span>JavaScript</span></div></div></article>
+            <article class="swiper-slide project-card"><div class="project-image"><img src="/myproject5.png" alt="Student violation application preview" loading="lazy"></div><div class="p-6 sm:p-7"><p class="project-index">05 / Web application</p><h3 class="project-title">Aplikasi Pelanggaran Siswa</h3><p class="project-desc">Aplikasi untuk membantu pencatatan pelanggaran santri.</p><div class="project-tags"><span>HTML</span><span>CSS</span><span>Tailwind</span><span>JavaScript</span></div></div></article>
+          </div>
+          <div class="swiper-pagination !-bottom-0"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education" class="scroll-mt-24 px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+      <div class="mx-auto max-w-7xl">
+        <div class="fade-up mb-14"><p class="mb-5 text-xs font-bold tracking-[.25em] text-[#FFB958] uppercase">04 / My journey</p><h2 class="font-display text-5xl font-extrabold tracking-tight sm:text-6xl">Education<span class="text-[#FFB958]">.</span></h2></div>
+        <div class="grid gap-4">
+          <article class="education-card fade-up"><div class="education-logo"><img src="/mq.png" alt="SMK Madinatulquran logo" loading="lazy"></div><div class="min-w-0 flex-1"><p class="text-xs font-semibold tracking-widest text-[#FFB958] uppercase">2026 – Present</p><h3 class="mt-2 font-display text-lg font-bold sm:text-xl">SMK Madinatulquran</h3><p class="mt-1 text-sm text-zinc-400">Rekayasa Perangkat Lunak</p></div><a href="https://www.google.com/maps/search/SMK+Madinatulquran+Jonggol" target="_blank" rel="noopener noreferrer" class="location-link">Location ↗</a></article>
+          <article class="education-card fade-up"><div class="education-logo"><img src="/binaqurani.png" alt="BQ Islamic Boarding School logo" loading="lazy"></div><div class="min-w-0 flex-1"><p class="text-xs font-semibold tracking-widest text-[#FFB958] uppercase">2022 – 2025</p><h3 class="mt-2 font-display text-lg font-bold sm:text-xl">BQ Islamic Boarding School</h3><p class="mt-1 text-sm text-zinc-400">Junior high school</p></div><a href="https://www.google.com/maps/search/Bina+Qurani+Islamic+Boarding+School" target="_blank" rel="noopener noreferrer" class="location-link">Location ↗</a></article>
+          <article class="education-card fade-up"><div class="education-logo"><img src="/alqurrobilal.png" alt="Ponpes Al-Qurro logo" loading="lazy"></div><div class="min-w-0 flex-1"><p class="text-xs font-semibold tracking-widest text-[#FFB958] uppercase">2019 – 2021</p><h3 class="mt-2 font-display text-lg font-bold sm:text-xl">Ponpes Al-Qurro</h3><p class="mt-1 text-sm text-zinc-400">Elementary School</p></div><a href="https://www.google.com/maps/search/Ponpes+Al-Qurro+Bogor" target="_blank" rel="noopener noreferrer" class="location-link">Location ↗</a></article>
+          <article class="education-card fade-up"><div class="education-logo"><img src="/sditfajar.png" alt="SDIT Fajar Depok logo" loading="lazy"></div><div class="min-w-0 flex-1"><p class="text-xs font-semibold tracking-widest text-[#FFB958] uppercase">2016 – 2018</p><h3 class="mt-2 font-display text-lg font-bold sm:text-xl">SDIT Fajar Depok</h3><p class="mt-1 text-sm text-zinc-400">Elementary School</p></div><a href="https://www.google.com/maps/search/SDIT+Fajar+Depok" target="_blank" rel="noopener noreferrer" class="location-link">Location ↗</a></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="scroll-mt-24 border-t border-white/[.06] bg-[#0d0d0d] px-5 pb-10 pt-24 sm:px-8 lg:px-12 lg:pt-32">
+      <div class="mx-auto max-w-7xl">
+        <div class="fade-up grid gap-12 lg:grid-cols-[1fr_.8fr] lg:gap-20">
+          <div>
+            <p class="mb-5 text-xs font-bold tracking-[.25em] text-[#FFB958] uppercase">05 / Get in touch</p>
+            <h2 class="font-display text-5xl font-extrabold leading-[1.05] tracking-tight sm:text-7xl">Have an idea?<br><span class="text-outline">Let's talk.</span></h2>
+            <p class="mt-7 max-w-lg text-base leading-8 text-zinc-400">Punya pertanyaan atau ingin berdiskusi tentang project? Kirim pesan dan mari mulai percakapan.</p>
+            <div class="mt-12 grid gap-7 sm:grid-cols-2">
+              <div><p class="mb-2 text-xs tracking-widest text-zinc-500 uppercase">Email</p><a href="mailto:hafidzabdillah19706@gmail.com" class="break-all text-sm font-semibold text-zinc-200 transition hover:text-[#FFB958]">hafidzabdillah19706@gmail.com</a></div>
+              <div><p class="mb-2 text-xs tracking-widest text-zinc-500 uppercase">Phone / WhatsApp</p><a href="https://wa.me/6285891263024" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-zinc-200 transition hover:text-[#FFB958]">+62 858 9126 3024 ↗</a></div>
+              <div><p class="mb-2 text-xs tracking-widest text-zinc-500 uppercase">Instagram</p><a href="https://instagram.com/hfzzhbdil" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-zinc-200 transition hover:text-[#FFB958]">@hfzzhbdil ↗</a></div>
+              <div><p class="mb-2 text-xs tracking-widest text-zinc-500 uppercase">GitHub</p><a href="https://github.com/hafzhhabdillah" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-zinc-200 transition hover:text-[#FFB958]">github.com/hafzhhabdillah ↗</a></div>
             </div>
-
-            <div
-              class="swiper-slide rounded-2xl overflow-hidden bg-[#181818] border border-white/5 cursor-pointer group flex flex-col hover:-translate-y-1 hover:shadow-lg hover:shadow-[#FFB958]/10 transition-all duration-300">
-              <div class="w-full h-[300px] md:h-[380px] overflow-hidden relative">
-                <img src="myproject3.png" onerror="this.src='https://placehold.co/400x300/222/FFF?text=Rental+Mobil'"
-                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  alt="Project 3">
-                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
-              </div>
-              <div class="p-5 flex flex-col grow justify-between">
-                <div>
-                  <h3 class="text-white text-lg md:text-xl font-bold group-hover:text-[#FFB958] transition-colors">
-                    Landing Page Rental Mobil</h3>
-                  <p class="text-gray-400 text-xs md:text-sm mt-1 line-clamp-2">Landing page responsif untuk penyewaan
-                    kendaraan.</p>
-                </div>
-                <div class="flex flex-wrap gap-2 mt-4">
-                  <span
-                    class="text-[10px] bg-[#F24E1E]/10 border border-[#F24E1E]/20 text-[#F24E1E] px-2.5 py-1.5 rounded-full font-serif tracking-widest uppercase font-medium">Figma</span>
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="swiper-slide rounded-2xl overflow-hidden bg-[#181818] border border-white/5 cursor-pointer group flex flex-col hover:-translate-y-1 hover:shadow-lg hover:shadow-[#FFB958]/10 transition-all duration-300">
-              <div class="w-full h-[300px] md:h-[380px] overflow-hidden relative">
-                <img src="myproject4.png" onerror="this.src='https://placehold.co/400x300/222/FFF?text=Furniture'"
-                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  alt="Project 4">
-                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
-              </div>
-              <div class="p-5 flex flex-col grow justify-between">
-                <div>
-                  <h3 class="text-white text-lg md:text-xl font-bold group-hover:text-[#FFB958] transition-colors">
-                    Landing Page Bbil Furniture</h3>
-                  <p class="text-gray-400 text-xs md:text-sm mt-1 line-clamp-2">Landing page responsif untuk membeli
-                    peralatan rumah.</p>
-                </div>
-                <div class="flex flex-wrap gap-2 mt-4">
-                  <span
-                    class="text-[10px] bg-white/5 border border-white/10 text-gray-300 px-2.5 py-1.5 rounded-full font-serif tracking-widest uppercase">HTML</span>
-                  <span
-                    class="text-[10px] bg-white/5 border border-white/10 text-gray-300 px-2.5 py-1.5 rounded-full font-serif tracking-widest uppercase">CSS</span>
-                  <span
-                    class="text-[10px] bg-[#F24E1E]/10 border border-[#F24E1E]/20 text-[#F24E1E] px-2.5 py-1.5 rounded-full font-serif tracking-widest uppercase font-medium">Figma</span>
-                  <span
-                    class="text-[10px] bg-[#38bdf8]/10 border border-[#38bdf8]/20 text-[#38bdf8] px-2.5 py-1.5 rounded-full font-serif tracking-widest uppercase font-medium">Tailwind</span>
-                  <span
-                    class="text-[10px] bg-[#f7df1e]/10 border border-[#f7df1e]/20 text-[#f7df1e] px-2.5 py-1.5 rounded-full font-serif tracking-widest uppercase font-medium">JS</span>
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="swiper-slide rounded-2xl overflow-hidden bg-[#181818] border border-white/5 cursor-pointer group flex flex-col hover:-translate-y-1 hover:shadow-lg hover:shadow-[#FFB958]/10 transition-all duration-300">
-              <div class="w-full h-[300px] md:h-[380px] overflow-hidden relative">
-                <img src="myproject5.png" onerror="this.src='https://placehold.co/400x300/222/FFF?text=Aplikasi'"
-                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  alt="Project 5">
-                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
-              </div>
-              <div class="p-5 flex flex-col grow justify-between">
-                <div>
-                  <h3 class="text-white text-lg md:text-xl font-bold group-hover:text-[#FFB958] transition-colors">
-                    Aplikasi Pelanggaran Siswa</h3>
-                  <p class="text-gray-400 text-xs md:text-sm mt-1 line-clamp-2">Aplikasi untuk santri ketika ada yang
-                    melanggar</p>
-                </div>
-                <div class="flex flex-wrap gap-2 mt-4">
-                  <span
-                    class="text-[10px] bg-white/5 border border-white/10 text-gray-300 px-2.5 py-1.5 rounded-full font-serif tracking-widest uppercase">HTML</span>
-                  <span
-                    class="text-[10px] bg-white/5 border border-white/10 text-gray-300 px-2.5 py-1.5 rounded-full font-serif tracking-widest uppercase">CSS</span>
-                  <span
-                    class="text-[10px] bg-[#38bdf8]/10 border border-[#38bdf8]/20 text-[#38bdf8] px-2.5 py-1.5 rounded-full font-serif tracking-widest uppercase font-medium">Tailwind</span>
-                  <span
-                    class="text-[10px] bg-[#f7df1e]/10 border border-[#f7df1e]/20 text-[#f7df1e] px-2.5 py-1.5 rounded-full font-serif tracking-widest uppercase font-medium">JS</span>
-                </div>
-              </div>
-            </div>
-
+          </div>
+          <div class="rounded-3xl border border-white/10 bg-[#141414] p-6 sm:p-8">
+            <h3 class="font-display text-xl font-bold">Send a message</h3>
+            <p class="mt-2 text-sm leading-6 text-zinc-500">Form ini akan membuka WhatsApp dengan pesan yang sudah disiapkan.</p>
+            <form id="contactForm" class="mt-8 space-y-5">
+              <div><label for="contactName" class="mb-2 block text-xs font-semibold text-zinc-400">Your name</label><input id="contactName" name="name" type="text" autocomplete="name" placeholder="Nama kamu" required class="contact-input"></div>
+              <div><label for="contactEmail" class="mb-2 block text-xs font-semibold text-zinc-400">Your email</label><input id="contactEmail" name="email" type="email" autocomplete="email" placeholder="nama@email.com" required class="contact-input"></div>
+              <div><label for="contactMessage" class="mb-2 block text-xs font-semibold text-zinc-400">Message</label><textarea id="contactMessage" name="message" rows="4" placeholder="Tulis pesan kamu..." required class="contact-input resize-y"></textarea></div>
+              <button type="submit" class="flex w-full items-center justify-center gap-3 rounded-xl bg-[#FFB958] px-6 py-4 text-sm font-bold text-[#111] transition hover:-translate-y-1 hover:bg-[#ffc879]">Send via WhatsApp <span aria-hidden="true">↗</span></button>
+            </form>
           </div>
         </div>
-
-        <div
-          class="swiper-button-next hidden md:flex !bg-[#FFB958] !text-black !w-12 !h-12 !rounded-full items-center justify-center hover:!scale-110 transition-transform duration-300 !absolute !-right-6 !top-1/2 !-translate-y-1/2 !z-50 shadow-xl cursor-pointer">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-          </svg>
-        </div>
-
-        <style>
-          .swiper-button-prev::after,
-          .swiper-button-next::after {
-            display: none !important;
-          }
-        </style>
-
+        <footer class="mt-24 flex flex-col justify-between gap-5 border-t border-white/10 pt-8 text-xs text-zinc-500 sm:flex-row sm:items-center">
+          <a href="#home" class="font-display text-sm font-extrabold tracking-widest text-white">HAFIDZ<span class="text-[#FFB958]">.</span></a>
+          <p>© 2026 Muhammad Hafidz Abdillah. All rights reserved.</p>
+          <a href="#home" class="transition hover:text-[#FFB958]">Back to top ↑</a>
+        </footer>
       </div>
-    </div>
-  </div>
-
-  <div id="education"
-    class="relative w-full bg-[#111] text-white px-[5%] md:px-[10%] py-20 md:py-32 z-20 overflow-hidden">
-    <div class="mb-8 md:mb-12 fade-up reveal-on-scroll">
-      <h2 class="text-4xl md:text-[55px] font-semibold leading-none tracking-tight">
-        Education
-      </h2>
-    </div>
-
-    <div class="flex flex-col gap-4 md:gap-5 w-full fade-up reveal-on-scroll" style="transition-delay: 200ms;">
-
-      <div
-        class="flex flex-col md:flex-row items-start md:items-center justify-between p-5 md:p-6 md:px-8 rounded-2xl bg-[#222] hover:bg-[#2a2a2a] transition-colors border border-white/5">
-        <div class="flex items-center gap-4 md:gap-5">
-          <div
-            class="w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center overflow-hidden shrink-0 bg-white">
-            <img src="mq.png" alt="SMK MQ" class="w-full h-full object-cover">
-          </div>
-          <div>
-            <h3 class="text-xl md:text-2xl font-bold text-white mb-1">SMK Madinatulquran</h3>
-            <p class="text-gray-300 text-xs md:text-sm font-medium">Rekayasa Perangkat Lunak</p>
-            <p class="text-gray-500 text-xs md:text-sm mt-1">2026–?</p>
-          </div>
-        </div>
-        <a href="https://www.google.com/maps/search/SMK+Madinatulquran+Jonggol" target="_blank"
-          rel="noopener noreferrer"
-          class="group mt-5 md:mt-0 flex items-center gap-2 bg-[#181818] text-gray-300 text-sm font-semibold px-6 py-3 rounded-xl border border-white/10 hover:bg-[#FFB958] hover:text-black hover:-translate-y-1 hover:shadow-lg hover:shadow-[#FFB958]/20 transition-all duration-300">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-            class="w-4 h-4 transition-transform group-hover:scale-110">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-          </svg>
-          Location
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-            class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-          </svg>
-        </a>
-      </div>
-
-      <div
-        class="flex flex-col md:flex-row items-start md:items-center justify-between p-5 md:p-6 md:px-8 rounded-2xl bg-[#222] hover:bg-[#2a2a2a] transition-colors border border-white/5">
-        <div class="flex items-center gap-4 md:gap-5">
-          <div
-            class="w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center overflow-hidden shrink-0 bg-white">
-            <img src="binaqurani.png" alt="BQ Boarding School" class="w-full h-full object-cover">
-          </div>
-          <div>
-            <h3 class="text-xl md:text-2xl font-bold text-white mb-1">BQ Islamic Boarding School</h3>
-            <p class="text-gray-300 text-xs md:text-sm font-medium">Junior high school</p>
-            <p class="text-gray-500 text-xs md:text-sm mt-1">2022–2025</p>
-          </div>
-        </div>
-        <a href="https://www.google.com/maps/search/Bina+Qurani+Islamic+Boarding+School" target="_blank"
-          rel="noopener noreferrer"
-          class="group mt-5 md:mt-0 flex items-center gap-2 bg-[#181818] text-gray-300 text-sm font-semibold px-6 py-3 rounded-xl border border-white/10 hover:bg-[#FFB958] hover:text-black hover:-translate-y-1 hover:shadow-lg hover:shadow-[#FFB958]/20 transition-all duration-300">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-            class="w-4 h-4 transition-transform group-hover:scale-110">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-          </svg>
-          Location
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-            class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-          </svg>
-        </a>
-      </div>
-
-      <div
-        class="flex flex-col md:flex-row items-start md:items-center justify-between p-5 md:p-6 md:px-8 rounded-2xl bg-[#222] hover:bg-[#2a2a2a] transition-colors border border-white/5">
-        <div class="flex items-center gap-4 md:gap-5">
-          <div
-            class="w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center overflow-hidden shrink-0 bg-white">
-            <img src="alqurrobilal.png" alt="Ponpes Al-Qurro" class="w-full h-full object-cover">
-          </div>
-          <div>
-            <h3 class="text-xl md:text-2xl font-bold text-white mb-1">Ponpes Al-Qurro</h3>
-            <p class="text-gray-300 text-xs md:text-sm font-medium">Elementary School</p>
-            <p class="text-gray-500 text-xs md:text-sm mt-1">2019–2021</p>
-          </div>
-        </div>
-        <a href="https://www.google.com/maps/search/Ponpes+Al-Qurro+Bogor" target="_blank" rel="noopener noreferrer"
-          class="group mt-5 md:mt-0 flex items-center gap-2 bg-[#181818] text-gray-300 text-sm font-semibold px-6 py-3 rounded-xl border border-white/10 hover:bg-[#FFB958] hover:text-black hover:-translate-y-1 hover:shadow-lg hover:shadow-[#FFB958]/20 transition-all duration-300">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-            class="w-4 h-4 transition-transform group-hover:scale-110">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-          </svg>
-          Location
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-            class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-          </svg>
-        </a>
-      </div>
-
-      <div
-        class="flex flex-col md:flex-row items-start md:items-center justify-between p-5 md:p-6 md:px-8 rounded-2xl bg-[#222] hover:bg-[#2a2a2a] transition-colors border border-white/5">
-        <div class="flex items-center gap-4 md:gap-5">
-          <div
-            class="w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center overflow-hidden shrink-0 bg-white">
-            <img src="sditfajar.png" alt="SDIT Fajar" class="w-full h-full object-cover">
-          </div>
-          <div>
-            <h3 class="text-xl md:text-2xl font-bold text-white mb-1">SDIT Fajar Depok</h3>
-            <p class="text-gray-300 text-xs md:text-sm font-medium">Elementary School</p>
-            <p class="text-gray-500 text-xs md:text-sm mt-1">2016–2018</p>
-          </div>
-        </div>
-        <a href="https://www.google.com/maps/search/SDIT+Fajar+Depok" target="_blank" rel="noopener noreferrer"
-          class="group mt-5 md:mt-0 flex items-center gap-2 bg-[#181818] text-gray-300 text-sm font-semibold px-6 py-3 rounded-xl border border-white/10 hover:bg-[#FFB958] hover:text-black hover:-translate-y-1 hover:shadow-lg hover:shadow-[#FFB958]/20 transition-all duration-300">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-            class="w-4 h-4 transition-transform group-hover:scale-110">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-          </svg>
-          Location
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-            class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-          </svg>
-        </a>
-      </div>
-
-    </div>
-  </div>
-
-  <div id="contact"
-    class="relative w-full bg-[#0a0a0a] text-white px-[5%] md:px-[10%] pt-20 md:pt-32 pb-10 z-20 overflow-hidden">
-    <div class="mb-12 md:mb-16 fade-up reveal-on-scroll">
-      <h2 class="text-4xl md:text-[50px] font-bold leading-none tracking-tight">
-        Contact <span class="text-transparent [-webkit-text-stroke:1px_white] font-normal">Me</span>
-      </h2>
-    </div>
-
-    <div class="flex flex-col md:flex-row gap-8 md:gap-24 mb-12 fade-up reveal-on-scroll"
-      style="transition-delay: 200ms;">
-      <div>
-        <h4 class="text-base md:text-lg font-semibold mb-2 md:mb-3">Email</h4>
-        <a href="mailto:hafidzabdillah19706@gmail.com"
-          class="flex items-center gap-3 text-sm md:text-base text-gray-300 hover:text-white transition-colors break-all">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" class="w-5 h-5 shrink-0">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-          </svg>
-          hafidzabdillah19706@gmail.com
-        </a>
-      </div>
-      <div>
-        <h4 class="text-base md:text-lg font-semibold mb-2 md:mb-3">Phone</h4>
-        <a href="https://wa.me/6285891263024" target="_blank"
-          class="flex items-center gap-3 text-sm md:text-base text-gray-300 hover:text-white transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" class="w-5 h-5 shrink-0">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-2.896-1.596-5.48-4.08-7.074-6.971l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-          </svg>
-          +62 858 9126 3024
-        </a>
-      </div>
-      <div>
-        <h4 class="text-base md:text-lg font-semibold mb-2 md:mb-3">Socials</h4>
-        <a href="https://instagram.com/hfzzhbdil" target="_blank"
-          class="flex items-center gap-3 text-sm md:text-base text-gray-300 hover:text-white transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-          </svg>
-          @hfzzhbdil
-        </a>
-      </div>
-    </div>
-
-    <div class="bg-[#181818] rounded-xl p-6 md:p-12 mb-16 md:mb-20 fade-up reveal-on-scroll border border-white/5"
-      style="transition-delay: 300ms;">
-      <h3 class="text-xl md:text-2xl font-semibold mb-6 md:mb-8">Send a message via WhatsApp</h3>
-
-      <form onsubmit="sendToWhatsApp(event)" class="flex flex-col md:flex-row gap-6 md:gap-10">
-
-        <div class="flex flex-col gap-6 md:gap-8 w-full md:w-1/2">
-          <div>
-            <label class="block mb-2 md:mb-3 text-xs md:text-sm text-gray-400">Your Name</label>
-            <input type="text" name="name" placeholder="Nama Anda" required
-              class="w-full h-12 md:h-16 bg-[#1e1e1e] border border-white/10 rounded-lg px-4 md:px-5 text-sm md:text-base text-white focus:outline-none focus:border-white transition-colors placeholder-gray-600">
-          </div>
-          <div>
-            <label class="block mb-2 md:mb-3 text-xs md:text-sm text-gray-400">Your Email</label>
-            <input type="email" name="email" placeholder="email@contoh.com" required
-              class="w-full h-12 md:h-16 bg-[#1e1e1e] border border-white/10 rounded-lg px-4 md:px-5 text-sm md:text-base text-white focus:outline-none focus:border-white transition-colors placeholder-gray-600">
-          </div>
-        </div>
-
-        <div class="flex flex-col w-full md:w-1/2">
-          <label class="block mb-2 md:mb-3 text-xs md:text-sm text-gray-400">Message</label>
-          <textarea name="message" placeholder="Pesan Anda" required
-            class="w-full h-32 md:h-full min-h-[150px] md:min-h-[220px] bg-[#1e1e1e] border border-white/10 rounded-lg p-4 md:p-5 text-sm md:text-base text-white focus:outline-none focus:border-white transition-colors resize-none mb-6 md:mb-8 placeholder-gray-600"></textarea>
-
-          <button type="submit"
-            class="w-full h-12 md:h-16 bg-[#E8E8E8] text-black text-sm md:text-base font-bold rounded-lg hover:bg-[#FFB958] hover:-translate-y-1 hover:shadow-lg hover:shadow-[#FFB958]/20 transition-all duration-300">
-            Send Message via WhatsApp
-          </button>
-        </div>
-
-      </form>
-    </div>
-
-    <div class="mb-16 md:mb-20 fade-up reveal-on-scroll">
-      <h2 class="text-5xl md:text-[80px] font-bold leading-none tracking-tight mb-2 uppercase">Let's Talk</h2>
-      <p class="text-gray-300 text-sm md:text-xl">Got an idea? Let's turn it into something extraordinary.</p>
-    </div>
-
-    <div
-      class="border-t border-white/10 pt-8 md:pt-10 pb-4 flex flex-col items-center gap-5 md:gap-6 fade-up reveal-on-scroll">
-      <div class="flex gap-6 md:gap-8">
-        <a href="https://github.com/hafzhhabdillah" class="text-gray-400 hover:text-white transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-            class="md:w-6 md:h-6">
-            <path
-              d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
-            </path>
-          </svg>
-        </a>
-        <a href="https://instagram.com/hfzzhbdil" class="text-gray-400 hover:text-white transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-            class="md:w-6 md:h-6">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-          </svg>
-        </a>
-      </div>
-      <p class="text-gray-400 text-xs md:text-sm text-center">© Copyright 2026 - Muhamad Hafidz Abdillah - All Rights
-        Reserved.</p>
-    </div>
-  </div>
+    </section>
+  </main>
 
   <script>
-    function sendToWhatsApp(event) {
-      event.preventDefault(); // Mencegah reload web
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuButton = document.getElementById('hamburgerBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const mobileLinks = document.querySelectorAll('.mobile-link');
 
-      const form = event.target;
-      const name = form.name.value;
-      const email = form.email.value;
-      const message = form.message.value;
+      const closeMenu = () => {
+        mobileMenu.classList.add('invisible', '-translate-y-2', 'opacity-0');
+        mobileMenu.classList.remove('visible', 'translate-y-0', 'opacity-100');
+        menuButton.setAttribute('aria-expanded', 'false');
+        menuButton.setAttribute('aria-label', 'Buka menu');
+      };
 
-      const phoneNumber = "6285891263024"; // Nomormu yang sudah dimasukkan
+      menuButton?.addEventListener('click', () => {
+        const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
+        if (isOpen) {
+          closeMenu();
+        } else {
+          mobileMenu.classList.remove('invisible', '-translate-y-2', 'opacity-0');
+          mobileMenu.classList.add('visible', 'translate-y-0', 'opacity-100');
+          menuButton.setAttribute('aria-expanded', 'true');
+          menuButton.setAttribute('aria-label', 'Tutup menu');
+        }
+      });
 
-      // Isi pesan WA yang akan dikirim
-      const text = `Halo Hafidz, saya ${name} (${email}).%0A%0A${message}`;
+      mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
 
-      // Buka WA (di HP buka aplikasi, di Laptop buka Web WA)
-      window.open(`https://wa.me/${phoneNumber}?text=${text}`, '_blank');
-    }
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -35px 0px' });
+
+      document.querySelectorAll('.fade-up, .fade-left, .fade-right').forEach((element, index) => {
+        element.style.transitionDelay = `${Math.min(index % 5, 4) * 70}ms`;
+        revealObserver.observe(element);
+      });
+
+      const contactForm = document.getElementById('contactForm');
+      contactForm?.addEventListener('submit', event => {
+        event.preventDefault();
+        const formData = new FormData(contactForm);
+        const name = String(formData.get('name') || '').trim();
+        const email = String(formData.get('email') || '').trim();
+        const message = String(formData.get('message') || '').trim();
+        const text = `Halo Hafidz, saya ${name} (${email}).\n\n${message}`;
+        window.open(`https://wa.me/6285891263024?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+      });
+    });
   </script>
-
   <script type="module" src="/src/main.js"></script>
 </body>
-
 </html>
