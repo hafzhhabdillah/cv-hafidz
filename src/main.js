@@ -1,103 +1,57 @@
 import './style.css';
 import Swiper from 'swiper';
-import { Autoplay, Navigation } from 'swiper/modules';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import Lenis from 'lenis';
 
-// =====================================
-// 1. SMOOTH SCROLLING SETUP (LENIS)
-// =====================================
-const lenis = new Lenis({
-  duration: 1.2,
-  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
-  smoothWheel: true, 
-});
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-function raf(time) {
-  lenis.raf(time);
-  requestAnimationFrame(raf);
-}
-requestAnimationFrame(raf);
+// Smooth scrolling: respect the visitor's reduced-motion preference.
+if (!prefersReducedMotion) {
+  const lenis = new Lenis({
+    duration: 1.1,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+  });
 
-// =====================================
-// 2. KODE UTAMA
-// =====================================
-document.addEventListener("DOMContentLoaded", function () {
-
-  // -- Hamburger Menu Mobile Toggle --
-  const hamburgerBtn = document.getElementById('hamburgerBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
-  const mobileLinks = document.querySelectorAll('.mobile-link');
-
-  if (hamburgerBtn && mobileMenu) {
-    // Buka/Tutup menu saat tombol hamburger diklik
-    hamburgerBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('translate-x-full');
-    });
-
-    // Otomatis tutup menu saat link diklik (agar scroll mulus ke section yang dituju)
-    mobileLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.add('translate-x-full');
-      });
-    });
-  }
-
-  // -- Marquee (Teks Berjalan) --
-  const marqueeContent = document.getElementById('marqueeContent');
-  if (marqueeContent) {
-    const textToCopy = marqueeContent.innerHTML;
-    marqueeContent.innerHTML = textToCopy + textToCopy;
-  }
-
-  // -- Animasi Hero --
-  setTimeout(() => {
-    const heroElements = document.querySelectorAll('.fade-up:not(.reveal-on-scroll), .fade-left:not(.reveal-on-scroll), .fade-right:not(.reveal-on-scroll)');
-    heroElements.forEach(el => el.classList.add('is-visible'));
-  }, 100);
-
-  // -- Animasi Scroll --
-  const observerOptions = {
-    root: null,
-    rootMargin: '0px 0px -10% 0px',
-    threshold: 0.1
+  const raf = (time) => {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
   };
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        setTimeout(() => {
-          entry.target.classList.add('is-visible');
-        }, 50);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, observerOptions);
+  requestAnimationFrame(raf);
+}
 
-  const scrollElements = document.querySelectorAll('.reveal-on-scroll');
-  scrollElements.forEach(el => observer.observe(el));
+// Project carousel.
+const projectSlider = document.querySelector('.mySwiper');
 
-  // -- Swiper (Slider Project) --
-  new Swiper('.mySwiper', {
-    modules: [Autoplay, Navigation],
+if (projectSlider) {
+  new Swiper(projectSlider, {
+    modules: [Autoplay, Navigation, Pagination],
     loop: true,
-    autoplay: {
-      delay: 3000,
+    speed: 650,
+    autoplay: prefersReducedMotion ? false : {
+      delay: 3800,
       disableOnInteraction: false,
+      pauseOnMouseEnter: true,
     },
-    slidesPerView: 1, // 1 kartu saja di Mobile supaya digeser (swipe) nyaman
-    spaceBetween: 20,
+    slidesPerView: 1,
+    spaceBetween: 18,
     grabCursor: true,
+    watchOverflow: true,
     breakpoints: {
-      640:  { slidesPerView: 2, spaceBetween: 24 },
-      1024: { slidesPerView: 2, spaceBetween: 30 },
+      640: { slidesPerView: 2, spaceBetween: 20 },
+      1024: { slidesPerView: 3, spaceBetween: 24 },
     },
     navigation: {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev',
     },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
   });
-
-});
+}
