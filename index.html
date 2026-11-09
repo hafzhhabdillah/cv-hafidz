@@ -167,7 +167,7 @@
       <div class="mx-auto max-w-7xl">
         <div class="fade-up mb-12 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
           <div><p class="mb-5 text-xs font-bold tracking-[.25em] text-[#FFB958] uppercase">03 / Selected work</p><h2 class="font-display text-5xl font-extrabold tracking-tight sm:text-6xl">Featured <span class="text-outline">projects.</span></h2></div>
-          <div class="flex items-center gap-3"><button class="swiper-button-prev !static !m-0 !grid !h-11 !w-11 !place-items-center rounded-full border border-white/15 text-white transition hover:!border-[#FFB958] hover:!bg-[#FFB958] hover:!text-black" aria-label="Previous project"><span class="text-xl">←</span></button><button class="swiper-button-next !static !m-0 !grid !h-11 !w-11 !place-items-center rounded-full border border-white/15 text-white transition hover:!border-[#FFB958] hover:!bg-[#FFB958] hover:!text-black" aria-label="Next project"><span class="text-xl">→</span></button></div>
+          <p class="max-w-xs text-sm leading-7 text-zinc-500 sm:text-right">A few things I've been building. <span class="text-[#FFB958]">Swipe to explore ↘</span></p>
         </div>
         <div class="swiper mySwiper overflow-visible">
           <div class="swiper-wrapper pb-12">
@@ -177,7 +177,14 @@
             <article class="swiper-slide project-card"><div class="project-image"><img src="/myproject4.png" alt="Bbil Furniture landing page preview" loading="lazy"></div><div class="p-6 sm:p-7"><p class="project-index">04 / E-commerce concept</p><h3 class="project-title">Landing Page Bbil Furniture</h3><p class="project-desc">Landing page responsif untuk membeli peralatan rumah.</p><div class="project-tags"><span>HTML</span><span>CSS</span><span>Figma</span><span>Tailwind</span><span>JavaScript</span></div></div></article>
             <article class="swiper-slide project-card"><div class="project-image"><img src="/myproject5.png" alt="Student violation application preview" loading="lazy"></div><div class="p-6 sm:p-7"><p class="project-index">05 / Web application</p><h3 class="project-title">Aplikasi Pelanggaran Siswa</h3><p class="project-desc">Aplikasi untuk membantu pencatatan pelanggaran santri.</p><div class="project-tags"><span>HTML</span><span>CSS</span><span>Tailwind</span><span>JavaScript</span></div></div></article>
           </div>
-          <div class="swiper-pagination !-bottom-0"></div>
+        </div>
+        <div class="project-controls">
+          <span class="project-hint"><span class="project-hint-dot"></span> Explore projects</span>
+          <div class="project-pagination swiper-pagination" aria-label="Project slides"></div>
+          <div class="project-arrows">
+            <button class="swiper-button-prev project-arrow" type="button" aria-label="Previous project"><span aria-hidden="true">←</span></button>
+            <button class="swiper-button-next project-arrow project-arrow-next" type="button" aria-label="Next project"><span aria-hidden="true">→</span></button>
+          </div>
         </div>
       </div>
     </section>
