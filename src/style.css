@@ -25,8 +25,8 @@
 }
 .skill-card:hover {
   transform: translateY(-5px);
-  border-color: rgba(255,185,88,.45);
-  background: linear-gradient(145deg, rgba(255,185,88,.09), #151515);
+  border-color: rgba(101,184,255,.45);
+  background: linear-gradient(145deg, rgba(101,184,255,.09), #151515);
   color: #fff;
 }
 .skill-card:hover img { filter: grayscale(0); opacity: 1; transform: scale(1.08); }
@@ -41,7 +41,7 @@
 }
 .project-card:hover {
   transform: translateY(-5px);
-  border-color: rgba(255,185,88,.35);
+  border-color: rgba(101,184,255,.35);
   box-shadow: 0 22px 60px rgba(0,0,0,.3);
 }
 .project-image {
@@ -65,7 +65,7 @@
 }
 .project-card:hover .project-image img { transform: scale(1.055); }
 .project-index {
-  color: #FFB958;
+  color: #65B8FF;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: .18em;
@@ -110,7 +110,7 @@
 }
 .education-card:hover {
   transform: translateX(4px);
-  border-color: rgba(255,185,88,.3);
+  border-color: rgba(101,184,255,.3);
   background: #171717;
 }
 .education-logo {
@@ -136,7 +136,7 @@
   font-weight: 600;
   transition: all .25s ease;
 }
-.location-link:hover { border-color: #FFB958; background: #FFB958; color: #111; }
+.location-link:hover { border-color: #65B8FF; background: #65B8FF; color: #111; }
 .contact-input {
   display: block;
   width: 100%;
@@ -152,12 +152,12 @@
 }
 .contact-input::placeholder { color: #62626a; }
 .contact-input:focus {
-  border-color: rgba(255,185,88,.7);
-  box-shadow: 0 0 0 3px rgba(255,185,88,.09);
+  border-color: rgba(101,184,255,.7);
+  box-shadow: 0 0 0 3px rgba(101,184,255,.09);
 }
 .swiper-pagination { position: relative !important; margin-top: 20px; }
 .swiper-pagination-bullet { background: #71717a !important; opacity: 1 !important; }
-.swiper-pagination-bullet-active { width: 22px !important; border-radius: 999px !important; background: #FFB958 !important; }
+.swiper-pagination-bullet-active { width: 22px !important; border-radius: 999px !important; background: #65B8FF !important; }
 
 @media (max-width: 640px) {
   .education-card { align-items: flex-start; gap: 13px; padding: 16px; flex-wrap: wrap; }
@@ -175,7 +175,7 @@
 html { scroll-padding-top: 5.5rem; }
 a, button, input, textarea { -webkit-tap-highlight-color: transparent; }
 a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
-  outline: 2px solid #FFB958;
+  outline: 2px solid #65B8FF;
   outline-offset: 4px;
 }
 body.menu-open { overflow: hidden; }
@@ -373,8 +373,8 @@ body.menu-open { overflow: hidden; }
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #FFB958;
-  box-shadow: 0 0 14px rgba(255,185,88,.65);
+  background: #65B8FF;
+  box-shadow: 0 0 14px rgba(101,184,255,.65);
 }
 .project-pagination.swiper-pagination {
   position: static !important;
@@ -396,7 +396,7 @@ body.menu-open { overflow: hidden; }
 }
 .project-pagination .swiper-pagination-bullet-active {
   width: 24px;
-  background: #FFB958 !important;
+  background: #65B8FF !important;
 }
 .project-arrows { display: flex; align-items: center; gap: 9px; }
 .project-arrow {
@@ -416,11 +416,11 @@ body.menu-open { overflow: hidden; }
 .project-arrow::after { display: none !important; }
 .project-arrow:hover {
   transform: translateY(-2px);
-  border-color: #FFB958;
-  background: #FFB958;
+  border-color: #65B8FF;
+  background: #65B8FF;
   color: #111;
 }
-.project-arrow-next { box-shadow: 0 0 28px rgba(255,185,88,.1); }
+.project-arrow-next { box-shadow: 0 0 28px rgba(101,184,255,.1); }
 
 @media (max-width: 640px) {
   .project-controls { gap: 10px; margin-top: 22px; }
@@ -428,3 +428,24 @@ body.menu-open { overflow: hidden; }
   .project-pagination.swiper-pagination { flex: 1; }
   .project-arrow { width: 42px; height: 42px; }
 }
+
+
+/* Blue space-inspired portfolio refresh */
+:root { color-scheme: dark; scroll-behavior: smooth; }
+body { background: #070d18; }
+.hero-grid { background-image: radial-gradient(rgba(148,190,255,.24) .8px, transparent .8px); background-size: 28px 28px; mask-image: linear-gradient(to bottom,black,transparent 85%); }
+#home { background: radial-gradient(ellipse at 78% 38%,rgba(42,117,190,.18),transparent 40%),#070d18; }
+#about,#portfolio { background-color:#0a1220; }
+#tech-stack { background:#070d18; }
+#contact { background-color:#0a1220; }
+.portfolio-marquee { width:min(100%,510px); overflow:hidden; border-block:1px solid rgba(101,184,255,.22); padding:12px 0; color:#65B8FF; font-family:"Manrope",sans-serif; font-size:clamp(1.1rem,2.4vw,1.55rem); font-weight:800; letter-spacing:.18em; white-space:nowrap; }
+.portfolio-marquee span { display:inline-block; animation:portfolioTicker 17s linear infinite; }
+@keyframes portfolioTicker { from { transform:translateX(0); } to { transform:translateX(-45%); } }
+.portfolio-empty-card { min-height:210px; border:1px solid rgba(255,255,255,.09); border-radius:22px; background:linear-gradient(145deg,rgba(22,42,66,.7),rgba(10,18,32,.85)); padding:28px; }
+.floating-nav { position:fixed; z-index:60; left:50%; bottom:24px; display:flex; align-items:center; gap:5px; width:max-content; max-width:calc(100vw - 28px); padding:7px; border:1px solid rgba(160,205,255,.18); border-radius:999px; background:rgba(8,17,30,.82); box-shadow:0 14px 50px rgba(0,0,0,.4),0 0 35px rgba(64,151,235,.12); backdrop-filter:blur(18px); opacity:0; pointer-events:none; transform:translate(-50%,18px); transition:opacity .3s ease,transform .3s ease; }
+.floating-nav.is-shown { opacity:1; pointer-events:auto; transform:translate(-50%,0); }
+.floating-link { border-radius:999px; padding:11px 18px; color:#9caec2; font-size:12px; font-weight:700; transition:color .2s ease,background .2s ease; }
+.floating-link:hover,.floating-link.active { background:rgba(101,184,255,.14); color:#8dccff; }
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible { outline-color:#65B8FF; }
+@media(max-width:520px) { .floating-nav { bottom:14px; gap:1px; padding:6px; } .floating-link { padding:10px 13px; font-size:11px; } .portfolio-empty-card { min-height:180px; padding:22px; } }
+@media(prefers-reduced-motion:reduce) { .portfolio-marquee span { animation:none; } }
