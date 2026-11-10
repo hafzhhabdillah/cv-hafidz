@@ -449,3 +449,15 @@ body { background: #070d18; }
 a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible { outline-color:#65B8FF; }
 @media(max-width:520px) { .floating-nav { bottom:14px; gap:1px; padding:6px; } .floating-link { padding:10px 13px; font-size:11px; } .portfolio-empty-card { min-height:180px; padding:22px; } }
 @media(prefers-reduced-motion:reduce) { .portfolio-marquee span { animation:none; } }
+
+
+/* Restore the original amber identity for Contact only */
+#contact { background-color: #0d0d0d; }
+#contact .contact-input:focus {
+  border-color: rgba(255,185,88,.7);
+  box-shadow: 0 0 0 3px rgba(255,185,88,.09);
+}
+#contact a:focus-visible,
+#contact button:focus-visible,
+#contact input:focus-visible,
+#contact textarea:focus-visible { outline-color: #FFB958; }
