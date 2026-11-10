@@ -462,9 +462,6 @@ body{background:radial-gradient(ellipse at 50% -22rem,rgba(255,185,88,.075),tran
 .education-card{position:relative;overflow:hidden;background:linear-gradient(110deg,rgba(25,25,25,.96),rgba(16,16,16,.96))}
 .education-card::after{position:absolute;top:0;bottom:0;left:0;width:2px;content:"";background:linear-gradient(180deg,transparent,var(--portfolio-accent),transparent);opacity:0;transition:opacity .25s ease}
 .education-card:hover::after{opacity:1}
-#contact .rounded-3xl{box-shadow:0 22px 70px rgba(0,0,0,.22),inset 0 1px rgba(255,255,255,.035)}
-#contact .contact-input{min-height:50px}
-#contact textarea.contact-input{min-height:120px}
 ::selection{background:var(--portfolio-accent);color:#111}
 @media(max-width:767px){#home::before{top:10%;left:-21rem}#skills .skill-card{min-height:116px}#skills .skill-card img{width:34px;height:34px}.about-highlights>div{padding-left:9px}}
 @media(prefers-reduced-motion:reduce){#home .fade-right>.absolute.-right-8,#home .fade-right>.absolute.-bottom-6{animation:none!important}}
