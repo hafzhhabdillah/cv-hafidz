@@ -48,17 +48,18 @@
   </style>
 </head>
 <body class="overflow-x-hidden font-sans text-white antialiased">
-  <header class="fixed inset-x-0 top-0 z-50 border-b border-white/[.06] bg-[#0a0a0a]/80 backdrop-blur-xl">
+  <header class="site-header fixed inset-x-0 top-0 z-50 border-b border-white/[.06] bg-[#0a0a0a]/80 backdrop-blur-xl">
+    <div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
     <div class="mx-auto flex h-[76px] max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-12">
       <a href="#home" class="group flex items-center gap-3" aria-label="Kembali ke halaman utama">
         <span class="grid h-10 w-10 place-items-center rounded-xl border border-[#FFB958]/30 bg-[#FFB958]/10 font-display text-sm font-extrabold text-[#FFB958]">HA.</span>
         <span class="font-display text-sm font-bold tracking-wide sm:text-base">HAFIDZ<span class="text-[#FFB958]">.</span></span>
       </a>
       <nav class="hidden items-center gap-8 md:flex" aria-label="Navigasi utama">
-        <a href="#about" class="text-sm text-zinc-400 transition hover:text-[#FFB958]">About</a>
-        <a href="#skills" class="text-sm text-zinc-400 transition hover:text-[#FFB958]">Skills</a>
-        <a href="#project" class="text-sm text-zinc-400 transition hover:text-[#FFB958]">Projects</a>
-        <a href="#education" class="text-sm text-zinc-400 transition hover:text-[#FFB958]">Education</a>
+        <a href="#about" data-nav-link class="text-sm text-zinc-400 transition hover:text-[#FFB958]">About</a>
+        <a href="#skills" data-nav-link class="text-sm text-zinc-400 transition hover:text-[#FFB958]">Skills</a>
+        <a href="#project" data-nav-link class="text-sm text-zinc-400 transition hover:text-[#FFB958]">Projects</a>
+        <a href="#education" data-nav-link class="text-sm text-zinc-400 transition hover:text-[#FFB958]">Education</a>
       </nav>
       <a href="#contact" class="hidden items-center gap-2 rounded-full border border-[#FFB958]/50 px-5 py-2.5 text-sm font-semibold text-[#FFB958] transition hover:bg-[#FFB958] hover:text-black md:inline-flex">Let's talk <span aria-hidden="true">↗</span></a>
       <button id="hamburgerBtn" class="grid h-11 w-11 place-items-center rounded-xl border border-white/10 text-white transition hover:border-[#FFB958]/50 md:hidden" aria-label="Buka menu" aria-expanded="false" aria-controls="mobileMenu">
@@ -67,11 +68,11 @@
     </div>
     <div id="mobileMenu" class="invisible absolute inset-x-0 top-full -translate-y-2 border-b border-white/10 bg-[#101010] px-6 py-6 opacity-0 shadow-2xl transition-all duration-300 md:hidden">
       <nav class="flex flex-col gap-1" aria-label="Navigasi mobile">
-        <a href="#about" class="mobile-link rounded-lg px-4 py-3 text-zinc-300 transition hover:bg-white/5 hover:text-[#FFB958]">About me</a>
-        <a href="#skills" class="mobile-link rounded-lg px-4 py-3 text-zinc-300 transition hover:bg-white/5 hover:text-[#FFB958]">My skills</a>
-        <a href="#project" class="mobile-link rounded-lg px-4 py-3 text-zinc-300 transition hover:bg-white/5 hover:text-[#FFB958]">Projects</a>
-        <a href="#education" class="mobile-link rounded-lg px-4 py-3 text-zinc-300 transition hover:bg-white/5 hover:text-[#FFB958]">Education</a>
-        <a href="#contact" class="mobile-link rounded-lg px-4 py-3 text-[#FFB958] transition hover:bg-[#FFB958]/10">Contact ↗</a>
+        <a href="#about" data-nav-link class="mobile-link rounded-lg px-4 py-3 text-zinc-300 transition hover:bg-white/5 hover:text-[#FFB958]">About me</a>
+        <a href="#skills" data-nav-link class="mobile-link rounded-lg px-4 py-3 text-zinc-300 transition hover:bg-white/5 hover:text-[#FFB958]">My skills</a>
+        <a href="#project" data-nav-link class="mobile-link rounded-lg px-4 py-3 text-zinc-300 transition hover:bg-white/5 hover:text-[#FFB958]">Projects</a>
+        <a href="#education" data-nav-link class="mobile-link rounded-lg px-4 py-3 text-zinc-300 transition hover:bg-white/5 hover:text-[#FFB958]">Education</a>
+        <a href="#contact" data-nav-link class="mobile-link rounded-lg px-4 py-3 text-[#FFB958] transition hover:bg-[#FFB958]/10">Contact ↗</a>
       </nav>
     </div>
   </header>
@@ -84,7 +85,7 @@
       <div class="mx-auto grid w-full max-w-7xl items-center gap-14 px-5 pb-24 pt-12 sm:px-8 lg:grid-cols-[1.1fr_.9fr] lg:gap-10 lg:px-12 lg:pb-32">
         <div class="fade-left relative z-10">
           <div class="mb-7 inline-flex items-center gap-2 rounded-full border border-[#FFB958]/25 bg-[#FFB958]/[.07] px-4 py-2 text-xs font-semibold tracking-[.16em] text-[#FFB958] uppercase">
-            <span class="h-2 w-2 rounded-full bg-[#FFB958] shadow-[0_0_12px_#FFB958]"></span> Available to explore opportunities
+            <span class="h-2 w-2 rounded-full bg-[#FFB958] shadow-[0_0_12px_#FFB958]"></span> Currently learning & building
           </div>
           <p class="mb-4 text-sm font-medium tracking-[.24em] text-zinc-500 uppercase">Hello, I'm</p>
           <h1 class="font-display text-[clamp(3.4rem,8vw,7.2rem)] font-extrabold leading-[.94] tracking-[-.075em]">Muhammad<br><span class="text-outline">Hafidz</span><br>Abdillah<span class="text-[#FFB958]">.</span></h1>
@@ -92,7 +93,7 @@
             <span class="h-px w-12 accent-line"></span>
             <p class="text-sm font-semibold tracking-[.18em] text-[#FFB958] uppercase">Front-end Developer</p>
           </div>
-          <p class="max-w-xl text-base leading-8 text-zinc-400 sm:text-lg">Siswa Rekayasa Perangkat Lunak di SMK Madinatul Qur'an yang senang membangun pengalaman web modern, responsif, dan mudah digunakan.</p>
+          <p class="max-w-xl text-base leading-8 text-zinc-400 sm:text-lg">Siswa Rekayasa Perangkat Lunak yang tertarik pada Front-end Development, desain antarmuka, dan proses mengubah ide menjadi website yang nyaman digunakan.</p>
           <div class="mt-10 flex flex-wrap items-center gap-4">
             <a href="#project" class="inline-flex items-center gap-3 rounded-full bg-[#FFB958] px-7 py-4 text-sm font-bold text-[#111] shadow-glow transition hover:-translate-y-1 hover:bg-[#ffc879]">Explore my work <span aria-hidden="true">↗</span></a>
             <a href="#about" class="inline-flex items-center gap-2 rounded-full border border-white/15 px-7 py-4 text-sm font-semibold text-zinc-300 transition hover:border-white/40 hover:text-white">More about me <span aria-hidden="true">↓</span></a>
@@ -132,10 +133,10 @@
           <p class="text-xl font-medium leading-9 text-zinc-200 sm:text-2xl">Saya adalah siswa jurusan Rekayasa Perangkat Lunak di SMK Madinatul Qur'an yang memiliki minat besar dalam dunia pengembangan web.</p>
           <p class="mt-7 text-base leading-8 text-zinc-400">Saat ini, saya berfokus mendalami Front-end Development. Saya memadukan kreativitas desain antarmuka dengan logika pemrograman untuk membangun website yang responsif, interaktif, dan efisien.</p>
           <p class="mt-5 text-base leading-8 text-zinc-400">Saya menikmati proses mengeksplorasi teknologi web modern seperti Tailwind CSS dan JavaScript. Saya juga aktif membangun berbagai proyek pribadi dan men-deploy aplikasi secara langsung menggunakan Vercel untuk terus mengasah keterampilan.</p>
-          <div class="mt-12 grid grid-cols-3 gap-4 border-t border-white/10 pt-8">
-            <div><p class="font-display text-3xl font-extrabold text-white sm:text-4xl">10<span class="text-[#FFB958]">+</span></p><p class="mt-2 text-xs leading-5 text-zinc-500 sm:text-sm">Projects done</p></div>
-            <div><p class="font-display text-3xl font-extrabold text-white sm:text-4xl">80<span class="text-[#FFB958]">%</span></p><p class="mt-2 text-xs leading-5 text-zinc-500 sm:text-sm">Mastering lessons</p></div>
-            <div><p class="font-display text-3xl font-extrabold text-white sm:text-4xl">83<span class="text-[#FFB958]">%</span></p><p class="mt-2 text-xs leading-5 text-zinc-500 sm:text-sm">Graphic design</p></div>
+          <div class="about-highlights mt-12 grid grid-cols-3 gap-3 border-t border-white/10 pt-8">
+            <div><span class="highlight-icon">01</span><p class="mt-3 text-xs font-semibold leading-5 text-zinc-300 sm:text-sm">Front-end<br>development</p></div>
+            <div><span class="highlight-icon">02</span><p class="mt-3 text-xs font-semibold leading-5 text-zinc-300 sm:text-sm">UI & visual<br>design</p></div>
+            <div><span class="highlight-icon">03</span><p class="mt-3 text-xs font-semibold leading-5 text-zinc-300 sm:text-sm">Learning by<br>building</p></div>
           </div>
         </div>
       </div>
@@ -145,7 +146,7 @@
       <div class="mx-auto max-w-7xl">
         <div class="fade-up mb-14 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
           <div><p class="mb-5 text-xs font-bold tracking-[.25em] text-[#FFB958] uppercase">02 / What I use</p><h2 class="font-display text-5xl font-extrabold tracking-tight sm:text-6xl">Skills<span class="text-[#FFB958]"> & tools.</span></h2></div>
-          <p class="max-w-sm text-sm leading-7 text-zinc-500">Tools and technologies I use while learning, experimenting, and building projects.</p>
+          <p class="max-w-sm text-sm leading-7 text-zinc-500">A growing toolkit for turning ideas into clear, responsive, and useful digital experiences.</p>
         </div>
         <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
           <div class="skill-card fade-up"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="" loading="lazy"><span>HTML</span></div>
@@ -167,7 +168,7 @@
       <div class="mx-auto max-w-7xl">
         <div class="fade-up mb-12 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
           <div><p class="mb-5 text-xs font-bold tracking-[.25em] text-[#FFB958] uppercase">03 / Selected work</p><h2 class="font-display text-5xl font-extrabold tracking-tight sm:text-6xl">Featured <span class="text-outline">projects.</span></h2></div>
-          <p class="max-w-xs text-sm leading-7 text-zinc-500 sm:text-right">A few things I've been building. <span class="text-[#FFB958]">Swipe to explore ↘</span></p>
+          <p class="max-w-xs text-sm leading-7 text-zinc-500 sm:text-right">Selected experiments and projects from my learning journey. <span class="text-[#FFB958]">Explore the work ↘</span></p>
         </div>
         <div class="swiper mySwiper overflow-visible">
           <div class="swiper-wrapper pb-12">
