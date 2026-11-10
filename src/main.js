@@ -7,6 +7,34 @@ import 'swiper/css/pagination';
 import Lenis from 'lenis';
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const header = document.querySelector('.site-header');
+const progressBar = document.getElementById('scrollProgress');
+const navLinks = [...document.querySelectorAll('[data-nav-link]')];
+const trackedSections = ['about', 'skills', 'project', 'education'].map((id) => document.getElementById(id)).filter(Boolean);
+
+const updateScrollUI = () => {
+  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+  if (progressBar) progressBar.style.width = Math.min(100, progress) + '%';
+  header?.classList.toggle('is-scrolled', window.scrollY > 24);
+};
+updateScrollUI();
+window.addEventListener('scroll', updateScrollUI, { passive: true });
+
+if ('IntersectionObserver' in window && trackedSections.length) {
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      navLinks.forEach((link) => {
+        const active = link.getAttribute('href') === '#' + entry.target.id;
+        link.classList.toggle('is-active', active);
+        if (active) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+    });
+  }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
+  trackedSections.forEach((section) => sectionObserver.observe(section));
+}
 
 // Smooth scrolling: respect the visitor's reduced-motion preference.
 if (!prefersReducedMotion) {
@@ -31,12 +59,9 @@ if (projectSlider) {
   new Swiper(projectSlider, {
     modules: [Autoplay, Navigation, Pagination],
     loop: true,
-    speed: 650,
-    autoplay: prefersReducedMotion ? false : {
-      delay: 3800,
-      disableOnInteraction: false,
-      pauseOnMouseEnter: true,
-    },
+    speed: prefersReducedMotion ? 0 : 650,
+    autoplay: false,
+    keyboard: { enabled: true, onlyInViewport: true },
     slidesPerView: 1,
     spaceBetween: 18,
     grabCursor: true,
@@ -50,7 +75,7 @@ if (projectSlider) {
       prevEl: '.swiper-button-prev',
     },
     pagination: {
-      el: '.swiper-pagination',
+      el: '.project-pagination',
       clickable: true,
     },
   });
