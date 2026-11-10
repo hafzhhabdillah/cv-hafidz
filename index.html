@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#070d18" />
+  <meta name="theme-color" content="#0a0a0a" />
   <meta name="description" content="Portfolio Muhammad Hafidz Abdillah — Front-end web developer yang berfokus pada pengalaman web modern, responsif, dan interaktif." />
   <meta property="og:title" content="Muhammad Hafidz Abdillah — Portfolio" />
   <meta property="og:description" content="Explore selected projects, skills, education, and contact information." />
@@ -17,8 +17,8 @@
       theme: {
         extend: {
           fontFamily: { sans: ['DM Sans', 'sans-serif'], display: ['Manrope', 'sans-serif'] },
-          colors: { ink: '#0a0a0a', panel: '#141414', elevated: '#1b1b1b', accent: '#65B8FF' },
-          boxShadow: { glow: '0 0 60px rgba(101,184,255,.12)' }
+          colors: { ink: '#0a0a0a', panel: '#141414', elevated: '#1b1b1b', accent: '#FFB958' },
+          boxShadow: { glow: '0 0 60px rgba(255,185,88,.12)' }
         }
       }
     }
@@ -28,7 +28,7 @@
   <style>
     :root { color-scheme: dark; scroll-behavior: smooth; }
     body { background: #0a0a0a; }
-    ::selection { background: #65B8FF; color: #111; }
+    ::selection { background: #FFB958; color: #111; }
     .fade-up,.fade-left,.fade-right { opacity: 0; transition: opacity .8s ease, transform .8s cubic-bezier(.2,.75,.25,1); }
     .fade-up { transform: translateY(28px); }
     .fade-left { transform: translateX(-28px); }
@@ -36,10 +36,10 @@
     .is-visible { opacity: 1 !important; transform: translate(0,0) !important; }
     .hero-grid { background-image: linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px); background-size: 56px 56px; mask-image: linear-gradient(to bottom,black,transparent 88%); }
     .text-outline { color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.72); }
-    .accent-line { background: linear-gradient(90deg,#65B8FF,rgba(101,184,255,0)); }
+    .accent-line { background: linear-gradient(90deg,#FFB958,rgba(255,185,88,0)); }
     .swiper-button-prev::after,.swiper-button-next::after { display:none; }
     .swiper-pagination-bullet { background: #777; opacity: 1; }
-    .swiper-pagination-bullet-active { background: #65B8FF; }
+    .swiper-pagination-bullet-active { background: #FFB958; }
     .menu-open { overflow: hidden; }
     @media (prefers-reduced-motion: reduce) {
       *,*::before,*::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
@@ -51,104 +51,100 @@
   <header class="fixed inset-x-0 top-0 z-50 border-b border-white/[.06] bg-[#0a0a0a]/80 backdrop-blur-xl">
     <div class="mx-auto flex h-[76px] max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-12">
       <a href="#home" class="group flex items-center gap-3" aria-label="Kembali ke halaman utama">
-        <span class="grid h-10 w-10 place-items-center rounded-xl border border-[#65B8FF]/30 bg-[#65B8FF]/10 font-display text-sm font-extrabold text-[#65B8FF]">HA.</span>
-        <span class="font-display text-sm font-bold tracking-wide sm:text-base">HAFIDZ<span class="text-[#65B8FF]">.</span></span>
+        <span class="grid h-10 w-10 place-items-center rounded-xl border border-[#FFB958]/30 bg-[#FFB958]/10 font-display text-sm font-extrabold text-[#FFB958]">HA.</span>
+        <span class="font-display text-sm font-bold tracking-wide sm:text-base">HAFIDZ<span class="text-[#FFB958]">.</span></span>
       </a>
       <nav class="hidden items-center gap-8 md:flex" aria-label="Navigasi utama">
-<a href="#home" class="text-sm text-zinc-400 hover:text-[#65B8FF]">Home</a><a href="#about" class="text-sm text-zinc-400 hover:text-[#65B8FF]">About</a><a href="#portfolio" class="text-sm text-zinc-400 hover:text-[#65B8FF]">Portfolio</a><a href="#contact" class="text-sm text-zinc-400 hover:text-[#65B8FF]">Contact</a></nav>
-      <a href="#contact" class="hidden items-center gap-2 rounded-full border border-[#65B8FF]/50 px-5 py-2.5 text-sm font-semibold text-[#65B8FF] transition hover:bg-[#65B8FF] hover:text-black md:inline-flex">Let's talk <span aria-hidden="true">↗</span></a>
-      <button id="hamburgerBtn" class="grid h-11 w-11 place-items-center rounded-xl border border-white/10 text-white transition hover:border-[#65B8FF]/50 md:hidden" aria-label="Buka menu" aria-expanded="false" aria-controls="mobileMenu">
+        <a href="#about" class="text-sm text-zinc-400 transition hover:text-[#FFB958]">About</a>
+        <a href="#skills" class="text-sm text-zinc-400 transition hover:text-[#FFB958]">Skills</a>
+        <a href="#project" class="text-sm text-zinc-400 transition hover:text-[#FFB958]">Projects</a>
+        <a href="#education" class="text-sm text-zinc-400 transition hover:text-[#FFB958]">Education</a>
+      </nav>
+      <a href="#contact" class="hidden items-center gap-2 rounded-full border border-[#FFB958]/50 px-5 py-2.5 text-sm font-semibold text-[#FFB958] transition hover:bg-[#FFB958] hover:text-black md:inline-flex">Let's talk <span aria-hidden="true">↗</span></a>
+      <button id="hamburgerBtn" class="grid h-11 w-11 place-items-center rounded-xl border border-white/10 text-white transition hover:border-[#FFB958]/50 md:hidden" aria-label="Buka menu" aria-expanded="false" aria-controls="mobileMenu">
         <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/></svg>
       </button>
     </div>
     <div id="mobileMenu" class="invisible absolute inset-x-0 top-full -translate-y-2 border-b border-white/10 bg-[#101010] px-6 py-6 opacity-0 shadow-2xl transition-all duration-300 md:hidden">
       <nav class="flex flex-col gap-1" aria-label="Navigasi mobile">
-<a href="#home" class="mobile-link rounded-lg px-4 py-3 text-zinc-300">Home</a><a href="#about" class="mobile-link rounded-lg px-4 py-3 text-zinc-300">About</a><a href="#portfolio" class="mobile-link rounded-lg px-4 py-3 text-zinc-300">Portfolio</a><a href="#contact" class="mobile-link rounded-lg px-4 py-3 text-zinc-300">Contact</a></nav>
+        <a href="#about" class="mobile-link rounded-lg px-4 py-3 text-zinc-300 transition hover:bg-white/5 hover:text-[#FFB958]">About me</a>
+        <a href="#skills" class="mobile-link rounded-lg px-4 py-3 text-zinc-300 transition hover:bg-white/5 hover:text-[#FFB958]">My skills</a>
+        <a href="#project" class="mobile-link rounded-lg px-4 py-3 text-zinc-300 transition hover:bg-white/5 hover:text-[#FFB958]">Projects</a>
+        <a href="#education" class="mobile-link rounded-lg px-4 py-3 text-zinc-300 transition hover:bg-white/5 hover:text-[#FFB958]">Education</a>
+        <a href="#contact" class="mobile-link rounded-lg px-4 py-3 text-[#FFB958] transition hover:bg-[#FFB958]/10">Contact ↗</a>
+      </nav>
     </div>
   </header>
 
-  <nav id="floatingNav" class="floating-nav" aria-label="Navigasi cepat"><a href="#home" class="floating-link active">Home</a><a href="#about" class="floating-link">About</a><a href="#portfolio" class="floating-link">Portfolio</a><a href="#contact" class="floating-link">Contact</a></nav>
   <main>
     <section id="home" class="relative isolate flex min-h-[760px] items-center overflow-hidden pt-28 sm:min-h-[820px] lg:min-h-[900px]">
       <div class="hero-grid pointer-events-none absolute inset-0 -z-20"></div>
-      <div class="pointer-events-none absolute -right-40 top-20 -z-10 h-[560px] w-[560px] rounded-full bg-[#65B8FF]/[.08] blur-[130px]"></div>
+      <div class="pointer-events-none absolute -right-40 top-20 -z-10 h-[560px] w-[560px] rounded-full bg-[#FFB958]/[.08] blur-[130px]"></div>
       <div class="pointer-events-none absolute -bottom-52 -left-40 -z-10 h-[500px] w-[500px] rounded-full bg-white/[.035] blur-[120px]"></div>
       <div class="mx-auto grid w-full max-w-7xl items-center gap-14 px-5 pb-24 pt-12 sm:px-8 lg:grid-cols-[1.1fr_.9fr] lg:gap-10 lg:px-12 lg:pb-32">
         <div class="fade-left relative z-10">
-          <div class="mb-7 inline-flex items-center gap-2 rounded-full border border-[#65B8FF]/25 bg-[#65B8FF]/[.07] px-4 py-2 text-xs font-semibold tracking-[.16em] text-[#65B8FF] uppercase">
-            <span class="h-2 w-2 rounded-full bg-[#65B8FF] shadow-[0_0_12px_#65B8FF]"></span> Available to explore opportunities
+          <div class="mb-7 inline-flex items-center gap-2 rounded-full border border-[#FFB958]/25 bg-[#FFB958]/[.07] px-4 py-2 text-xs font-semibold tracking-[.16em] text-[#FFB958] uppercase">
+            <span class="h-2 w-2 rounded-full bg-[#FFB958] shadow-[0_0_12px_#FFB958]"></span> Available to explore opportunities
           </div>
-          <p class="mb-5 text-sm font-semibold tracking-[.28em] text-zinc-400 uppercase">Personal space · 2026</p>
-<h1 class="font-display text-[clamp(3.8rem,9vw,8rem)] font-extrabold leading-[.88] tracking-[-.08em]">WELCOME<br><span class="text-outline">TO</span><span class="text-[#65B8FF]">.</span></h1>
-<div class="portfolio-marquee mt-7"><span>MY PORTFOLIO&nbsp; · &nbsp;MY PORTFOLIO&nbsp; · &nbsp;MY PORTFOLIO&nbsp; · &nbsp;</span></div>
-<div class="my-8 flex items-center gap-4"><span class="h-px w-12 accent-line"></span><p class="text-sm font-semibold tracking-[.18em] text-[#65B8FF] uppercase">Muhammad Hafidz Abdillah</p></div>
-<p class="max-w-xl text-base leading-8 text-zinc-300 sm:text-lg">Junior Developer yang senang mengubah ide menjadi website yang rapi, responsif, dan nyaman digunakan. Saya menggabungkan logika pemrograman dengan kreativitas desain untuk membangun pengalaman digital yang punya tujuan.</p>
-<div class="mt-10 flex flex-wrap items-center gap-4"><a href="#portfolio" class="inline-flex items-center gap-3 rounded-full bg-[#65B8FF] px-7 py-4 text-sm font-bold text-[#07111f]">Explore projects ↗</a><a href="#about" class="inline-flex items-center gap-2 rounded-full border border-white/15 px-7 py-4 text-sm font-semibold text-zinc-300">Get to know me ↓</a></div>
-<div class="mt-12 flex items-center gap-5 text-xs font-medium tracking-wider text-zinc-500 uppercase"><span>Based in Indonesia</span><span class="h-1 w-1 rounded-full bg-[#65B8FF]"></span><span>Building with curiosity</span></div>
+          <p class="mb-4 text-sm font-medium tracking-[.24em] text-zinc-500 uppercase">Hello, I'm</p>
+          <h1 class="font-display text-[clamp(3.4rem,8vw,7.2rem)] font-extrabold leading-[.94] tracking-[-.075em]">Muhammad<br><span class="text-outline">Hafidz</span><br>Abdillah<span class="text-[#FFB958]">.</span></h1>
+          <div class="my-8 flex items-center gap-4">
+            <span class="h-px w-12 accent-line"></span>
+            <p class="text-sm font-semibold tracking-[.18em] text-[#FFB958] uppercase">Front-end Developer</p>
+          </div>
+          <p class="max-w-xl text-base leading-8 text-zinc-400 sm:text-lg">Siswa Rekayasa Perangkat Lunak di SMK Madinatul Qur'an yang senang membangun pengalaman web modern, responsif, dan mudah digunakan.</p>
+          <div class="mt-10 flex flex-wrap items-center gap-4">
+            <a href="#project" class="inline-flex items-center gap-3 rounded-full bg-[#FFB958] px-7 py-4 text-sm font-bold text-[#111] shadow-glow transition hover:-translate-y-1 hover:bg-[#ffc879]">Explore my work <span aria-hidden="true">↗</span></a>
+            <a href="#about" class="inline-flex items-center gap-2 rounded-full border border-white/15 px-7 py-4 text-sm font-semibold text-zinc-300 transition hover:border-white/40 hover:text-white">More about me <span aria-hidden="true">↓</span></a>
+          </div>
+          <div class="mt-14 flex items-center gap-5 text-xs font-medium tracking-wider text-zinc-500 uppercase">
+            <span>Based in Indonesia</span><span class="h-1 w-1 rounded-full bg-[#FFB958]"></span><span>Learning by building</span>
+          </div>
         </div>
         <div class="fade-right relative mx-auto w-full max-w-[480px]">
-          <div class="absolute -inset-5 rounded-[2.5rem] border border-[#65B8FF]/15"></div>
-          <div class="absolute -right-8 top-12 h-28 w-28 rounded-full border border-[#65B8FF]/25"></div>
+          <div class="absolute -inset-5 rounded-[2.5rem] border border-[#FFB958]/15"></div>
+          <div class="absolute -right-8 top-12 h-28 w-28 rounded-full border border-[#FFB958]/25"></div>
           <div class="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/10 bg-[#181818] shadow-2xl">
             <img src="/me.png" alt="Portrait of Muhammad Hafidz Abdillah" fetchpriority="high" class="h-full w-full object-cover object-center grayscale-[35%] transition duration-700 hover:scale-105 hover:grayscale-0" />
             <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/10"></div>
             <div class="absolute bottom-0 left-0 right-0 p-7 sm:p-9">
-              <p class="text-xs font-semibold tracking-[.2em] text-[#65B8FF] uppercase">Personal portfolio</p>
+              <p class="text-xs font-semibold tracking-[.2em] text-[#FFB958] uppercase">Personal portfolio</p>
               <p class="mt-2 font-display text-2xl font-bold sm:text-3xl">Curious mind.<br>Creative builder.</p>
             </div>
           </div>
           <div class="absolute -bottom-6 -left-6 rounded-2xl border border-white/10 bg-[#171717]/95 px-5 py-4 shadow-xl backdrop-blur">
             <p class="text-[11px] tracking-widest text-zinc-500 uppercase">Focus</p>
-            <p class="mt-1 text-sm font-bold text-white">Web Development <span class="text-[#65B8FF]">↗</span></p>
+            <p class="mt-1 text-sm font-bold text-white">Web Development <span class="text-[#FFB958]">↗</span></p>
           </div>
         </div>
       </div>
       <div class="absolute bottom-0 left-0 right-0 h-36 bg-gradient-to-t from-[#0a0a0a] to-transparent"></div>
     </section>
 
-    <section id="about" class="scroll-mt-24 border-t border-white/[.05] bg-[#0a1220] px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
-<div class="mx-auto max-w-7xl"><div class="fade-up mb-16 text-center"><p class="mb-5 text-xs font-bold tracking-[.25em] text-[#65B8FF] uppercase">01 / Get to know me</p><h2 class="font-display text-5xl font-extrabold tracking-tight sm:text-6xl">ABOUT <span class="text-outline">ME.</span></h2><p class="mx-auto mt-5 max-w-xl text-sm leading-7 text-zinc-400">Sedikit cerita tentang orang di balik baris-baris kode.</p></div>
-<div class="about-profile-grid mx-auto grid max-w-5xl items-center gap-10 md:grid-cols-[1fr_.85fr] md:gap-16">
-<div class="fade-left order-2 md:order-1"><p class="mb-4 text-xs font-bold tracking-[.22em] text-[#65B8FF] uppercase">Hello, I'm</p><h3 class="font-display text-4xl font-extrabold leading-tight tracking-[-.05em] text-white sm:text-5xl">Muhammad<br>Hafidz Abdillah<span class="text-[#65B8FF]">.</span></h3><div class="my-7 h-px w-20 accent-line"></div>
-<p class="text-base leading-8 text-zinc-300">Saya adalah <strong class="font-semibold text-white">Junior Developer</strong> yang berfokus pada pengembangan teknologi yang fungsional sekaligus menarik. Saya senang memadukan kode, desain, dan pengalaman untuk membangun produk digital yang berkesan.</p>
-<p class="mt-5 text-base leading-8 text-zinc-400">Dengan JavaScript, Laravel, dan teknologi web modern, saya terus mengembangkan ide menjadi website yang intuitif, responsif, dan bermanfaat. Bagi saya, setiap project adalah kesempatan untuk belajar, bereksperimen, dan membuat sesuatu yang lebih baik.</p></div>
-<div class="fade-right order-1 mx-auto w-full max-w-[390px] md:order-2"><div class="about-photo-frame relative"><div class="absolute -inset-3 rounded-[2rem] border border-[#65B8FF]/25"></div><img src="/me.png" alt="Foto Muhammad Hafidz Abdillah" loading="lazy" class="relative aspect-[4/5] w-full rounded-[1.7rem] border border-white/10 object-cover object-center shadow-2xl"><span class="absolute -bottom-4 -right-4 rounded-full border border-[#65B8FF]/30 bg-[#0d1b2d] px-5 py-3 text-xs font-bold tracking-widest text-[#65B8FF] uppercase">Junior Developer ↗</span></div></div>
-</div></div></section>
-
-
-    <section id="portfolio" class="scroll-mt-24 border-y border-white/[.05] bg-[#0d0d0d] px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
-      <div class="mx-auto max-w-7xl">
-        <div class="fade-up mb-12 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
-          <div><p class="mb-5 text-xs font-bold tracking-[.25em] text-[#65B8FF] uppercase">01 / Projects</p><h2 class="font-display text-5xl font-extrabold tracking-tight sm:text-6xl">Selected <span class="text-outline">projects.</span></h2></div>
-          <p class="max-w-xs text-sm leading-7 text-zinc-500 sm:text-right">A few things I've been building. <span class="text-[#65B8FF]">Swipe to explore ↘</span></p>
+    <section id="about" class="scroll-mt-24 border-t border-white/[.05] bg-[#0d0d0d] px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+      <div class="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[.7fr_1.3fr] lg:gap-24">
+        <div class="fade-left">
+          <p class="mb-5 text-xs font-bold tracking-[.25em] text-[#FFB958] uppercase">01 / About me</p>
+          <h2 class="font-display text-5xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl">A little<br><span class="text-outline">about</span><br>myself<span class="text-[#FFB958]">.</span></h2>
+          <div class="mt-8 h-px w-24 accent-line"></div>
         </div>
-        <div class="swiper mySwiper overflow-visible">
-          <div class="swiper-wrapper pb-12">
-            <article class="swiper-slide project-card"><div class="project-image"><img src="/myproject1.png" alt="Meowketplace project preview" loading="lazy"></div><div class="p-6 sm:p-7"><p class="project-index">01 / E-commerce</p><h3 class="project-title">Meowketplace</h3><p class="project-desc">Aplikasi e-commerce khusus untuk kebutuhan kucing kesayanganmu.</p><div class="project-tags"><span>HTML</span><span>CSS</span><span>Figma</span><span>Tailwind</span><span>JavaScript</span></div></div></article>
-            <article class="swiper-slide project-card"><div class="project-image"><img src="/myproject2.png" alt="Landing page portfolio design preview" loading="lazy"></div><div class="p-6 sm:p-7"><p class="project-index">02 / UI design</p><h3 class="project-title">Landing Page Portofolio</h3><p class="project-desc">Eksplorasi desain antarmuka modern.</p><div class="project-tags"><span>Figma</span></div></div></article>
-            <article class="swiper-slide project-card"><div class="project-image"><img src="/myproject3.png" alt="Car rental landing page preview" loading="lazy"></div><div class="p-6 sm:p-7"><p class="project-index">03 / Landing page</p><h3 class="project-title">Landing Page Rental Mobil</h3><p class="project-desc">Landing page responsif untuk penyewaan kendaraan.</p><div class="project-tags"><span>Figma</span></div></div></article>
-            <article class="swiper-slide project-card"><div class="project-image"><img src="/myproject4.png" alt="Bbil Furniture landing page preview" loading="lazy"></div><div class="p-6 sm:p-7"><p class="project-index">04 / E-commerce concept</p><h3 class="project-title">Landing Page Bbil Furniture</h3><p class="project-desc">Landing page responsif untuk membeli peralatan rumah.</p><div class="project-tags"><span>HTML</span><span>CSS</span><span>Figma</span><span>Tailwind</span><span>JavaScript</span></div></div></article>
+        <div class="fade-right">
+          <p class="text-xl font-medium leading-9 text-zinc-200 sm:text-2xl">Saya adalah siswa jurusan Rekayasa Perangkat Lunak di SMK Madinatul Qur'an yang memiliki minat besar dalam dunia pengembangan web.</p>
+          <p class="mt-7 text-base leading-8 text-zinc-400">Saat ini, saya berfokus mendalami Front-end Development. Saya memadukan kreativitas desain antarmuka dengan logika pemrograman untuk membangun website yang responsif, interaktif, dan efisien.</p>
+          <p class="mt-5 text-base leading-8 text-zinc-400">Saya menikmati proses mengeksplorasi teknologi web modern seperti Tailwind CSS dan JavaScript. Saya juga aktif membangun berbagai proyek pribadi dan men-deploy aplikasi secara langsung menggunakan Vercel untuk terus mengasah keterampilan.</p>
+          <div class="mt-12 grid grid-cols-3 gap-4 border-t border-white/10 pt-8">
+            <div><p class="font-display text-3xl font-extrabold text-white sm:text-4xl">10<span class="text-[#FFB958]">+</span></p><p class="mt-2 text-xs leading-5 text-zinc-500 sm:text-sm">Projects done</p></div>
+            <div><p class="font-display text-3xl font-extrabold text-white sm:text-4xl">80<span class="text-[#FFB958]">%</span></p><p class="mt-2 text-xs leading-5 text-zinc-500 sm:text-sm">Mastering lessons</p></div>
+            <div><p class="font-display text-3xl font-extrabold text-white sm:text-4xl">83<span class="text-[#FFB958]">%</span></p><p class="mt-2 text-xs leading-5 text-zinc-500 sm:text-sm">Graphic design</p></div>
           </div>
         </div>
-        <div class="project-controls">
-          <span class="project-hint"><span class="project-hint-dot"></span> Explore projects</span>
-          <div class="project-pagination swiper-pagination" aria-label="Project slides"></div>
-          <div class="project-arrows">
-            <button class="swiper-button-prev project-arrow" type="button" aria-label="Previous project"><span aria-hidden="true">←</span></button>
-            <button class="swiper-button-next project-arrow project-arrow-next" type="button" aria-label="Next project"><span aria-hidden="true">→</span></button>
-          </div>
-        </div>
-        <div class="portfolio-extra-grid mt-20 grid gap-5 md:grid-cols-2">
-<article id="certificate" class="portfolio-empty-card fade-up"><p class="mb-4 text-xs font-bold tracking-[.2em] text-[#65B8FF] uppercase">02 / Certificates</p><h3 class="font-display text-2xl font-extrabold text-white">Certificates<span class="text-[#65B8FF]">.</span></h3><p class="mt-3 text-sm leading-7 text-zinc-500">Sertifikat akan ditampilkan di sini.</p><span class="mt-7 inline-flex rounded-full border border-white/10 px-4 py-2 text-[10px] font-bold tracking-widest text-zinc-500 uppercase">Coming soon</span></article>
-<article id="achievement" class="portfolio-empty-card fade-up"><p class="mb-4 text-xs font-bold tracking-[.2em] text-[#65B8FF] uppercase">03 / Achievements</p><h3 class="font-display text-2xl font-extrabold text-white">Achievements<span class="text-[#65B8FF]">.</span></h3><p class="mt-3 text-sm leading-7 text-zinc-500">Pencapaian akan ditambahkan di sini.</p><span class="mt-7 inline-flex rounded-full border border-white/10 px-4 py-2 text-[10px] font-bold tracking-widest text-zinc-500 uppercase">Coming soon</span></article></div>
       </div>
     </section>
 
-
-    <section id="tech-stack" class="scroll-mt-24 px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+    <section id="skills" class="scroll-mt-24 px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
       <div class="mx-auto max-w-7xl">
         <div class="fade-up mb-14 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-          <div><p class="mb-5 text-xs font-bold tracking-[.25em] text-[#65B8FF] uppercase">04 / Tech stack</p><h2 class="font-display text-5xl font-extrabold tracking-tight sm:text-6xl">Tech stack<span class="text-[#65B8FF]">.</span></h2></div>
+          <div><p class="mb-5 text-xs font-bold tracking-[.25em] text-[#FFB958] uppercase">02 / What I use</p><h2 class="font-display text-5xl font-extrabold tracking-tight sm:text-6xl">Skills<span class="text-[#FFB958]"> & tools.</span></h2></div>
           <p class="max-w-sm text-sm leading-7 text-zinc-500">Tools and technologies I use while learning, experimenting, and building projects.</p>
         </div>
         <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
@@ -163,6 +159,44 @@
           <div class="skill-card fade-up"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="" loading="lazy"><span>GitHub</span></div>
           <div class="skill-card fade-up"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg" alt="" loading="lazy"><span>Vercel</span></div>
           <div class="skill-card fade-up"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-plain.svg" alt="" loading="lazy"><span>Firebase</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="project" class="scroll-mt-24 border-y border-white/[.05] bg-[#0d0d0d] px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+      <div class="mx-auto max-w-7xl">
+        <div class="fade-up mb-12 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+          <div><p class="mb-5 text-xs font-bold tracking-[.25em] text-[#FFB958] uppercase">03 / Selected work</p><h2 class="font-display text-5xl font-extrabold tracking-tight sm:text-6xl">Featured <span class="text-outline">projects.</span></h2></div>
+          <p class="max-w-xs text-sm leading-7 text-zinc-500 sm:text-right">A few things I've been building. <span class="text-[#FFB958]">Swipe to explore ↘</span></p>
+        </div>
+        <div class="swiper mySwiper overflow-visible">
+          <div class="swiper-wrapper pb-12">
+            <article class="swiper-slide project-card"><div class="project-image"><img src="/myproject1.png" alt="Meowketplace project preview" loading="lazy"></div><div class="p-6 sm:p-7"><p class="project-index">01 / E-commerce</p><h3 class="project-title">Meowketplace</h3><p class="project-desc">Aplikasi e-commerce khusus untuk kebutuhan kucing kesayanganmu.</p><div class="project-tags"><span>HTML</span><span>CSS</span><span>Figma</span><span>Tailwind</span><span>JavaScript</span></div></div></article>
+            <article class="swiper-slide project-card"><div class="project-image"><img src="/myproject2.png" alt="Landing page portfolio design preview" loading="lazy"></div><div class="p-6 sm:p-7"><p class="project-index">02 / UI design</p><h3 class="project-title">Landing Page Portofolio</h3><p class="project-desc">Eksplorasi desain antarmuka modern.</p><div class="project-tags"><span>Figma</span></div></div></article>
+            <article class="swiper-slide project-card"><div class="project-image"><img src="/myproject3.png" alt="Car rental landing page preview" loading="lazy"></div><div class="p-6 sm:p-7"><p class="project-index">03 / Landing page</p><h3 class="project-title">Landing Page Rental Mobil</h3><p class="project-desc">Landing page responsif untuk penyewaan kendaraan.</p><div class="project-tags"><span>Figma</span></div></div></article>
+            <article class="swiper-slide project-card"><div class="project-image"><img src="/myproject4.png" alt="Bbil Furniture landing page preview" loading="lazy"></div><div class="p-6 sm:p-7"><p class="project-index">04 / E-commerce concept</p><h3 class="project-title">Landing Page Bbil Furniture</h3><p class="project-desc">Landing page responsif untuk membeli peralatan rumah.</p><div class="project-tags"><span>HTML</span><span>CSS</span><span>Figma</span><span>Tailwind</span><span>JavaScript</span></div></div></article>
+            <article class="swiper-slide project-card"><div class="project-image"><img src="/myproject5.png" alt="Student violation application preview" loading="lazy"></div><div class="p-6 sm:p-7"><p class="project-index">05 / Web application</p><h3 class="project-title">Aplikasi Pelanggaran Siswa</h3><p class="project-desc">Aplikasi untuk membantu pencatatan pelanggaran santri.</p><div class="project-tags"><span>HTML</span><span>CSS</span><span>Tailwind</span><span>JavaScript</span></div></div></article>
+          </div>
+        </div>
+        <div class="project-controls">
+          <span class="project-hint"><span class="project-hint-dot"></span> Explore projects</span>
+          <div class="project-pagination swiper-pagination" aria-label="Project slides"></div>
+          <div class="project-arrows">
+            <button class="swiper-button-prev project-arrow" type="button" aria-label="Previous project"><span aria-hidden="true">←</span></button>
+            <button class="swiper-button-next project-arrow project-arrow-next" type="button" aria-label="Next project"><span aria-hidden="true">→</span></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education" class="scroll-mt-24 px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+      <div class="mx-auto max-w-7xl">
+        <div class="fade-up mb-14"><p class="mb-5 text-xs font-bold tracking-[.25em] text-[#FFB958] uppercase">04 / My journey</p><h2 class="font-display text-5xl font-extrabold tracking-tight sm:text-6xl">Education<span class="text-[#FFB958]">.</span></h2></div>
+        <div class="grid gap-4">
+          <article class="education-card fade-up"><div class="education-logo"><img src="/mq.png" alt="SMK Madinatulquran logo" loading="lazy"></div><div class="min-w-0 flex-1"><p class="text-xs font-semibold tracking-widest text-[#FFB958] uppercase">2026 – Present</p><h3 class="mt-2 font-display text-lg font-bold sm:text-xl">SMK Madinatulquran</h3><p class="mt-1 text-sm text-zinc-400">Rekayasa Perangkat Lunak</p></div><a href="https://www.google.com/maps/search/SMK+Madinatulquran+Jonggol" target="_blank" rel="noopener noreferrer" class="location-link">Location ↗</a></article>
+          <article class="education-card fade-up"><div class="education-logo"><img src="/binaqurani.png" alt="BQ Islamic Boarding School logo" loading="lazy"></div><div class="min-w-0 flex-1"><p class="text-xs font-semibold tracking-widest text-[#FFB958] uppercase">2022 – 2025</p><h3 class="mt-2 font-display text-lg font-bold sm:text-xl">BQ Islamic Boarding School</h3><p class="mt-1 text-sm text-zinc-400">Junior high school</p></div><a href="https://www.google.com/maps/search/Bina+Qurani+Islamic+Boarding+School" target="_blank" rel="noopener noreferrer" class="location-link">Location ↗</a></article>
+          <article class="education-card fade-up"><div class="education-logo"><img src="/alqurrobilal.png" alt="Ponpes Al-Qurro logo" loading="lazy"></div><div class="min-w-0 flex-1"><p class="text-xs font-semibold tracking-widest text-[#FFB958] uppercase">2019 – 2021</p><h3 class="mt-2 font-display text-lg font-bold sm:text-xl">Ponpes Al-Qurro</h3><p class="mt-1 text-sm text-zinc-400">Elementary School</p></div><a href="https://www.google.com/maps/search/Ponpes+Al-Qurro+Bogor" target="_blank" rel="noopener noreferrer" class="location-link">Location ↗</a></article>
+          <article class="education-card fade-up"><div class="education-logo"><img src="/sditfajar.png" alt="SDIT Fajar Depok logo" loading="lazy"></div><div class="min-w-0 flex-1"><p class="text-xs font-semibold tracking-widest text-[#FFB958] uppercase">2016 – 2018</p><h3 class="mt-2 font-display text-lg font-bold sm:text-xl">SDIT Fajar Depok</h3><p class="mt-1 text-sm text-zinc-400">Elementary School</p></div><a href="https://www.google.com/maps/search/SDIT+Fajar+Depok" target="_blank" rel="noopener noreferrer" class="location-link">Location ↗</a></article>
         </div>
       </div>
     </section>
@@ -249,22 +283,6 @@
         element.style.transitionDelay = `${Math.min(index % 5, 4) * 70}ms`;
         revealObserver.observe(element);
       });
-
-      const floatingNav = document.getElementById('floatingNav');
-      const floatingLinks = [...document.querySelectorAll('.floating-link')];
-      const trackedSections = ['home', 'about', 'portfolio', 'contact'].map(id => document.getElementById(id)).filter(Boolean);
-      const updateFloatingNav = () => {
-        floatingNav?.classList.toggle('is-shown', window.scrollY > 360);
-        let current = 'home';
-        trackedSections.forEach(section => { if (section.getBoundingClientRect().top <= 180) current = section.id; });
-        floatingLinks.forEach(link => {
-          const active = link.getAttribute('href') === '#' + current;
-          link.classList.toggle('active', active);
-          if (active) link.setAttribute('aria-current','page'); else link.removeAttribute('aria-current');
-        });
-      };
-      window.addEventListener('scroll', updateFloatingNav, { passive: true });
-      updateFloatingNav();
 
       const contactForm = document.getElementById('contactForm');
       contactForm?.addEventListener('submit', event => {
