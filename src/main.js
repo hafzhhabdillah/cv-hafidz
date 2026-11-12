@@ -10,7 +10,7 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 const header = document.querySelector('.site-header');
 const progressBar = document.getElementById('scrollProgress');
 const navLinks = [...document.querySelectorAll('[data-nav-link]')];
-const trackedSections = ['about', 'skills', 'project', 'education'].map((id) => document.getElementById(id)).filter(Boolean);
+const trackedSections = ['about', 'skills', 'project', 'playlist', 'education'].map((id) => document.getElementById(id)).filter(Boolean);
 
 const updateScrollUI = () => {
   const scrollable = document.documentElement.scrollHeight - window.innerHeight;
