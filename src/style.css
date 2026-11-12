@@ -465,3 +465,11 @@ body{background:radial-gradient(ellipse at 50% -22rem,rgba(255,185,88,.075),tran
 ::selection{background:var(--portfolio-accent);color:#111}
 @media(max-width:767px){#home::before{top:10%;left:-21rem}#skills .skill-card{min-height:116px}#skills .skill-card img{width:34px;height:34px}.about-highlights>div{padding-left:9px}}
 @media(prefers-reduced-motion:reduce){#home .fade-right>.absolute.-right-8,#home .fade-right>.absolute.-bottom-6{animation:none!important}}
+
+
+/* Spotify playlist section */
+#playlist iframe { display: block; min-height: 380px; }
+#playlist .fade-right { min-width: 0; }
+@media (max-width: 640px) {
+  #playlist iframe { min-height: 352px; }
+}
