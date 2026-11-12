@@ -6,7 +6,7 @@ const navLinks=[...document.querySelectorAll('[data-nav-link]')];
 const sections=['home','about','portfolio','contact'].map(id=>document.getElementById(id)).filter(Boolean);
 const updateNavigation=()=>{
  const y=window.scrollY;
- bottomNav?.classList.toggle('is-visible',y>180);
+ bottomNav?.classList.toggle('is-visible',y>48);
  let current='home';
  sections.forEach(section=>{if(section.getBoundingClientRect().top<=window.innerHeight*.42)current=section.id;});
  navLinks.forEach(link=>{const active=link.getAttribute('href')==='#'+current;link.classList.toggle('is-active',active);if(active)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');});
