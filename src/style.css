@@ -1103,3 +1103,25 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   .site-nav#bottomNav,
   .site-nav#bottomNav.is-visible { transition: none !important; }
 }
+
+
+/* Final polish: neutral black navbar and a natural, full-colour profile photo. */
+.site-nav#bottomNav {
+  background: rgba(8, 8, 8, .94) !important;
+  border-color: rgba(255, 255, 255, .13) !important;
+  box-shadow: 0 14px 38px rgba(0, 0, 0, .48), inset 0 1px rgba(255,255,255,.06) !important;
+}
+.site-nav#bottomNav nav a { color: #c7c7c7 !important; }
+.site-nav#bottomNav nav a:hover,
+.site-nav#bottomNav nav a.is-active {
+  background: rgba(255, 185, 88, .13) !important;
+  color: #FFB958 !important;
+}
+.id-card-photo {
+  filter: none !important;
+  object-position: center 28%;
+  transform: translateZ(8px) scale(1.015);
+}
+@media (prefers-reduced-motion: reduce) {
+  .id-card-photo { transform: none !important; }
+}
