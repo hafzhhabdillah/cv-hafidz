@@ -11,11 +11,14 @@ const projects = [
 ];
 
 const nav = document.getElementById('bottomNav');
+const hero = document.getElementById('home');
 const navLinks = [...document.querySelectorAll('[data-nav-link]')];
 let scrollTicking = false;
 const updateNav = () => {
-  const y = window.scrollY;
-  nav?.classList.toggle('is-scrolled', y > 24);
+  const heroPassed = hero ? hero.getBoundingClientRect().bottom <= 24 : window.scrollY > 120;
+  nav?.classList.toggle('is-visible', heroPassed);
+  nav?.classList.toggle('is-scrolled', window.scrollY > 24);
+  nav?.setAttribute('aria-hidden', String(!heroPassed));
   let current = 'home';
   ['home','about','portfolio','contact'].forEach(id => {
     const el = document.getElementById(id);
@@ -219,45 +222,52 @@ if (!reduceMotion && window.matchMedia('(hover:hover) and (pointer:fine)').match
 }
 
 
-// Interactive 3D profile card: desktop pointer tilt, mobile floating-only.
+// Real 3D profile-card interaction: mouse-driven perspective, lighting and shadow.
 const idCard = document.querySelector('[data-id-card]');
-if (idCard && !reduceMotion && window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
+if (idCard && !reduceMotion) {
   const cardWrap = idCard.parentElement;
+  const finePointer = window.matchMedia('(hover:hover) and (pointer:fine)');
   let frame = 0;
   let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
-  let pointerX = 50, pointerY = 50;
+  let targetLightX = 50, targetLightY = 50, lightX = 50, lightY = 50;
   const renderCard = () => {
-    currentX += (targetX - currentX) * .12;
-    currentY += (targetY - currentY) * .12;
+    currentX += (targetX - currentX) * .16;
+    currentY += (targetY - currentY) * .16;
+    lightX += (targetLightX - lightX) * .2;
+    lightY += (targetLightY - lightY) * .2;
     idCard.style.setProperty('--tilt-x', currentX.toFixed(2) + 'deg');
     idCard.style.setProperty('--tilt-y', currentY.toFixed(2) + 'deg');
-    idCard.style.setProperty('--light-x', pointerX.toFixed(1) + '%');
-    idCard.style.setProperty('--light-y', pointerY.toFixed(1) + '%');
-    idCard.style.setProperty('--shadow-x', (-currentY * 1.4).toFixed(1) + 'px');
-    idCard.style.setProperty('--shadow-y', (18 + currentX * 1.2).toFixed(1) + 'px');
-    if (Math.abs(targetX-currentX) > .02 || Math.abs(targetY-currentY) > .02) {
-      frame = requestAnimationFrame(renderCard);
-    } else {
-      frame = 0;
-    }
+    idCard.style.setProperty('--light-x', lightX.toFixed(1) + '%');
+    idCard.style.setProperty('--light-y', lightY.toFixed(1) + '%');
+    idCard.style.setProperty('--shadow-x', (-currentY * 1.8).toFixed(1) + 'px');
+    idCard.style.setProperty('--shadow-y', (18 + Math.abs(currentX) * 1.5).toFixed(1) + 'px');
+    const stillMoving = Math.abs(targetX-currentX) > .015 ||
+      Math.abs(targetY-currentY) > .015 ||
+      Math.abs(targetLightX-lightX) > .1 || Math.abs(targetLightY-lightY) > .1;
+    if (stillMoving) frame = requestAnimationFrame(renderCard);
+    else frame = 0;
   };
+  const scheduleRender = () => { if (!frame) frame = requestAnimationFrame(renderCard); };
   const moveCard = event => {
+    if (!finePointer.matches) return;
     const rect = idCard.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width;
-    const y = (event.clientY - rect.top) / rect.height;
-    targetY = (x - .5) * 12;
-    targetX = (.5 - y) * 10;
-    pointerX = x * 100;
-    pointerY = y * 100;
-    if (!frame) frame = requestAnimationFrame(renderCard);
+    const x = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+    const y = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+    targetY = (x - .5) * 18;
+    targetX = (.5 - y) * 14;
+    targetLightX = x * 100;
+    targetLightY = y * 100;
+    scheduleRender();
   };
   const resetCard = () => {
-    targetX = 0; targetY = 0; pointerX = 50; pointerY = 50;
-    if (!frame) frame = requestAnimationFrame(renderCard);
+    targetX = 0; targetY = 0; targetLightX = 50; targetLightY = 50;
+    scheduleRender();
     cardWrap.classList.remove('is-card-active');
   };
-  idCard.addEventListener('pointerenter', () => cardWrap.classList.add('is-card-active'));
+  const enterCard = () => cardWrap.classList.add('is-card-active');
+  idCard.addEventListener('pointerenter', enterCard);
   idCard.addEventListener('pointermove', moveCard, {passive:true});
   idCard.addEventListener('pointerleave', resetCard);
   idCard.addEventListener('pointercancel', resetCard);
+  finePointer.addEventListener?.('change', resetCard);
 }
