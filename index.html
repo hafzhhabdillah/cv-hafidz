@@ -48,37 +48,9 @@
   </style>
 </head>
 <body class="overflow-x-hidden font-sans text-white antialiased">
-  <header class="site-header fixed inset-x-0 top-0 z-50 border-b border-white/[.06] bg-[#0a0a0a]/80 backdrop-blur-xl">
-    <div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
-    <div class="mx-auto flex h-[76px] max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-12">
-      <a href="#home" class="group flex items-center gap-3" aria-label="Kembali ke halaman utama">
-        <span class="grid h-10 w-10 place-items-center rounded-xl border border-[#FFB958]/30 bg-[#FFB958]/10 font-display text-sm font-extrabold text-[#FFB958]">HA.</span>
-        <span class="font-display text-sm font-bold tracking-wide sm:text-base">HAFIDZ<span class="text-[#FFB958]">.</span></span>
-      </a>
-      <nav class="hidden items-center gap-8 md:flex" aria-label="Navigasi utama">
-        <a href="#about" data-nav-link class="text-sm text-zinc-400 transition hover:text-[#FFB958]">About</a>
-        <a href="#skills" data-nav-link class="text-sm text-zinc-400 transition hover:text-[#FFB958]">Skills</a>
-        <a href="#project" data-nav-link class="text-sm text-zinc-400 transition hover:text-[#FFB958]">Projects</a>
-        <a href="#playlist" data-nav-link class="text-sm text-zinc-400 transition hover:text-[#FFB958]">Playlist</a>
-        <a href="#education" data-nav-link class="text-sm text-zinc-400 transition hover:text-[#FFB958]">Education</a>
-      </nav>
-      <a href="#contact" class="hidden items-center gap-2 rounded-full border border-[#FFB958]/50 px-5 py-2.5 text-sm font-semibold text-[#FFB958] transition hover:bg-[#FFB958] hover:text-black md:inline-flex">Let's talk <span aria-hidden="true">↗</span></a>
-      <button id="hamburgerBtn" class="grid h-11 w-11 place-items-center rounded-xl border border-white/10 text-white transition hover:border-[#FFB958]/50 md:hidden" aria-label="Buka menu" aria-expanded="false" aria-controls="mobileMenu">
-        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/></svg>
-      </button>
-    </div>
-    <div id="mobileMenu" class="invisible absolute inset-x-0 top-full -translate-y-2 border-b border-white/10 bg-[#101010] px-6 py-6 opacity-0 shadow-2xl transition-all duration-300 md:hidden">
-      <nav class="flex flex-col gap-1" aria-label="Navigasi mobile">
-        <a href="#about" data-nav-link class="mobile-link rounded-lg px-4 py-3 text-zinc-300 transition hover:bg-white/5 hover:text-[#FFB958]">About me</a>
-        <a href="#skills" data-nav-link class="mobile-link rounded-lg px-4 py-3 text-zinc-300 transition hover:bg-white/5 hover:text-[#FFB958]">My skills</a>
-        <a href="#project" data-nav-link class="mobile-link rounded-lg px-4 py-3 text-zinc-300 transition hover:bg-white/5 hover:text-[#FFB958]">Projects</a>
-        <a href="#playlist" data-nav-link class="mobile-link rounded-lg px-4 py-3 text-zinc-300 transition hover:bg-white/5 hover:text-[#FFB958]">My Playlist</a>
-        <a href="#education" data-nav-link class="mobile-link rounded-lg px-4 py-3 text-zinc-300 transition hover:bg-white/5 hover:text-[#FFB958]">Education</a>
-        <a href="#contact" data-nav-link class="mobile-link rounded-lg px-4 py-3 text-[#FFB958] transition hover:bg-[#FFB958]/10">Contact ↗</a>
-      </nav>
-    </div>
-  </header>
-
+  <header class="bottom-nav" id="bottomNav" aria-label="Main navigation"><nav>
+      <a href="#home" data-nav-link>Home</a><a href="#about" data-nav-link>About</a><a href="#portfolio" data-nav-link>Portfolio</a><a href="#contact" data-nav-link>Contact</a>
+    </nav></header>
   <main>
     <section id="home" class="relative isolate flex min-h-[760px] items-center overflow-hidden pt-28 sm:min-h-[820px] lg:min-h-[900px]">
       <div class="hero-grid pointer-events-none absolute inset-0 -z-20"></div>
@@ -108,7 +80,7 @@
           <div class="absolute -inset-5 rounded-[2.5rem] border border-[#FFB958]/15"></div>
           <div class="absolute -right-8 top-12 h-28 w-28 rounded-full border border-[#FFB958]/25"></div>
           <div class="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/10 bg-[#181818] shadow-2xl">
-            <img src="/me.png" alt="Portrait of Muhammad Hafidz Abdillah" fetchpriority="high" class="h-full w-full object-cover object-center grayscale-[35%] transition duration-700 hover:scale-105 hover:grayscale-0" />
+            <img src="/profile-new.jpg" alt="Portrait of Muhammad Hafidz Abdillah" fetchpriority="high" class="h-full w-full object-cover object-center grayscale-[35%] transition duration-700 hover:scale-105 hover:grayscale-0" />
             <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/10"></div>
             <div class="absolute bottom-0 left-0 right-0 p-7 sm:p-9">
               <p class="text-xs font-semibold tracking-[.2em] text-[#FFB958] uppercase">Personal portfolio</p>
@@ -144,13 +116,22 @@
       </div>
     </section>
 
-    <section id="skills" class="scroll-mt-24 px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
-      <div class="mx-auto max-w-7xl">
-        <div class="fade-up mb-14 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-          <div><p class="mb-5 text-xs font-bold tracking-[.25em] text-[#FFB958] uppercase">02 / What I use</p><h2 class="font-display text-5xl font-extrabold tracking-tight sm:text-6xl">Skills<span class="text-[#FFB958]"> & tools.</span></h2></div>
-          <p class="max-w-sm text-sm leading-7 text-zinc-500">A growing toolkit for turning ideas into clear, responsive, and useful digital experiences.</p>
+    <section id="portfolio" class="portfolio-section scroll-mt-24">
+      <div class="portfolio-heading"><p class="section-eyebrow">03 / SELECTED WORK</p><h2>Portfolio<span>.</span></h2>
+        <div class="portfolio-tabs" role="tablist" aria-label="Portfolio categories">
+          <button class="portfolio-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="portfolio-projects" data-panel="portfolio-projects"><span>⌘</span> Projects</button>
+          <button class="portfolio-tab" type="button" role="tab" aria-selected="false" aria-controls="portfolio-certificates" data-panel="portfolio-certificates"><span>♙</span> Certificates</button>
+          <button class="portfolio-tab" type="button" role="tab" aria-selected="false" aria-controls="portfolio-stack" data-panel="portfolio-stack"><span>⚙</span> Tech Stack</button>
         </div>
-        <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+      </div>
+      <div class="portfolio-panels">
+        <div id="portfolio-projects" class="portfolio-panel is-active" role="tabpanel"><div class="portfolio-project-grid"><article class="project-card portfolio-project-card"><a class="project-image project-image-link" href="https://github.com/hafzhhabdillah" target="_blank" rel="noopener noreferrer" aria-label="Buka GitHub proyek"><span class="project-image-overlay">VIEW ON GITHUB ↗</span><img src="/myproject1.png" alt="Meowketplace project preview" loading="lazy"></a><div class="project-card-content p-6 sm:p-7"><p class="project-index">01 / E-commerce</p><h3 class="project-title">Meowketplace</h3><p class="project-desc">Aplikasi e-commerce khusus untuk kebutuhan kucing kesayanganmu.</p><div class="project-tags"><span>HTML</span><span>CSS</span><span>Figma</span><span>Tailwind</span><span>JavaScript</span></div><a class="project-github-link" href="https://github.com/hafzhhabdillah" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></div></article>
+<article class="project-card portfolio-project-card"><a class="project-image project-image-link" href="https://github.com/hafzhhabdillah" target="_blank" rel="noopener noreferrer" aria-label="Buka GitHub proyek"><span class="project-image-overlay">VIEW ON GITHUB ↗</span><img src="/myproject2.png" alt="Landing page portfolio design preview" loading="lazy"></a><div class="project-card-content p-6 sm:p-7"><p class="project-index">02 / UI design</p><h3 class="project-title">Landing Page Portofolio</h3><p class="project-desc">Eksplorasi desain antarmuka modern.</p><div class="project-tags"><span>Figma</span></div><a class="project-github-link" href="https://github.com/hafzhhabdillah" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></div></article>
+<article class="project-card portfolio-project-card"><a class="project-image project-image-link" href="https://github.com/luqman-Engginer/School_systemss" target="_blank" rel="noopener noreferrer" aria-label="Buka GitHub proyek"><span class="project-image-overlay">VIEW ON GITHUB ↗</span><img src="/myproject3.png" alt="Car rental landing page preview" loading="lazy"></a><div class="project-card-content p-6 sm:p-7"><p class="project-index">03 / Landing page</p><h3 class="project-title">Landing Page Rental Mobil</h3><p class="project-desc">Landing page responsif untuk penyewaan kendaraan.</p><div class="project-tags"><span>Figma</span></div><a class="project-github-link" href="https://github.com/luqman-Engginer/School_systemss" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></div></article>
+<article class="project-card portfolio-project-card"><a class="project-image project-image-link" href="https://github.com/hafzhhabdillah/perpustakaan" target="_blank" rel="noopener noreferrer" aria-label="Buka GitHub proyek"><span class="project-image-overlay">VIEW ON GITHUB ↗</span><img src="/myproject4.png" alt="Bbil Furniture landing page preview" loading="lazy"></a><div class="project-card-content p-6 sm:p-7"><p class="project-index">04 / E-commerce concept</p><h3 class="project-title">Landing Page Bbil Furniture</h3><p class="project-desc">Landing page responsif untuk membeli peralatan rumah.</p><div class="project-tags"><span>HTML</span><span>CSS</span><span>Figma</span><span>Tailwind</span><span>JavaScript</span></div><a class="project-github-link" href="https://github.com/hafzhhabdillah/perpustakaan" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></div></article>
+<article class="project-card portfolio-project-card"><a class="project-image project-image-link" href="https://github.com/hafzhhabdillah/chatbot" target="_blank" rel="noopener noreferrer" aria-label="Buka GitHub proyek"><span class="project-image-overlay">VIEW ON GITHUB ↗</span><img src="/myproject5.png" alt="Student violation application preview" loading="lazy"></a><div class="project-card-content p-6 sm:p-7"><p class="project-index">05 / Web application</p><h3 class="project-title">Aplikasi Pelanggaran Siswa</h3><p class="project-desc">Aplikasi untuk membantu pencatatan pelanggaran santri.</p><div class="project-tags"><span>HTML</span><span>CSS</span><span>Tailwind</span><span>JavaScript</span></div><a class="project-github-link" href="https://github.com/hafzhhabdillah/chatbot" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></div></article></div></div>
+        <div id="portfolio-certificates" class="portfolio-panel" role="tabpanel" hidden><div class="coming-soon-card"><span class="coming-soon-icon">✦</span><p class="coming-soon-kicker">CERTIFICATES</p><h3>Coming Soon</h3><p>Sertifikat dan pencapaian akan ditampilkan di sini.</p></div></div>
+        <div id="portfolio-stack" class="portfolio-panel" role="tabpanel" hidden><div class="portfolio-stack-intro"><p>TOOLS I WORK WITH</p><h3>Skills <span>&</span> Tools</h3></div><div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
           <div class="skill-card fade-up"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="" loading="lazy"><span>HTML</span></div>
           <div class="skill-card fade-up"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" alt="" loading="lazy"><span>CSS</span></div>
           <div class="skill-card fade-up"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" alt="" loading="lazy"><span>Figma</span></div>
@@ -163,92 +144,10 @@
           <div class="skill-card fade-up"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg" alt="" loading="lazy"><span>Vercel</span></div>
           <div class="skill-card fade-up"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-plain.svg" alt="" loading="lazy"><span>Firebase</span></div>
         </div>
+      </div></div>
       </div>
     </section>
-
-    <section id="project" class="scroll-mt-24 border-y border-white/[.05] bg-[#0d0d0d] px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
-      <div class="mx-auto max-w-7xl">
-        <div class="fade-up mb-12 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
-          <div><p class="mb-5 text-xs font-bold tracking-[.25em] text-[#FFB958] uppercase">03 / Selected work</p><h2 class="font-display text-5xl font-extrabold tracking-tight sm:text-6xl">Featured <span class="text-outline">projects.</span></h2></div>
-          <p class="max-w-xs text-sm leading-7 text-zinc-500 sm:text-right">Selected experiments and projects from my learning journey. <span class="text-[#FFB958]">Explore the work ↘</span></p>
-        </div>
-        <div class="swiper mySwiper overflow-visible">
-          <div class="swiper-wrapper pb-12">
-            <article class="swiper-slide project-card"><div class="project-image"><img src="/myproject1.png" alt="Meowketplace project preview" loading="lazy"></div><div class="p-6 sm:p-7"><p class="project-index">01 / E-commerce</p><h3 class="project-title">Meowketplace</h3><p class="project-desc">Aplikasi e-commerce khusus untuk kebutuhan kucing kesayanganmu.</p><div class="project-tags"><span>HTML</span><span>CSS</span><span>Figma</span><span>Tailwind</span><span>JavaScript</span></div></div></article>
-            <article class="swiper-slide project-card"><div class="project-image"><img src="/myproject2.png" alt="Landing page portfolio design preview" loading="lazy"></div><div class="p-6 sm:p-7"><p class="project-index">02 / UI design</p><h3 class="project-title">Landing Page Portofolio</h3><p class="project-desc">Eksplorasi desain antarmuka modern.</p><div class="project-tags"><span>Figma</span></div></div></article>
-            <article class="swiper-slide project-card"><div class="project-image"><img src="/myproject3.png" alt="Car rental landing page preview" loading="lazy"></div><div class="p-6 sm:p-7"><p class="project-index">03 / Landing page</p><h3 class="project-title">Landing Page Rental Mobil</h3><p class="project-desc">Landing page responsif untuk penyewaan kendaraan.</p><div class="project-tags"><span>Figma</span></div></div></article>
-            <article class="swiper-slide project-card"><div class="project-image"><img src="/myproject4.png" alt="Bbil Furniture landing page preview" loading="lazy"></div><div class="p-6 sm:p-7"><p class="project-index">04 / E-commerce concept</p><h3 class="project-title">Landing Page Bbil Furniture</h3><p class="project-desc">Landing page responsif untuk membeli peralatan rumah.</p><div class="project-tags"><span>HTML</span><span>CSS</span><span>Figma</span><span>Tailwind</span><span>JavaScript</span></div></div></article>
-            <article class="swiper-slide project-card"><div class="project-image"><img src="/myproject5.png" alt="Student violation application preview" loading="lazy"></div><div class="p-6 sm:p-7"><p class="project-index">05 / Web application</p><h3 class="project-title">Aplikasi Pelanggaran Siswa</h3><p class="project-desc">Aplikasi untuk membantu pencatatan pelanggaran santri.</p><div class="project-tags"><span>HTML</span><span>CSS</span><span>Tailwind</span><span>JavaScript</span></div></div></article>
-          </div>
-        </div>
-        <div class="project-controls">
-          <span class="project-hint"><span class="project-hint-dot"></span> Explore projects</span>
-          <div class="project-pagination swiper-pagination" aria-label="Project slides"></div>
-          <div class="project-arrows">
-            <button class="swiper-button-prev project-arrow" type="button" aria-label="Previous project"><span aria-hidden="true">←</span></button>
-            <button class="swiper-button-next project-arrow project-arrow-next" type="button" aria-label="Next project"><span aria-hidden="true">→</span></button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-        <section id="playlist" class="scroll-mt-24 border-y border-white/[.05] bg-[#0d0d0d] px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
-      <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.8fr_1.2fr] lg:items-center">
-        <div class="fade-left">
-          <p class="mb-5 text-xs font-bold tracking-[.25em] text-[#FFB958] uppercase">04 / On repeat</p>
-          <h2 class="font-display text-5xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl">My <span class="text-outline">playlist</span><span class="text-[#FFB958]">.</span></h2>
-          <div class="mt-8 h-px w-24 accent-line"></div>
-          <p class="mt-8 max-w-md text-base leading-8 text-zinc-400">Musik yang menemani proses belajar, ngoding, dan mengerjakan berbagai hal. Putar langsung playlist pilihan saya lewat Spotify.</p>
-          <a href="https://open.spotify.com/playlist/6uBWy6mAkYgI6PEwkpVh3D" target="_blank" rel="noopener noreferrer" class="mt-8 inline-flex items-center gap-3 rounded-full border border-[#FFB958]/40 px-6 py-3 text-sm font-semibold text-[#FFB958] transition hover:bg-[#FFB958] hover:text-[#111]">Open in Spotify <span aria-hidden="true">↗</span></a>
-        </div>
-        <div class="fade-right overflow-hidden rounded-[24px] border border-white/10 bg-[#111] p-2 shadow-2xl shadow-black/30">
-          <iframe
-            title="Hafidz's Spotify playlist"
-            src="https://open.spotify.com/embed/playlist/6uBWy6mAkYgI6PEwkpVh3D?utm_source=generator&theme=0"
-            width="100%"
-            height="380"
-            style="border:0;border-radius:18px"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy"
-            allowfullscreen>
-          </iframe>
-        </div>
-      </div>
-    </section>
-
-<section id="education" class="scroll-mt-24 px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
-      <div class="mx-auto max-w-7xl">
-        <div class="fade-up mb-14"><p class="mb-5 text-xs font-bold tracking-[.25em] text-[#FFB958] uppercase">05 / My journey</p><h2 class="font-display text-5xl font-extrabold tracking-tight sm:text-6xl">Education<span class="text-[#FFB958]">.</span></h2></div>
-        <div class="grid gap-4">
-          <article class="education-card fade-up"><div class="education-logo"><img src="/mq.png" alt="SMK Madinatulquran logo" loading="lazy"></div><div class="min-w-0 flex-1"><p class="text-xs font-semibold tracking-widest text-[#FFB958] uppercase">2026 – Present</p><h3 class="mt-2 font-display text-lg font-bold sm:text-xl">SMK Madinatulquran</h3><p class="mt-1 text-sm text-zinc-400">Rekayasa Perangkat Lunak</p></div><a href="https://www.google.com/maps/search/SMK+Madinatulquran+Jonggol" target="_blank" rel="noopener noreferrer" class="location-link">Location ↗</a></article>
-          <article class="education-card fade-up"><div class="education-logo"><img src="/binaqurani.png" alt="BQ Islamic Boarding School logo" loading="lazy"></div><div class="min-w-0 flex-1"><p class="text-xs font-semibold tracking-widest text-[#FFB958] uppercase">2022 – 2025</p><h3 class="mt-2 font-display text-lg font-bold sm:text-xl">BQ Islamic Boarding School</h3><p class="mt-1 text-sm text-zinc-400">Junior high school</p></div><a href="https://www.google.com/maps/search/Bina+Qurani+Islamic+Boarding+School" target="_blank" rel="noopener noreferrer" class="location-link">Location ↗</a></article>
-          <article class="education-card fade-up"><div class="education-logo"><img src="/alqurrobilal.png" alt="Ponpes Al-Qurro logo" loading="lazy"></div><div class="min-w-0 flex-1"><p class="text-xs font-semibold tracking-widest text-[#FFB958] uppercase">2019 – 2021</p><h3 class="mt-2 font-display text-lg font-bold sm:text-xl">Ponpes Al-Qurro</h3><p class="mt-1 text-sm text-zinc-400">Elementary School</p></div><a href="https://www.google.com/maps/search/Ponpes+Al-Qurro+Bogor" target="_blank" rel="noopener noreferrer" class="location-link">Location ↗</a></article>
-          <article class="education-card fade-up"><div class="education-logo"><img src="/sditfajar.png" alt="SDIT Fajar Depok logo" loading="lazy"></div><div class="min-w-0 flex-1"><p class="text-xs font-semibold tracking-widest text-[#FFB958] uppercase">2016 – 2018</p><h3 class="mt-2 font-display text-lg font-bold sm:text-xl">SDIT Fajar Depok</h3><p class="mt-1 text-sm text-zinc-400">Elementary School</p></div><a href="https://www.google.com/maps/search/SDIT+Fajar+Depok" target="_blank" rel="noopener noreferrer" class="location-link">Location ↗</a></article>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="scroll-mt-24 border-t border-white/[.06] bg-[#0d0d0d] px-5 pb-10 pt-24 sm:px-8 lg:px-12 lg:pt-32">
-      <div class="mx-auto max-w-7xl">
-        <div class="fade-up grid gap-12 lg:grid-cols-[1fr_.8fr] lg:gap-20">
-          <div>
-            <p class="mb-5 text-xs font-bold tracking-[.25em] text-[#FFB958] uppercase">06 / Get in touch</p>
-            <h2 class="font-display text-5xl font-extrabold leading-[1.05] tracking-tight sm:text-7xl">Have an idea?<br><span class="text-outline">Let's talk.</span></h2>
-            <p class="mt-7 max-w-lg text-base leading-8 text-zinc-400">Punya pertanyaan atau ingin berdiskusi tentang project? Kirim pesan dan mari mulai percakapan.</p>
-            <div class="mt-12 grid gap-7 sm:grid-cols-2">
-              <div><p class="mb-2 text-xs tracking-widest text-zinc-500 uppercase">Email</p><a href="mailto:hafidzabdillah19706@gmail.com" class="break-all text-sm font-semibold text-zinc-200 transition hover:text-[#FFB958]">hafidzabdillah19706@gmail.com</a></div>
-              <div><p class="mb-2 text-xs tracking-widest text-zinc-500 uppercase">Phone / WhatsApp</p><a href="https://wa.me/6285891263024" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-zinc-200 transition hover:text-[#FFB958]">+62 858 9126 3024 ↗</a></div>
-              <div><p class="mb-2 text-xs tracking-widest text-zinc-500 uppercase">Instagram</p><a href="https://instagram.com/hfzzhbdil" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-zinc-200 transition hover:text-[#FFB958]">@hfzzhbdil ↗</a></div>
-              <div><p class="mb-2 text-xs tracking-widest text-zinc-500 uppercase">GitHub</p><a href="https://github.com/hafzhhabdillah" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-zinc-200 transition hover:text-[#FFB958]">github.com/hafzhhabdillah ↗</a></div>
-            </div>
-          </div>
-          <div class="rounded-3xl border border-white/10 bg-[#141414] p-6 sm:p-8">
-            <h3 class="font-display text-xl font-bold">Send a message</h3>
-            <p class="mt-2 text-sm leading-6 text-zinc-500">Form ini akan membuka WhatsApp dengan pesan yang sudah disiapkan.</p>
-            <form id="contactForm" class="mt-8 space-y-5">
-              <div><label for="contactName" class="mb-2 block text-xs font-semibold text-zinc-400">Your name</label><input id="contactName" name="name" type="text" autocomplete="name" placeholder="Nama kamu" required class="contact-input"></div>
-              <div><label for="contactEmail" class="mb-2 block text-xs font-semibold text-zinc-400">Your email</label><input id="contactEmail" name="email" type="email" autocomplete="email" placeholder="nama@email.com" required class="contact-input"></div>
-              <div><label for="contactMessage" class="mb-2 block text-xs font-semibold text-zinc-400">Message</label><textarea id="contactMessage" name="message" rows="4" placeholder="Tulis pesan kamu..." required class="contact-input resize-y"></textarea></div>
+iv>
               <button type="submit" class="flex w-full items-center justify-center gap-3 rounded-xl bg-[#FFB958] px-6 py-4 text-sm font-bold text-[#111] transition hover:-translate-y-1 hover:bg-[#ffc879]">Send via WhatsApp <span aria-hidden="true">↗</span></button>
             </form>
           </div>
