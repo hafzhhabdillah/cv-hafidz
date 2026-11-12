@@ -217,3 +217,47 @@ if (!reduceMotion && window.matchMedia('(hover:hover) and (pointer:fine)').match
     });
   });
 }
+
+
+// Interactive 3D profile card: desktop pointer tilt, mobile floating-only.
+const idCard = document.querySelector('[data-id-card]');
+if (idCard && !reduceMotion && window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
+  const cardWrap = idCard.parentElement;
+  let frame = 0;
+  let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
+  let pointerX = 50, pointerY = 50;
+  const renderCard = () => {
+    currentX += (targetX - currentX) * .12;
+    currentY += (targetY - currentY) * .12;
+    idCard.style.setProperty('--tilt-x', currentX.toFixed(2) + 'deg');
+    idCard.style.setProperty('--tilt-y', currentY.toFixed(2) + 'deg');
+    idCard.style.setProperty('--light-x', pointerX.toFixed(1) + '%');
+    idCard.style.setProperty('--light-y', pointerY.toFixed(1) + '%');
+    idCard.style.setProperty('--shadow-x', (-currentY * 1.4).toFixed(1) + 'px');
+    idCard.style.setProperty('--shadow-y', (18 + currentX * 1.2).toFixed(1) + 'px');
+    if (Math.abs(targetX-currentX) > .02 || Math.abs(targetY-currentY) > .02) {
+      frame = requestAnimationFrame(renderCard);
+    } else {
+      frame = 0;
+    }
+  };
+  const moveCard = event => {
+    const rect = idCard.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
+    targetY = (x - .5) * 12;
+    targetX = (.5 - y) * 10;
+    pointerX = x * 100;
+    pointerY = y * 100;
+    if (!frame) frame = requestAnimationFrame(renderCard);
+  };
+  const resetCard = () => {
+    targetX = 0; targetY = 0; pointerX = 50; pointerY = 50;
+    if (!frame) frame = requestAnimationFrame(renderCard);
+    cardWrap.classList.remove('is-card-active');
+  };
+  idCard.addEventListener('pointerenter', () => cardWrap.classList.add('is-card-active'));
+  idCard.addEventListener('pointermove', moveCard, {passive:true});
+  idCard.addEventListener('pointerleave', resetCard);
+  idCard.addEventListener('pointercancel', resetCard);
+}
