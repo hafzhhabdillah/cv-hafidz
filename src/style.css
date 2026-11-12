@@ -1125,3 +1125,213 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 @media (prefers-reduced-motion: reduce) {
   .id-card-photo { transform: none !important; }
 }
+
+
+/* FINAL PRESENTATION PASS — monochrome black, warm accent, consistent contrast. */
+:root {
+  --paper: #090909;
+  --ink: #f4f4f4;
+  --line: rgba(255,255,255,.12);
+  --portfolio-accent: #FFB958;
+}
+html, body { background: #080808 !important; color: #f4f4f4; }
+body {
+  background:
+    radial-gradient(ellipse at 50% -24rem, rgba(255,185,88,.055), transparent 55%),
+    #080808 !important;
+}
+#home, #about, #playlist, #portfolio, #contact,
+.portfolio-section, .music-section {
+  background-color: #080808 !important;
+  color: #f4f4f4 !important;
+}
+#about, #contact { border-color: rgba(255,255,255,.09) !important; }
+#about { background: #0c0c0c !important; }
+#contact { background: #0c0c0c !important; }
+#home::before { border-color: rgba(255,185,88,.055); box-shadow: 0 0 0 42px rgba(255,185,88,.012), 0 0 0 84px rgba(255,185,88,.008); }
+
+/* Hero portrait: keep the real photo natural and make the frame quieter. */
+#home .fade-right > .absolute.-inset-5 {
+  border-color: rgba(255,185,88,.18) !important;
+  border-radius: 2rem !important;
+}
+.id-card {
+  border: 1px solid rgba(255,255,255,.13) !important;
+  border-radius: 1.65rem !important;
+  background: #111 !important;
+  box-shadow: 0 28px 75px rgba(0,0,0,.52), 0 0 0 1px rgba(255,255,255,.025) !important;
+}
+.id-card-photo {
+  width: 100%;
+  height: 100%;
+  filter: none !important;
+  object-fit: cover;
+  object-position: 50% 24%;
+  transform: translateZ(8px) scale(1.01);
+}
+.id-card-shade {
+  background: linear-gradient(180deg, rgba(0,0,0,.04) 0%, transparent 42%, rgba(0,0,0,.64) 100%) !important;
+}
+.id-card-copy { padding: 1.65rem !important; }
+.id-card-copy p:last-child { text-shadow: 0 2px 18px rgba(0,0,0,.5); }
+.id-card-float.is-card-active .id-card {
+  box-shadow: 0 32px 85px rgba(0,0,0,.58), 0 0 0 1px rgba(255,185,88,.16) !important;
+}
+#home .fade-right > .absolute.-bottom-6 {
+  border-color: rgba(255,255,255,.12) !important;
+  background: rgba(17,17,17,.96) !important;
+}
+
+/* Consistent section headings and supporting copy. */
+.portfolio-heading h2, .music-copy h2 { color: #f5f5f5 !important; }
+.portfolio-heading h2 span, .music-copy h2 span { color: #FFB958 !important; }
+.section-eyebrow, .music-eyebrow { color: #FFB958 !important; }
+.music-copy > p:not(.music-eyebrow) { color: #a1a1aa !important; }
+.music-player-card {
+  padding: 14px !important;
+  border: 1px solid rgba(255,255,255,.1) !important;
+  border-radius: 18px !important;
+  background: #111 !important;
+  box-shadow: 0 20px 55px rgba(0,0,0,.25) !important;
+}
+.music-player-card iframe { border-radius: 12px !important; }
+
+/* Project cards: clear boundaries, calm black surfaces, consistent spacing. */
+.portfolio-project-card, .project-card {
+  overflow: hidden !important;
+  border: 1px solid rgba(255,255,255,.1) !important;
+  border-radius: 18px !important;
+  background: linear-gradient(155deg, #171717, #101010) !important;
+  box-shadow: 0 14px 36px rgba(0,0,0,.22) !important;
+}
+.portfolio-project-card:hover, .project-card:hover {
+  border-color: rgba(255,185,88,.36) !important;
+  box-shadow: 0 22px 48px rgba(0,0,0,.36) !important;
+}
+.portfolio-project-card .project-image {
+  margin: 12px 12px 0 !important;
+  overflow: hidden;
+  border-radius: 12px !important;
+  background: #090909 !important;
+}
+.portfolio-project-card .project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain !important;
+}
+.project-card-content { padding: 20px 20px 22px !important; }
+.project-index, .project-github-link:hover { color: #FFB958 !important; }
+.project-title { color: #f5f5f5 !important; }
+.project-desc { color: #a1a1aa !important; }
+.project-tags span {
+  border-color: rgba(255,255,255,.11) !important;
+  background: rgba(255,255,255,.04) !important;
+  color: #c4c4c4 !important;
+}
+.project-github-link {
+  border-color: rgba(255,255,255,.14) !important;
+  background: rgba(255,255,255,.045) !important;
+  color: #f1f1f1 !important;
+}
+.coming-soon-card {
+  border: 1px dashed rgba(255,255,255,.18) !important;
+  border-radius: 18px !important;
+  background: #101010 !important;
+  color: #eee !important;
+}
+.coming-soon-card h3 { color: #f4f4f4 !important; }
+.coming-soon-card p:last-child { color: #999 !important; }
+
+/* Tabs and technology groups use the same dark component language. */
+.portfolio-tabs {
+  border: 1px solid rgba(255,255,255,.1) !important;
+  border-radius: 999px !important;
+  background: #111 !important;
+  padding: 5px !important;
+  gap: 4px !important;
+}
+.portfolio-tab {
+  border-radius: 999px !important;
+  color: #aaa !important;
+  padding: 10px 17px !important;
+}
+.portfolio-tab.is-active {
+  background: #FFB958 !important;
+  color: #111 !important;
+  box-shadow: none !important;
+}
+.stack-category {
+  border: 1px solid rgba(255,255,255,.1) !important;
+  border-radius: 18px !important;
+  background: #111 !important;
+  padding: 22px !important;
+}
+.stack-category-heading h4 { color: #f2f2f2 !important; }
+.stack-category-heading > span {
+  background: rgba(255,185,88,.1) !important;
+  color: #FFB958 !important;
+}
+#skills .skill-card {
+  border: 1px solid rgba(255,255,255,.09) !important;
+  border-radius: 15px !important;
+  background: #151515 !important;
+  color: #d1d1d1 !important;
+}
+#skills .skill-card:hover {
+  border-color: rgba(255,185,88,.32) !important;
+  background: #1a1712 !important;
+}
+#skills .skill-card img { filter: grayscale(.15); opacity: .88; }
+
+/* Education and contact: remove leftover blue/white theme remnants. */
+#about .education-number, #about .education-level,
+#about .education-location { color: #FFB958 !important; }
+#about .education-item { border-color: rgba(255,255,255,.1) !important; }
+#about .education-item:hover { background: rgba(255,185,88,.035) !important; }
+.highlight-icon {
+  border-color: rgba(255,185,88,.25) !important;
+  background: rgba(255,185,88,.07) !important;
+  color: #FFB958 !important;
+}
+#contact .contact-input {
+  border: 1px solid rgba(255,255,255,.13) !important;
+  border-radius: 12px !important;
+  background: #111 !important;
+  color: #f5f5f5 !important;
+}
+#contact .contact-input:focus { border-color: rgba(255,185,88,.65) !important; }
+#contact button[type=submit] {
+  border-radius: 999px !important;
+  background: #FFB958 !important;
+  color: #111 !important;
+}
+
+/* Project archive/detail pages follow the same black portfolio theme. */
+.subpage {
+  background: #090909 !important;
+  color: #f3f3f3 !important;
+}
+.subpage-top, .subpage-heading, .detail-columns, .project-pagination {
+  border-color: rgba(255,255,255,.12) !important;
+}
+.subpage-heading h1, .detail-hero h2, .detail-body h3,
+.project-pagination strong { color: #f4f4f4 !important; }
+.subpage-heading > p, .detail-label, .detail-category,
+.detail-columns aside, .detail-body p, .detail-body li,
+.detail-hero > div > p:last-child { color: #a1a1aa !important; }
+.detail-cover { background: #111 !important; }
+.detail-links {
+  border-color: rgba(255,255,255,.12) !important;
+  color: #bbb !important;
+}
+.back-link, .not-found a { color: #FFB958 !important; }
+
+@media (max-width: 640px) {
+  .portfolio-tabs { width: 100% !important; justify-content: space-between !important; }
+  .portfolio-tab { padding: 10px 12px !important; font-size: 11px !important; }
+  .music-player-card { padding: 9px !important; }
+  .id-card-copy { padding: 1.25rem !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .id-card-photo { transform: none !important; }
+}
