@@ -1022,3 +1022,84 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   #about .education-item { transition: none; }
   #about .education-item:hover { padding-right: 0; padding-left: 0; }
 }
+
+
+/* Scrolled navigation: centered floating pill, matching the reference behavior. */
+.site-nav#bottomNav {
+  position: fixed !important;
+  z-index: 120 !important;
+  top: 18px !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: 50% !important;
+  display: flex !important;
+  width: max-content !important;
+  max-width: calc(100% - 32px);
+  min-height: 0;
+  justify-content: center !important;
+  padding: 6px !important;
+  border: 1px solid rgba(160, 180, 220, .2) !important;
+  border-radius: 999px !important;
+  background: rgba(8, 14, 26, .82) !important;
+  box-shadow: 0 12px 38px rgba(0,0,0,.32), inset 0 1px rgba(255,255,255,.08) !important;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  transform: translate3d(-50%, -18px, 0) !important;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform .35s cubic-bezier(.22,1,.36,1), opacity .28s ease, visibility 0s linear .35s;
+}
+.site-nav#bottomNav.is-visible {
+  transform: translate3d(-50%, 0, 0) !important;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: transform .35s cubic-bezier(.22,1,.36,1), opacity .28s ease, visibility 0s;
+}
+.site-nav#bottomNav .menu-toggle { display: none !important; }
+.site-nav#bottomNav nav {
+  position: static !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 999px;
+  background: transparent !important;
+}
+.site-nav#bottomNav nav a {
+  padding: 10px 17px !important;
+  border-radius: 999px;
+  color: #c0c9da;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: color .2s ease, background .2s ease;
+}
+.site-nav#bottomNav nav a::after { display: none !important; }
+.site-nav#bottomNav nav a:hover,
+.site-nav#bottomNav nav a.is-active {
+  background: rgba(75, 126, 230, .2);
+  color: #fff !important;
+}
+@media (max-width: 600px) {
+  .site-nav#bottomNav {
+    top: 12px !important;
+    width: max-content !important;
+    max-width: calc(100% - 20px);
+    padding: 4px !important;
+  }
+  .site-nav#bottomNav nav { gap: 1px; }
+  .site-nav#bottomNav nav a {
+    padding: 10px clamp(9px, 3vw, 14px) !important;
+    font-size: 11px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-nav#bottomNav,
+  .site-nav#bottomNav.is-visible { transition: none !important; }
+}
