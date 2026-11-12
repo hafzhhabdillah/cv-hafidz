@@ -78,6 +78,14 @@ document.querySelectorAll('.portfolio-tab').forEach(tab=>tab.addEventListener('c
 const certificates = document.getElementById('portfolio-certificates');
 if (certificates) certificates.innerHTML = '<div class="coming-soon-card"><p class="coming-soon-kicker">CERTIFICATES</p><h3>Nothing to show yet.</h3><p>Sertifikat akan ditambahkan setelah tersedia.</p></div>';
 
+const aboutContent = document.querySelector('#about .fade-right');
+if (aboutContent && !aboutContent.querySelector('.about-facts')) {
+  const facts = document.createElement('div');
+  facts.className = 'about-facts';
+  facts.innerHTML = '<div><span>EDUCATION</span><strong>SMK Madinatul Qur’an</strong><small>Rekayasa Perangkat Lunak</small></div><div><span>FOCUS AREAS</span><strong>Front-end development</strong><small>UI design · Responsive web</small></div><div><span>INTERESTS</span><strong>Web projects & visual design</strong><small>Basketball · Exploring technology</small></div>';
+  aboutContent.append(facts);
+}
+
 const form = document.getElementById('contactForm');
 form?.addEventListener('submit', event => {
   event.preventDefault();
