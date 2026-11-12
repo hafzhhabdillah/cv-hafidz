@@ -907,3 +907,69 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   .id-card-photo { transform:none !important; transition:none !important; }
   .id-card-glare { display:none; }
 }
+
+
+/* Navbar reveal after the hero — fixed so its appearance never shifts layout. */
+.site-nav {
+  transform:translate3d(0,-115%,0);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  background:rgba(245,245,243,.78);
+  -webkit-backdrop-filter:blur(16px);
+  backdrop-filter:blur(16px);
+  transition:transform 620ms cubic-bezier(.22,1,.36,1),opacity 420ms ease,
+    visibility 0s linear 620ms,padding 300ms cubic-bezier(.22,1,.36,1),
+    border-color 300ms ease,background 300ms ease;
+}
+.site-nav.is-visible {
+  transform:translate3d(0,0,0);
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transition:transform 620ms cubic-bezier(.22,1,.36,1),opacity 420ms ease,
+    visibility 0s,padding 300ms cubic-bezier(.22,1,.36,1),
+    border-color 300ms ease,background 300ms ease;
+}
+.site-nav .menu-toggle { margin-left:auto; }
+.site-nav nav { margin-left:auto; }
+.site-nav.is-visible.is-scrolled {
+  background:rgba(245,245,243,.9);
+  -webkit-backdrop-filter:blur(20px);
+  backdrop-filter:blur(20px);
+  border-color:rgba(23,23,23,.09);
+}
+@media(max-width:800px) {
+  .site-nav nav { margin-left:0; }
+  .site-nav .menu-toggle { margin-left:auto; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .site-nav,.site-nav.is-visible {
+    transform:none;
+    transition:none;
+  }
+}
+
+/* Strengthened 3D card response and layered lighting. */
+.id-card-float { perspective:1250px; }
+.id-card {
+  backface-visibility:hidden;
+  transform:rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateZ(0);
+  transition:box-shadow 320ms cubic-bezier(.22,1,.36,1),border-color 320ms ease;
+}
+.id-card-photo { backface-visibility:hidden; }
+.id-card-glare {
+  background:
+    radial-gradient(ellipse at var(--light-x) var(--light-y),rgba(255,255,255,.27),rgba(255,255,255,.10) 17%,transparent 52%),
+    linear-gradient(135deg,rgba(255,255,255,.08),transparent 38%,rgba(255,185,88,.055));
+}
+.id-card-float.is-card-active .id-card {
+  box-shadow:var(--shadow-x) var(--shadow-y) 64px rgba(0,0,0,.5),
+    0 22px 54px rgba(255,185,88,.09);
+}
+@media(prefers-reduced-motion:reduce) {
+  .id-card { transform:none!important; }
+}
+
+/* Keep section anchors clear of the revealed fixed navigation. */
+#home,#about,#playlist,#portfolio,#contact { scroll-margin-top:96px; }
