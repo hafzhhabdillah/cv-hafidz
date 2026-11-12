@@ -1301,3 +1301,11 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .site-nav, .site-nav.is-visible { transition: none !important; }
 }
+
+/* Keep the revealed navbar visible in its scrolled glass state too. */
+.site-nav.is-visible.is-scrolled {
+  transform: translate3d(-50%, 0, 0) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
