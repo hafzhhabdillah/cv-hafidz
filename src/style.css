@@ -774,3 +774,13 @@ body{background:var(--paper)!important;color:var(--ink)!important;font-family:'D
  .detail-hero{padding-top:45px}
 }
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}.fade-up,.fade-left,.fade-right{opacity:1!important;transform:none!important}}
+
+
+/* About facts and layout finishing */
+.about-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:36px;padding-top:25px;border-top:1px solid var(--line)}
+.about-facts>div{display:flex;flex-direction:column;gap:8px;min-width:0}
+.about-facts span{color:#92928d;font-size:9px;font-weight:700;letter-spacing:.14em}
+.about-facts strong{color:#222;font-size:13px;line-height:1.5}
+.about-facts small{color:#888;font-size:11px;line-height:1.5}
+#home,#about,#playlist,#portfolio,#contact{scroll-margin-top:88px}
+@media(max-width:700px){.about-facts{grid-template-columns:1fr;gap:17px}.about-facts>div{padding-bottom:15px;border-bottom:1px solid var(--line)}}
