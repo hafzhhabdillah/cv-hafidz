@@ -505,3 +505,86 @@ body{background:#050811;color:#eef2ff}
 @media(max-width:900px){.portfolio-project-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.bottom-nav{bottom:12px;width:calc(100% - 24px)}.bottom-nav nav{justify-content:space-between}.bottom-nav a{flex:1;text-align:center;padding:11px 8px;font-size:12px}.portfolio-section{padding:80px 16px 105px}.portfolio-tabs{width:100%;gap:2px}.portfolio-tab{flex:1;justify-content:center;gap:5px;padding:11px 5px;font-size:11px}.portfolio-tab span{display:none}.portfolio-project-grid{grid-template-columns:1fr;gap:17px}#portfolio-stack .grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(prefers-reduced-motion:reduce){.bottom-nav,.portfolio-project-card,.project-image-overlay{transition:none!important}}
+
+
+/* Navigation: centered floating pill at the TOP, shown after scrolling */
+.bottom-nav{
+  top:20px!important;
+  bottom:auto!important;
+  left:50%!important;
+  transform:translate(-50%,-16px)!important;
+  opacity:0;
+  pointer-events:none;
+}
+.bottom-nav.is-visible{
+  transform:translate(-50%,0)!important;
+  opacity:1;
+  pointer-events:auto;
+}
+@media(max-width:600px){
+  .bottom-nav{top:12px!important;bottom:auto!important;width:max-content;max-width:calc(100% - 20px)}
+  .bottom-nav nav{justify-content:center}
+  .bottom-nav a{flex:0 1 auto;white-space:nowrap}
+}
+
+/* More lively first screen: star field, entrance sequence and gentle motion */
+#home{
+  position:relative;
+  background:
+    radial-gradient(ellipse at 18% 25%,rgba(31,88,210,.22),transparent 38%),
+    radial-gradient(ellipse at 88% 80%,rgba(14,85,150,.16),transparent 32%),
+    #050811;
+}
+#home::after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:0;
+  pointer-events:none;
+  opacity:.62;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 18%,rgba(255,255,255,.9) 50%,transparent 100%),
+    radial-gradient(1px 1px at 26% 68%,rgba(255,255,255,.75) 50%,transparent 100%),
+    radial-gradient(2px 2px at 44% 24%,rgba(255,255,255,.7) 50%,transparent 100%),
+    radial-gradient(1px 1px at 63% 12%,rgba(255,255,255,.8) 50%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 82% 38%,rgba(255,255,255,.8) 50%,transparent 100%),
+    radial-gradient(1px 1px at 91% 76%,rgba(255,255,255,.7) 50%,transparent 100%),
+    radial-gradient(1px 1px at 72% 88%,rgba(255,255,255,.7) 50%,transparent 100%);
+  background-size:100% 100%;
+  animation:star-drift 16s ease-in-out infinite alternate,star-twinkle 4s ease-in-out infinite;
+}
+#home .fade-left.is-visible>*{
+  animation:hero-enter .75s cubic-bezier(.2,.75,.25,1) both;
+}
+#home .fade-left.is-visible>*:nth-child(1){animation-delay:.08s}
+#home .fade-left.is-visible>*:nth-child(2){animation-delay:.16s}
+#home .fade-left.is-visible>*:nth-child(3){animation-delay:.24s}
+#home .fade-left.is-visible>*:nth-child(4){animation-delay:.32s}
+#home .fade-left.is-visible>*:nth-child(5){animation-delay:.4s}
+#home .fade-left.is-visible>*:nth-child(6){animation-delay:.48s}
+#home .fade-right.is-visible .relative.aspect-\[4\/5\]{
+  animation:portrait-arrive 1s cubic-bezier(.2,.75,.25,1) both,portrait-float 7s ease-in-out 1s infinite;
+}
+#home .fade-right.is-visible>.absolute.-right-8{animation:orbit-float 7s ease-in-out infinite}
+#home .fade-right.is-visible>.absolute.-bottom-6{animation:float-soft 6s ease-in-out infinite}
+#home .text-outline{transition:color .35s ease,-webkit-text-stroke-color .35s ease}
+#home .text-outline:hover{color:rgba(255,255,255,.08);-webkit-text-stroke-color:#75a2ff}
+#home a[href="#portfolio"]{position:relative;overflow:hidden}
+#home a[href="#portfolio"]::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  transform:translateX(-120%) skewX(-18deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);
+  transition:transform .65s ease;
+}
+#home a[href="#portfolio"]:hover::after{transform:translateX(120%) skewX(-18deg)}
+@keyframes hero-enter{from{opacity:0;transform:translateY(24px);filter:blur(5px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+@keyframes portrait-arrive{from{opacity:0;transform:translateY(28px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes portrait-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@keyframes star-drift{from{background-position:0 0}to{background-position:12px -18px}}
+@keyframes star-twinkle{0%,100%{opacity:.42}50%{opacity:.8}}
+@media(prefers-reduced-motion:reduce){
+  #home::after,#home .fade-left.is-visible>*,#home .fade-right.is-visible .relative.aspect-\[4\/5\],
+  #home .fade-right.is-visible>.absolute.-right-8,#home .fade-right.is-visible>.absolute.-bottom-6{animation:none!important}
+}
