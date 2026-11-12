@@ -12,6 +12,7 @@ const projects = [
 
 const nav = document.getElementById('bottomNav');
 const navLinks = [...document.querySelectorAll('[data-nav-link]')];
+let scrollTicking = false;
 const updateNav = () => {
   const y = window.scrollY;
   nav?.classList.toggle('is-scrolled', y > 24);
@@ -25,8 +26,14 @@ const updateNav = () => {
     a.classList.toggle('is-active', active);
     if (active) a.setAttribute('aria-current','location'); else a.removeAttribute('aria-current');
   });
+  scrollTicking = false;
 };
-window.addEventListener('scroll', updateNav, {passive:true});
+window.addEventListener('scroll', () => {
+  if (!scrollTicking) {
+    scrollTicking = true;
+    requestAnimationFrame(updateNav);
+  }
+}, {passive:true});
 updateNav();
 
 const menuToggle = document.getElementById('menuToggle');
@@ -41,8 +48,8 @@ primaryNav?.querySelectorAll('a').forEach(a => a.addEventListener('click', () =>
   primaryNav.classList.remove('is-open');
 }));
 
-if (!reduceMotion) {
-  const lenis = new Lenis({duration:1.05,smoothWheel:true});
+if (!reduceMotion && !('ontouchstart' in window && navigator.maxTouchPoints > 0)) {
+  const lenis = new Lenis({duration:1.05,smoothWheel:true,anchors:{offset:-88}});
   const raf = time => { lenis.raf(time); requestAnimationFrame(raf); };
   requestAnimationFrame(raf);
 }
@@ -127,9 +134,86 @@ if (projectSlug) {
   else if (main) main.innerHTML = pageShell('404 / NOT FOUND','Project not found','<p class="not-found">This project could not be found. <a href="?page=projects">Browse all projects</a>.</p>');
 } else if (page === 'projects') renderProjects();
 
-if ('IntersectionObserver' in window && !projectSlug && page !== 'projects') {
-  const observer = new IntersectionObserver((entries,obs)=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');obs.unobserve(entry.target);}}),{threshold:.08});
-  document.querySelectorAll('.fade-up,.fade-left,.fade-right').forEach(el=>observer.observe(el));
+// Reusable reveal system: observe section-level groups and reveal their children in sequence.
+const revealTargets = document.querySelectorAll(
+  'main > section, .work-card, .stack-category, .coming-soon-card, .detail-hero, .detail-cover, .detail-columns, .project-pagination'
+);
+if (!reduceMotion && 'IntersectionObserver' in window) {
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('motion-visible');
+      observer.unobserve(entry.target);
+    });
+  }, {threshold:.12, rootMargin:'0px 0px -6% 0px'});
+  revealTargets.forEach((el,index) => {
+    el.classList.add('motion-reveal');
+    el.style.setProperty('--motion-index', String(Math.min(index % 4, 3)));
+    revealObserver.observe(el);
+  });
+  document.querySelectorAll('.fade-up,.fade-left,.fade-right').forEach(el => {
+    el.classList.add('motion-reveal');
+    revealObserver.observe(el);
+  });
 } else {
-  document.querySelectorAll('.fade-up,.fade-left,.fade-right').forEach(el=>el.classList.add('is-visible'));
+  revealTargets.forEach(el => el.classList.add('motion-visible'));
+  document.querySelectorAll('.fade-up,.fade-left,.fade-right').forEach(el => el.classList.add('is-visible'));
+}
+
+// First-visit hero choreography.
+if (!reduceMotion && !projectSlug && page !== 'projects') {
+  document.body.classList.add('motion-ready');
+  requestAnimationFrame(() => document.body.classList.add('motion-start'));
+} else {
+  document.body.classList.add('motion-start');
+}
+
+// Lightweight page entrance/exit, retaining normal URLs and browser history.
+document.body.classList.add('page-enter');
+requestAnimationFrame(() => requestAnimationFrame(() => document.body.classList.add('page-entered')));
+document.addEventListener('click', event => {
+  const link = event.target.closest('a[href]');
+  if (!link || reduceMotion || event.defaultPrevented || event.button !== 0 ||
+      event.metaKey || event.ctrlKey || event.shiftKey || event.altKey ||
+      link.target === '_blank' || link.hasAttribute('download')) return;
+  const url = new URL(link.href, window.location.href);
+  if (url.origin !== window.location.origin || url.href === window.location.href ||
+      link.getAttribute('href')?.startsWith('#')) return;
+  document.body.classList.add('page-leaving');
+});
+
+// Minimal scroll progress, created without changing the page layout.
+const progress = document.createElement('div');
+progress.className = 'scroll-progress';
+progress.setAttribute('aria-hidden','true');
+document.body.append(progress);
+let progressPending = false;
+const updateProgress = () => {
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  progress.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
+  progressPending = false;
+};
+window.addEventListener('scroll', () => {
+  if (!progressPending) {
+    progressPending = true;
+    requestAnimationFrame(updateProgress);
+  }
+}, {passive:true});
+updateProgress();
+
+// Subtle pointer response only for fine-pointer devices.
+if (!reduceMotion && window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
+  document.querySelectorAll('.outline-link, #home .mt-10 a, #contact button[type=submit]').forEach(button => {
+    button.addEventListener('pointermove', event => {
+      const rect = button.getBoundingClientRect();
+      const x = (event.clientX - rect.left - rect.width / 2) * .035;
+      const y = (event.clientY - rect.top - rect.height / 2) * .06;
+      button.style.setProperty('--pointer-x', `${x}px`);
+      button.style.setProperty('--pointer-y', `${y}px`);
+    });
+    button.addEventListener('pointerleave', () => {
+      button.style.setProperty('--pointer-x','0px');
+      button.style.setProperty('--pointer-y','0px');
+    });
+  });
 }
