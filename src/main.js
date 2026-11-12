@@ -20,3 +20,8 @@ document.querySelectorAll('.portfolio-tab').forEach(tab=>tab.addEventListener('c
 if('IntersectionObserver'in window){const observer=new IntersectionObserver((entries,obs)=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');obs.unobserve(entry.target);}}),{threshold:.1});document.querySelectorAll('.fade-up,.fade-left,.fade-right').forEach(el=>observer.observe(el));}else{document.querySelectorAll('.fade-up,.fade-left,.fade-right').forEach(el=>el.classList.add('is-visible'));}
 const form=document.getElementById('contactForm');
 form?.addEventListener('submit',event=>{event.preventDefault();const data=new FormData(form);const name=String(data.get('name')||'').trim();const email=String(data.get('email')||'').trim();const message=String(data.get('message')||'').trim();const text=`Halo Hafidz, saya ${name} (${email}).\\n\\n${message}`;window.open(`https://wa.me/6285891263024?text=${encodeURIComponent(text)}`,'_blank','noopener,noreferrer');});
+
+
+// Keep the Spotify player lazy and responsive; the playlist itself provides track selection.
+const spotifyFrame=document.querySelector('.music-player-card iframe');
+if(spotifyFrame){spotifyFrame.addEventListener('load',()=>spotifyFrame.classList.add('is-loaded'),{once:true});}
