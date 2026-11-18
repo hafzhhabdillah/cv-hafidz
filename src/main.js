@@ -235,7 +235,6 @@ if (idCard && !reduceMotion) {
   let velocityX = 0, velocityY = 0;
   let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
   let lightX = 50, lightY = 50, targetLightX = 50, targetLightY = 50;
-  let lastPointerX = 0, lastPointerY = 0;
   const clamp = (value,min,max) => Math.min(max,Math.max(min,value));
   const render = () => {
     const ease = dragging ? .22 : .12;
@@ -249,6 +248,9 @@ if (idCard && !reduceMotion) {
     idCard.style.setProperty('--light-y', lightY.toFixed(1)+'%');
     idCard.style.setProperty('--shadow-x', (-currentY*.65).toFixed(1)+'px');
     idCard.style.setProperty('--shadow-y', (20+Math.abs(currentX)*.8).toFixed(1)+'px');
+    const showingBack = Math.abs(currentY) > 90;
+    idCard.querySelector('.id-card-front')?.setAttribute('aria-hidden', String(showingBack));
+    idCard.querySelector('.id-card-back')?.setAttribute('aria-hidden', String(!showingBack));
     const moving = Math.abs(targetX-currentX)>.04 || Math.abs(targetY-currentY)>.04 ||
       Math.abs(targetLightX-lightX)>.2 || Math.abs(targetLightY-lightY)>.2;
     if (moving) frame=requestAnimationFrame(render); else frame=0;
@@ -263,7 +265,6 @@ if (idCard && !reduceMotion) {
     if (event.pointerType==='mouse' && event.button!==0) return;
     dragging=true; pointerId=event.pointerId;
     lastX=event.clientX; lastY=event.clientY; lastTime=performance.now();
-    lastPointerX=event.clientX; lastPointerY=event.clientY;
     velocityX=0; velocityY=0;
     idCard.setPointerCapture?.(pointerId);
     cardWrap.classList.add('is-card-active','is-card-dragging');
@@ -281,7 +282,6 @@ if (idCard && !reduceMotion) {
       velocityY=(dx/dt)*16;
       velocityX=(-dy/dt)*12;
       lastX=event.clientX; lastY=event.clientY; lastTime=now;
-      lastPointerX=event.clientX; lastPointerY=event.clientY;
       setLighting(event); schedule();
       return;
     }
