@@ -842,73 +842,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 }
 
 
-/* Interactive 3D ID card — motion layer only */
-.id-card-float {
-  position: relative;
-  perspective: 1100px;
-  transform-style: preserve-3d;
-  animation: id-card-float 6.8s ease-in-out infinite;
-  will-change: transform;
-}
-.id-card {
-  --tilt-x: 0deg;
-  --tilt-y: 0deg;
-  --light-x: 50%;
-  --light-y: 50%;
-  --shadow-x: 0px;
-  --shadow-y: 18px;
-  isolation: isolate;
-  transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
-  transform-style: preserve-3d;
-  transform-origin: center;
-  box-shadow: var(--shadow-x) var(--shadow-y) 48px rgba(0,0,0,.42), 0 0 0 1px rgba(255,255,255,.035);
-  transition: box-shadow .28s ease, border-color .28s ease;
-  will-change: transform;
-}
-.id-card-photo {
-  transform: translateZ(8px) scale(1.025);
-  transition: filter .45s ease, transform .45s ease;
-}
-.id-card-shade { transform: translateZ(12px); pointer-events:none; }
-.id-card-copy { transform: translateZ(18px); transform-style:preserve-3d; pointer-events:none; }
-.id-card-copy [data-card-depth="24"] { transform: translateZ(6px); }
-.id-card-copy [data-card-depth="30"] { transform: translateZ(12px); }
-.id-card-index {
-  position:absolute; top:22px; right:24px; z-index:2;
-  color:rgba(255,255,255,.78); font-size:10px; font-weight:700;
-  letter-spacing:.2em; transform:translateZ(14px);
-}
-.id-card-glare {
-  position:absolute; inset:0; z-index:4; border-radius:inherit;
-  pointer-events:none; opacity:0;
-  background:radial-gradient(circle at var(--light-x) var(--light-y), rgba(255,255,255,.22), rgba(255,255,255,.07) 18%, transparent 48%);
-  mix-blend-mode:screen; transition:opacity .3s ease;
-}
-.id-card-float.is-card-active .id-card-glare { opacity:1; }
-.id-card-float.is-card-active .id-card {
-  border-color:rgba(255,255,255,.22);
-  box-shadow:var(--shadow-x) var(--shadow-y) 58px rgba(0,0,0,.48), 0 18px 44px rgba(255,185,88,.08);
-}
-@keyframes id-card-float {
-  0%,100% { transform:translate3d(0,0,0); }
-  50% { transform:translate3d(0,-9px,0); }
-}
-@media (hover:hover) and (pointer:fine) {
-  .id-card-float.is-card-active { animation-play-state:paused; }
-}
-@media (max-width:767px) {
-  .id-card-float { animation-duration:8s; }
-  .id-card { transform:none; }
-  .id-card-glare { display:none; }
-}
-@media (prefers-reduced-motion:reduce) {
-  .id-card-float { animation:none !important; }
-  .id-card { transform:none !important; transition:none !important; }
-  .id-card-photo { transform:none !important; transition:none !important; }
-  .id-card-glare { display:none; }
-}
-
-
 /* Navbar reveal after the hero — fixed so its appearance never shifts layout. */
 .site-nav {
   transform:translate3d(0,-115%,0);
@@ -948,27 +881,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
     transform:none;
     transition:none;
   }
-}
-
-/* Strengthened 3D card response and layered lighting. */
-.id-card-float { perspective:1250px; }
-.id-card {
-  backface-visibility:hidden;
-  transform:rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateZ(0);
-  transition:box-shadow 320ms cubic-bezier(.22,1,.36,1),border-color 320ms ease;
-}
-.id-card-photo { backface-visibility:hidden; }
-.id-card-glare {
-  background:
-    radial-gradient(ellipse at var(--light-x) var(--light-y),rgba(255,255,255,.27),rgba(255,255,255,.10) 17%,transparent 52%),
-    linear-gradient(135deg,rgba(255,255,255,.08),transparent 38%,rgba(255,185,88,.055));
-}
-.id-card-float.is-card-active .id-card {
-  box-shadow:var(--shadow-x) var(--shadow-y) 64px rgba(0,0,0,.5),
-    0 22px 54px rgba(255,185,88,.09);
-}
-@media(prefers-reduced-motion:reduce) {
-  .id-card { transform:none!important; }
 }
 
 /* Keep section anchors clear of the revealed fixed navigation. */
@@ -1201,31 +1113,41 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .project-arrow:hover { border-color: #FFB958 !important; background: #FFB958 !important; color: #111 !important; }
 ::selection { background: #FFB958 !important; color: #111 !important; }
 
-/* ID card: controlled depth and softer lighting, without changing its content or photo. */
-.id-card-float { perspective: 1250px; transform-style: preserve-3d; }
+
+/* Interactive draggable 3D identity card */
+.id-card-float { perspective: 1200px; transform-style: preserve-3d; animation: id-card-float 7s ease-in-out infinite; }
 .id-card {
-  transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateZ(0);
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
-  box-shadow: var(--shadow-x) var(--shadow-y) 54px rgba(0,0,0,.48), 0 0 0 1px rgba(255,255,255,.045);
+  --tilt-x: 0deg; --tilt-y: 0deg; --light-x: 50%; --light-y: 50%;
+  --shadow-x: 0px; --shadow-y: 20px;
+  position: relative; isolation: isolate; overflow: visible !important;
+  transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+  transform-style: preserve-3d; backface-visibility: hidden;
+  box-shadow: var(--shadow-x) var(--shadow-y) 48px rgba(0,0,0,.42),0 0 0 1px rgba(255,255,255,.05);
+  transition: box-shadow .25s ease,border-color .25s ease;
+  touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none;
 }
-.id-card-photo { backface-visibility: hidden; filter: none !important; object-position: center 28%; }
-.id-card-glare {
-  background: radial-gradient(ellipse at var(--light-x) var(--light-y),rgba(255,255,255,.25),rgba(255,255,255,.09) 18%,transparent 52%);
-}
-.id-card-float.is-card-active .id-card {
-  border-color: rgba(255,255,255,.25);
-  box-shadow: var(--shadow-x) var(--shadow-y) 62px rgba(0,0,0,.52), 0 18px 46px rgba(255,185,88,.09);
-}
-@media (max-width: 767px) {
-  .id-card-float { animation-duration: 8s; }
-  .id-card { transform: none; }
-  .id-card-glare { display: none; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .portfolio-project-card, .portfolio-tab, .project-github-link { transition: none !important; }
-  .id-card-float { animation: none !important; }
-  .id-card { transform: none !important; transition: none !important; }
-  .id-card-photo { transform: none !important; }
-  .id-card-glare { display: none !important; }
-}
+.id-card.is-card-dragging { cursor: grabbing; transition: none; }
+.id-card-face { position:absolute; inset:0; overflow:hidden; border-radius:inherit; backface-visibility:hidden; -webkit-backface-visibility:hidden; transform-style:preserve-3d; }
+.id-card-front { transform: rotateY(0deg); }
+.id-card-back { transform: rotateY(180deg); display:flex; flex-direction:column; justify-content:space-between; padding:clamp(20px,4vw,34px); color:#f5f5f5; background:radial-gradient(circle at 100% 0,rgba(255,185,88,.15),transparent 42%),linear-gradient(145deg,#202020,#101010); border:1px solid rgba(255,185,88,.28); }
+.id-card-photo { transform:translateZ(8px) scale(1.02); backface-visibility:hidden; -webkit-user-drag:none; pointer-events:none; }
+.id-card-shade { transform:translateZ(12px); pointer-events:none; }
+.id-card-copy { transform:translateZ(22px); transform-style:preserve-3d; pointer-events:none; }
+.id-card-copy [data-card-depth="24"] { transform:translateZ(6px); }
+.id-card-copy [data-card-depth="30"] { transform:translateZ(12px); }
+.id-card-index { position:absolute;top:22px;right:24px;z-index:3;color:rgba(255,255,255,.82);font-size:10px;font-weight:700;letter-spacing:.2em;transform:translateZ(16px);pointer-events:none; }
+.id-card-glare { position:absolute;inset:0;z-index:4;border-radius:inherit;pointer-events:none;opacity:0;mix-blend-mode:screen;background:radial-gradient(ellipse at var(--light-x) var(--light-y),rgba(255,255,255,.25),rgba(255,255,255,.08) 20%,transparent 54%);transition:opacity .25s ease; }
+.id-card-float.is-card-active .id-card-glare { opacity:1; }
+.id-card-float.is-card-active .id-card { border-color:rgba(255,185,88,.35);box-shadow:var(--shadow-x) var(--shadow-y) 58px rgba(0,0,0,.48),0 18px 48px rgba(255,185,88,.08); }
+.id-card-back-top,.id-card-back-bottom { display:flex;justify-content:space-between;gap:10px;color:#a1a1aa;font-size:9px;font-weight:800;letter-spacing:.17em; }
+.id-card-back-content { margin:auto 0; }
+.id-card-back-kicker,.id-card-back-label { color:#FFB958;font-size:9px;font-weight:800;letter-spacing:.18em; }
+.id-card-back-content h3 { margin-top:12px;font-family:Manrope,sans-serif;font-size:clamp(25px,4vw,38px);font-weight:800;line-height:1.05;letter-spacing:-.05em; }
+.id-card-back-content h3 span { color:#FFB958; }
+.id-card-back-description { max-width:29ch;margin-top:16px;color:#b5b5b5;font-size:11px;line-height:1.8; }
+.id-card-back-divider { height:1px;margin:20px 0 14px;background:rgba(255,255,255,.12); }
+.id-card-back-tags { display:flex;flex-wrap:wrap;gap:6px;margin-top:9px; }
+.id-card-back-tags span { padding:5px 8px;border:1px solid rgba(255,185,88,.2);border-radius:999px;color:#dedede;font-size:9px; }
+@keyframes id-card-float { 0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)} }
+@media(max-width:767px) { .id-card-float{animation:none}.id-card{touch-action:pan-y}.id-card-back{padding:20px}.id-card-back-description{font-size:10px;margin-top:10px}.id-card-back-divider{margin:13px 0 10px}.id-card-back-tags{gap:5px}.id-card-back-tags span{font-size:8px;padding:4px 7px} }
+@media(prefers-reduced-motion:reduce) { .id-card-float{animation:none!important}.id-card{transform:none!important;transition:none!important;cursor:default}.id-card-glare{display:none!important} }
