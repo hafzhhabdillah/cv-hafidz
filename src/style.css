@@ -1056,25 +1056,75 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   #home .fade-right { max-width:350px; }
 }
 
-/* Clear section background contrast — backgrounds only */
+/* Section contrast and readable neutral surfaces */
+:root {
+  --portfolio-accent: #d4d4d4;
+  --portfolio-bg: #0a0a0a;
+  --portfolio-muted: #b0b0b0;
+}
 html, body {
-  background: #080808 !important;
+  background: var(--portfolio-bg) !important;
+  color: #f5f5f5;
 }
 #home {
   background:
     radial-gradient(ellipse at 18% 25%, rgba(255,255,255,.075), transparent 38%),
     radial-gradient(ellipse at 88% 80%, rgba(255,255,255,.025), transparent 32%),
-    #080808 !important;
+    #0a0a0a !important;
 }
 #about, #education {
-  background: #171717 !important;
+  background: #181818 !important;
 }
 #playlist, .music-section {
-  background: #0c0c0c !important;
+  background: #101010 !important;
 }
 #portfolio, .portfolio-section {
-  background: #141414 !important;
+  background: #1e1e1e !important;
 }
 #contact {
+  background: #121212 !important;
+}
+
+/* Keep cards visually distinct from the lighter portfolio section. */
+#portfolio .portfolio-project-card,
+#portfolio .coming-soon-card,
+#portfolio-stack .skill-card {
+  background: #121212 !important;
+  border-color: rgba(255,255,255,.14) !important;
+}
+#portfolio .portfolio-project-card .project-image {
   background: #090909 !important;
+}
+#portfolio .portfolio-project-card:hover {
+  border-color: rgba(212,212,212,.55) !important;
+}
+#contact .rounded-3xl {
+  background: #1b1b1b !important;
+  border-color: rgba(255,255,255,.14) !important;
+}
+#about .education-item,
+#about .about-facts > div {
+  border-color: rgba(255,255,255,.16) !important;
+}
+
+/* Lift secondary labels without changing the monochrome identity. */
+.section-eyebrow,
+.project-index,
+.project-hint,
+.music-card-index,
+.stack-caption,
+.about-facts span,
+.about-facts small,
+.detail-index {
+  color: var(--portfolio-muted) !important;
+}
+.project-desc,
+#about .education-detail,
+.music-copy > p:not(.music-eyebrow),
+.contact-input::placeholder {
+  color: #b0b0b0 !important;
+}
+.project-tags span,
+#portfolio-stack .skill-card {
+  color: #e5e5e5;
 }
