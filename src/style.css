@@ -664,13 +664,13 @@ body{background:#0a0a0a;color:#f5f5f5}
 }
 
 /* About facts and layout finishing */
-.about-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:36px;padding-top:25px;border-top:1px solid var(--line)}
+.about-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:36px;padding-top:25px;border-top:1px solid rgba(255,255,255,.12)}
 .about-facts>div{display:flex;flex-direction:column;gap:8px;min-width:0}
-.about-facts span{color:#92928d;font-size:9px;font-weight:700;letter-spacing:.14em}
-.about-facts strong{color:#222;font-size:13px;line-height:1.5}
-.about-facts small{color:#888;font-size:11px;line-height:1.5}
+.about-facts span{color:#929292;font-size:9px;font-weight:700;letter-spacing:.14em}
+.about-facts strong{color:#f5f5f5;font-size:13px;line-height:1.5}
+.about-facts small{color:#a1a1aa;font-size:11px;line-height:1.5}
 #home,#about,#playlist,#portfolio,#contact{scroll-margin-top:88px}
-@media(max-width:700px){.about-facts{grid-template-columns:1fr;gap:17px}.about-facts>div{padding-bottom:15px;border-bottom:1px solid var(--line)}}
+@media(max-width:700px){.about-facts{grid-template-columns:1fr;gap:17px}.about-facts>div{padding-bottom:15px;border-bottom:1px solid rgba(255,255,255,.12)}}
 
 
 /* Premium motion layer — visual design tokens/layout remain unchanged */
