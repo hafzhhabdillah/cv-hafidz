@@ -17,8 +17,8 @@
       theme: {
         extend: {
           fontFamily: { sans: ['DM Sans', 'sans-serif'], display: ['Manrope', 'sans-serif'] },
-          colors: { ink: '#0a0a0a', panel: '#141414', elevated: '#1b1b1b', accent: '#FFB958' },
-          boxShadow: { glow: '0 0 60px rgba(255,185,88,.12)' }
+          colors: { ink: '#0a0a0a', panel: '#141414', elevated: '#1b1b1b', accent: '#d4d4d4' },
+          boxShadow: { glow: '0 0 60px rgba(212,212,212,.12)' }
         }
       }
     }
@@ -28,7 +28,7 @@
   <style>
     :root { color-scheme: dark; scroll-behavior: smooth; }
     body { background: #0a0a0a; }
-    ::selection { background: #FFB958; color: #111; }
+    ::selection { background: #d4d4d4; color: #111; }
     .fade-up,.fade-left,.fade-right { opacity: 0; transition: opacity .8s ease, transform .8s cubic-bezier(.2,.75,.25,1); }
     .fade-up { transform: translateY(28px); }
     .fade-left { transform: translateX(-28px); }
@@ -36,10 +36,10 @@
     .is-visible { opacity: 1 !important; transform: translate(0,0) !important; }
     .hero-grid { background-image: linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px); background-size: 56px 56px; mask-image: linear-gradient(to bottom,black,transparent 88%); }
     .text-outline { color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.72); }
-    .accent-line { background: linear-gradient(90deg,#FFB958,rgba(255,185,88,0)); }
+    .accent-line { background: linear-gradient(90deg,#d4d4d4,rgba(212,212,212,0)); }
     .swiper-button-prev::after,.swiper-button-next::after { display:none; }
     .swiper-pagination-bullet { background: #777; opacity: 1; }
-    .swiper-pagination-bullet-active { background: #FFB958; }
+    .swiper-pagination-bullet-active { background: #d4d4d4; }
     .menu-open { overflow: hidden; }
     @media (prefers-reduced-motion: reduce) {
       *,*::before,*::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
@@ -52,31 +52,31 @@
   <main>
     <section id="home" class="relative isolate flex min-h-[760px] items-center overflow-hidden pt-28 sm:min-h-[820px] lg:min-h-[900px]">
       <div class="hero-grid pointer-events-none absolute inset-0 -z-20"></div>
-      <div class="pointer-events-none absolute -right-40 top-20 -z-10 h-[560px] w-[560px] rounded-full bg-[#FFB958]/[.08] blur-[130px]"></div>
+      <div class="pointer-events-none absolute -right-40 top-20 -z-10 h-[560px] w-[560px] rounded-full bg-[#d4d4d4]/[.08] blur-[130px]"></div>
       <div class="pointer-events-none absolute -bottom-52 -left-40 -z-10 h-[500px] w-[500px] rounded-full bg-white/[.035] blur-[120px]"></div>
       <div class="mx-auto grid w-full max-w-7xl items-center gap-14 px-5 pb-24 pt-12 sm:px-8 lg:grid-cols-[1.1fr_.9fr] lg:gap-10 lg:px-12 lg:pb-32">
         <div class="fade-left relative z-10">
-          <div class="mb-7 inline-flex items-center gap-2 rounded-full border border-[#FFB958]/25 bg-[#FFB958]/[.07] px-4 py-2 text-xs font-semibold tracking-[.16em] text-[#FFB958] uppercase">
-            <span class="h-2 w-2 rounded-full bg-[#FFB958] shadow-[0_0_12px_#FFB958]"></span> Currently learning & building
+          <div class="mb-7 inline-flex items-center gap-2 rounded-full border border-[#d4d4d4]/25 bg-[#d4d4d4]/[.07] px-4 py-2 text-xs font-semibold tracking-[.16em] text-[#d4d4d4] uppercase">
+            <span class="h-2 w-2 rounded-full bg-[#d4d4d4] shadow-[0_0_12px_#d4d4d4]"></span> Currently learning & building
           </div>
           <p class="mb-4 text-sm font-medium tracking-[.24em] text-zinc-500 uppercase">Hello, I'm</p>
           <h1 class="font-display text-[clamp(3.4rem,8vw,7.2rem)] font-extrabold leading-[.94] tracking-[-.075em]">MUHAMMAD<br>HAFIDZ<br><span class="hero-lastname">ABDILLAH.</span></h1>
           <div class="my-8 flex items-center gap-4">
             <span class="h-px w-12 accent-line"></span>
-            <p class="text-sm font-semibold tracking-[.18em] text-[#FFB958] uppercase">Front-end Developer</p>
+            <p class="text-sm font-semibold tracking-[.18em] text-[#d4d4d4] uppercase">Front-end Developer</p>
           </div>
           <p class="max-w-xl text-base leading-8 text-zinc-400 sm:text-lg">Siswa Rekayasa Perangkat Lunak yang tertarik pada Front-end Development, desain antarmuka, dan proses mengubah ide menjadi website yang nyaman digunakan.</p>
           <div class="mt-10 flex flex-wrap items-center gap-4">
-            <a href="#portfolio" class="inline-flex items-center gap-3 rounded-full bg-[#FFB958] px-7 py-4 text-sm font-bold text-[#111] shadow-glow transition hover:-translate-y-1 hover:bg-[#ffc879]">Explore my work <span aria-hidden="true">↗</span></a>
+            <a href="#portfolio" class="inline-flex items-center gap-3 rounded-full bg-[#d4d4d4] px-7 py-4 text-sm font-bold text-[#111] shadow-glow transition hover:-translate-y-1 hover:bg-[#eeeeee]">Explore my work <span aria-hidden="true">↗</span></a>
             <a href="#contact" class="inline-flex items-center gap-2 rounded-full border border-white/15 px-7 py-4 text-sm font-semibold text-zinc-300 transition hover:border-white/40 hover:text-white">Get in Touch <span aria-hidden="true">↗</span></a>
           </div>
           <div class="mt-14 flex items-center gap-5 text-xs font-medium tracking-wider text-zinc-500 uppercase">
-            <span>Based in Indonesia</span><span class="h-1 w-1 rounded-full bg-[#FFB958]"></span><span>Learning by building</span>
+            <span>Based in Indonesia</span><span class="h-1 w-1 rounded-full bg-[#d4d4d4]"></span><span>Learning by building</span>
           </div>
         </div>
         <div class="fade-right relative mx-auto w-full max-w-[480px]">
-          <div class="absolute -inset-5 rounded-[2.5rem] border border-[#FFB958]/15"></div>
-          <div class="absolute -right-8 top-12 h-28 w-28 rounded-full border border-[#FFB958]/25"></div>
+          <div class="absolute -inset-5 rounded-[2.5rem] border border-[#d4d4d4]/15"></div>
+          <div class="absolute -right-8 top-12 h-28 w-28 rounded-full border border-[#d4d4d4]/25"></div>
           <div class="id-card-float">
             <article class="id-card relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/10 bg-[#181818] shadow-2xl" data-id-card aria-label="Interactive 3D profile card. Drag to rotate." aria-roledescription="3D profile card" aria-keyshortcuts="ArrowLeft ArrowRight ArrowUp ArrowDown Home" tabindex="0">
               <div class="id-card-face id-card-front" aria-label="Front of profile card">
@@ -84,7 +84,7 @@
                 <div class="id-card-shade absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/10"></div>
                 <div class="id-card-glare" aria-hidden="true"></div>
                 <div class="id-card-copy absolute bottom-0 left-0 right-0 p-7 sm:p-9" data-card-depth="18">
-                  <p class="text-xs font-semibold tracking-[.2em] text-[#FFB958] uppercase" data-card-depth="24">Personal portfolio</p>
+                  <p class="text-xs font-semibold tracking-[.2em] text-[#d4d4d4] uppercase" data-card-depth="24">Personal portfolio</p>
                   <p class="mt-2 font-display text-2xl font-bold sm:text-3xl" data-card-depth="30">Muhammad Hafidz<br>Abdillah.</p>
                   <p class="mt-2 text-xs font-semibold tracking-wider text-white/75 uppercase">Front-end Developer</p>
                 </div>
@@ -106,7 +106,7 @@
           </div>
           <div class="absolute -bottom-6 -left-6 rounded-2xl border border-white/10 bg-[#171717]/95 px-5 py-4 shadow-xl backdrop-blur">
             <p class="text-[11px] tracking-widest text-zinc-500 uppercase">Focus</p>
-            <p class="mt-1 text-sm font-bold text-white">Web Development <span class="text-[#FFB958]">↗</span></p>
+            <p class="mt-1 text-sm font-bold text-white">Web Development <span class="text-[#d4d4d4]">↗</span></p>
           </div>
         </div>
       </div>
@@ -116,7 +116,7 @@
     <section id="about" class="scroll-mt-24 border-t border-white/[.05] bg-[#0d0d0d] px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
       <div class="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[.7fr_1.3fr] lg:gap-24">
         <div class="fade-left">
-          <p class="mb-5 text-xs font-bold tracking-[.25em] text-[#FFB958] uppercase">01 / About me</p>
+          <p class="mb-5 text-xs font-bold tracking-[.25em] text-[#d4d4d4] uppercase">01 / About me</p>
           <h2 class="font-display text-5xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl">A little about<br>myself<span class="hero-lastname">.</span></h2>
           <div class="mt-8 h-px w-24 accent-line"></div>
         </div>
@@ -132,8 +132,8 @@
           <div id="education" class="about-education mt-16 border-t border-white/10 pt-10">
             <div class="mb-7 flex flex-wrap items-end justify-between gap-3">
               <div>
-                <p class="mb-3 text-[10px] font-bold tracking-[.22em] text-[#FFB958] uppercase">02 / Education</p>
-                <h3 class="font-display text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Where I've learned<span class="text-[#FFB958]">.</span></h3>
+                <p class="mb-3 text-[10px] font-bold tracking-[.22em] text-[#d4d4d4] uppercase">02 / Education</p>
+                <h3 class="font-display text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Where I've learned<span class="text-[#d4d4d4]">.</span></h3>
               </div>
               <p class="text-xs tracking-wide text-zinc-500">2016 — Present</p>
             </div>
@@ -257,14 +257,14 @@
       <div class="mx-auto max-w-7xl">
         <div class="fade-up grid gap-12 lg:grid-cols-[1fr_.8fr] lg:gap-20">
           <div>
-            <p class="mb-5 text-xs font-bold tracking-[.25em] text-[#FFB958] uppercase">04 / Get in touch</p>
+            <p class="mb-5 text-xs font-bold tracking-[.25em] text-[#d4d4d4] uppercase">04 / Get in touch</p>
             <h2 class="font-display text-5xl font-extrabold leading-[1.05] tracking-tight sm:text-7xl">Have an idea?<br><span class="text-outline">Let's talk.</span></h2>
             <p class="mt-7 max-w-lg text-base leading-8 text-zinc-400">Punya pertanyaan atau ingin berdiskusi tentang project? Kirim pesan dan mari mulai percakapan.</p>
             <div class="mt-12 grid gap-7 sm:grid-cols-2">
-              <div><p class="mb-2 text-xs tracking-widest text-zinc-500 uppercase">Email</p><a href="mailto:hafidzabdillah19706@gmail.com" class="break-all text-sm font-semibold text-zinc-200 transition hover:text-[#FFB958]">hafidzabdillah19706@gmail.com</a></div>
-              <div><p class="mb-2 text-xs tracking-widest text-zinc-500 uppercase">Phone / WhatsApp</p><a href="https://wa.me/6285891263024" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-zinc-200 transition hover:text-[#FFB958]">+62 858 9126 3024 ↗</a></div>
-              <div><p class="mb-2 text-xs tracking-widest text-zinc-500 uppercase">Instagram</p><a href="https://instagram.com/hfzzhbdil" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-zinc-200 transition hover:text-[#FFB958]">@hfzzhbdil ↗</a></div>
-              <div><p class="mb-2 text-xs tracking-widest text-zinc-500 uppercase">GitHub</p><a href="https://github.com/hafzhhabdillah" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-zinc-200 transition hover:text-[#FFB958]">github.com/hafzhhabdillah ↗</a></div>
+              <div><p class="mb-2 text-xs tracking-widest text-zinc-500 uppercase">Email</p><a href="mailto:hafidzabdillah19706@gmail.com" class="break-all text-sm font-semibold text-zinc-200 transition hover:text-[#d4d4d4]">hafidzabdillah19706@gmail.com</a></div>
+              <div><p class="mb-2 text-xs tracking-widest text-zinc-500 uppercase">Phone / WhatsApp</p><a href="https://wa.me/6285891263024" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-zinc-200 transition hover:text-[#d4d4d4]">+62 858 9126 3024 ↗</a></div>
+              <div><p class="mb-2 text-xs tracking-widest text-zinc-500 uppercase">Instagram</p><a href="https://instagram.com/hfzzhbdil" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-zinc-200 transition hover:text-[#d4d4d4]">@hfzzhbdil ↗</a></div>
+              <div><p class="mb-2 text-xs tracking-widest text-zinc-500 uppercase">GitHub</p><a href="https://github.com/hafzhhabdillah" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-zinc-200 transition hover:text-[#d4d4d4]">github.com/hafzhhabdillah ↗</a></div>
             </div>
           </div>
           <div class="rounded-3xl border border-white/10 bg-[#141414] p-6 sm:p-8">
@@ -274,14 +274,14 @@
               <div><label for="contactName" class="mb-2 block text-xs font-semibold text-zinc-400">Your name</label><input id="contactName" name="name" type="text" autocomplete="name" placeholder="Nama kamu" required class="contact-input"></div>
               <div><label for="contactEmail" class="mb-2 block text-xs font-semibold text-zinc-400">Your email</label><input id="contactEmail" name="email" type="email" autocomplete="email" placeholder="nama@email.com" required class="contact-input"></div>
               <div><label for="contactMessage" class="mb-2 block text-xs font-semibold text-zinc-400">Message</label><textarea id="contactMessage" name="message" rows="4" placeholder="Tulis pesan kamu..." required class="contact-input resize-y"></textarea></div>
-              <button type="submit" class="flex w-full items-center justify-center gap-3 rounded-xl bg-[#FFB958] px-6 py-4 text-sm font-bold text-[#111] transition hover:-translate-y-1 hover:bg-[#ffc879]">Send via WhatsApp <span aria-hidden="true">↗</span></button>
+              <button type="submit" class="flex w-full items-center justify-center gap-3 rounded-xl bg-[#d4d4d4] px-6 py-4 text-sm font-bold text-[#111] transition hover:-translate-y-1 hover:bg-[#eeeeee]">Send via WhatsApp <span aria-hidden="true">↗</span></button>
             </form>
           </div>
         </div>
         <footer class="mt-24 flex flex-col justify-between gap-5 border-t border-white/10 pt-8 text-xs text-zinc-500 sm:flex-row sm:items-center">
-          <a href="#home" class="font-display text-sm font-extrabold tracking-widest text-white">HAFIDZ<span class="text-[#FFB958]">.</span></a>
+          <a href="#home" class="font-display text-sm font-extrabold tracking-widest text-white">HAFIDZ<span class="text-[#d4d4d4]">.</span></a>
           <p>© 2026 Muhammad Hafidz Abdillah. All rights reserved.</p>
-          <a href="#home" class="transition hover:text-[#FFB958]">Back to top ↑</a>
+          <a href="#home" class="transition hover:text-[#d4d4d4]">Back to top ↑</a>
         </footer>
       </div>
     </section>
