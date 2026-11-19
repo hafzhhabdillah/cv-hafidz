@@ -1128,3 +1128,95 @@ html, body {
 #portfolio-stack .skill-card {
   color: #e5e5e5;
 }
+
+
+/* High-contrast monochrome pass — stronger separation between sections and cards. */
+:root {
+  --portfolio-accent: #ffffff;
+  --portfolio-bg: #050505;
+  --portfolio-muted: #d0d0d0;
+}
+html, body { background: #050505 !important; color: #fff !important; }
+#home { background: #050505 !important; }
+#about, #education { background: #292929 !important; color: #fff !important; }
+#playlist, .music-section { background: #0b0b0b !important; color: #fff !important; }
+#portfolio, .portfolio-section { background: #202020 !important; color: #fff !important; }
+#contact { background: #101010 !important; color: #fff !important; }
+
+/* Make headings and body copy readable on every section. */
+#home h1, #about h2, #about h3, #about h4,
+#playlist h2, #portfolio h2, #contact h2,
+.portfolio-heading h2, .project-title,
+#about .education-copy h4, #contact label {
+  color: #fff !important;
+}
+#home p, #about p, #playlist p, #portfolio p, #contact p,
+.project-desc, #about .education-detail,
+.music-copy > p:not(.music-eyebrow) {
+  color: #d0d0d0 !important;
+}
+.section-eyebrow, .project-index, .project-hint,
+#about .education-level, #about .education-number,
+#about .education-location, .portfolio-heading h2 span {
+  color: #fff !important;
+}
+
+/* Cards should be visibly darker than their section backgrounds. */
+#about .education-card, #about .education-item,
+.portfolio-project-card, .coming-soon-card, .project-card,
+#skills .skill-card, .education-card,
+#contact .rounded-3xl {
+  background: #090909 !important;
+  border: 1px solid rgba(255,255,255,.28) !important;
+  color: #fff !important;
+  box-shadow: 0 14px 38px rgba(0,0,0,.35) !important;
+}
+#portfolio .portfolio-project-card .project-image,
+.project-image { background: #000 !important; }
+.portfolio-tabs { background: #080808 !important; border-color: rgba(255,255,255,.3) !important; }
+.portfolio-tab { color: #d0d0d0 !important; }
+.portfolio-tab.is-active { background: #fff !important; color: #050505 !important; }
+.project-tags span, .id-card-back-tags span {
+  background: #252525 !important;
+  border-color: rgba(255,255,255,.3) !important;
+  color: #fff !important;
+}
+
+/* Clear white controls and strong keyboard/focus states. */
+.project-github-link, .outline-link, .location-link,
+#home .bg-\\[\\#d4d4d4\\], #contact .bg-\\[\\#d4d4d4\\] {
+  background: #fff !important;
+  border-color: #fff !important;
+  color: #050505 !important;
+}
+.project-github-link:hover, .outline-link:hover, .location-link:hover {
+  background: #d0d0d0 !important;
+  border-color: #d0d0d0 !important;
+  color: #050505 !important;
+}
+.site-nav#bottomNav {
+  background: rgba(0,0,0,.97) !important;
+  border-color: rgba(255,255,255,.35) !important;
+}
+.site-nav#bottomNav nav a { color: #e5e5e5 !important; }
+.site-nav#bottomNav nav a:hover,
+.site-nav#bottomNav nav a.is-active {
+  background: #fff !important;
+  color: #050505 !important;
+}
+#contact input, #contact textarea, .contact-input {
+  background: #050505 !important;
+  border-color: rgba(255,255,255,.35) !important;
+  color: #fff !important;
+}
+#contact input::placeholder, #contact textarea::placeholder,
+.contact-input::placeholder { color: #bdbdbd !important; }
+#contact input:focus, #contact textarea:focus, .contact-input:focus {
+  border-color: #fff !important;
+  box-shadow: 0 0 0 3px rgba(255,255,255,.2) !important;
+}
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 3px solid #fff !important;
+  outline-offset: 4px;
+}
+::selection { background: #fff !important; color: #000 !important; }
