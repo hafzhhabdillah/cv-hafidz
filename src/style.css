@@ -1055,3 +1055,26 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   #home h1 { font-size:clamp(2.8rem,11vw,4.1rem); }
   #home .fade-right { max-width:350px; }
 }
+
+/* Clear section background contrast — backgrounds only */
+html, body {
+  background: #080808 !important;
+}
+#home {
+  background:
+    radial-gradient(ellipse at 18% 25%, rgba(255,255,255,.075), transparent 38%),
+    radial-gradient(ellipse at 88% 80%, rgba(255,255,255,.025), transparent 32%),
+    #080808 !important;
+}
+#about, #education {
+  background: #171717 !important;
+}
+#playlist, .music-section {
+  background: #0c0c0c !important;
+}
+#portfolio, .portfolio-section {
+  background: #141414 !important;
+}
+#contact {
+  background: #090909 !important;
+}
