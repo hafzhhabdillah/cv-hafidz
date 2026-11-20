@@ -67,6 +67,35 @@ if (grid) {
   grid.after(more);
 }
 
+  // Accessible project filters, generated from the project data so categories stay in sync.
+  if (grid) {
+    const categories = [...new Set(projects.filter(p => p.featured).map(p => p.category))];
+    const filterBar = document.createElement('div');
+    filterBar.className = 'project-filter-bar';
+    filterBar.setAttribute('aria-label', 'Filter projects by category');
+    const renderFilterButtons = active => {
+      filterBar.innerHTML = ['All', ...categories].map(category =>
+        '<button type="button" class="project-filter-chip' + (category === active ? ' is-active' : '') +
+        '" aria-pressed="' + String(category === active) + '" data-filter="' + category + '">' + category + '</button>'
+      ).join('');
+    };
+    const renderFilteredProjects = category => {
+      renderFilterButtons(category);
+      grid.innerHTML = projects.filter(p => p.featured && (category === 'All' || p.category === category)).map(card).join('');
+      grid.querySelectorAll('.work-card').forEach((item, index) => {
+        item.style.setProperty('--filter-index', String(index));
+        item.classList.add('filter-enter');
+      });
+    };
+    renderFilteredProjects('All');
+    grid.before(filterBar);
+    filterBar.addEventListener('click', event => {
+      const button = event.target.closest('[data-filter]');
+      if (button) renderFilteredProjects(button.dataset.filter);
+    });
+  }
+
+
 const stackPanel = document.getElementById('portfolio-stack');
 if (stackPanel) {
   const groups = [
@@ -331,3 +360,42 @@ if (idCard && !reduceMotion) {
   idCard.addEventListener('pointerleave',()=>{ if(!dragging){targetX=0;targetY=0;targetLightX=50;targetLightY=50;schedule();cardWrap.classList.remove('is-card-active');} });
   window.addEventListener('blur',finishDrag);
 }
+
+
+/* Small quality-of-life controls: copy contact email and return to the top. */
+const emailLink = document.querySelector('#contact a[href^="mailto:"]');
+if (emailLink) {
+  const copyEmail = document.createElement('button');
+  copyEmail.type = 'button';
+  copyEmail.className = 'copy-email-button';
+  copyEmail.textContent = 'Copy email';
+  copyEmail.setAttribute('aria-label', 'Copy email address');
+  emailLink.insertAdjacentElement('afterend', copyEmail);
+  copyEmail.addEventListener('click', async () => {
+    const original = copyEmail.textContent;
+    try {
+      await navigator.clipboard.writeText(emailLink.textContent.trim());
+      copyEmail.textContent = 'Copied!';
+      copyEmail.classList.add('is-copied');
+      window.setTimeout(() => {
+        copyEmail.textContent = original;
+        copyEmail.classList.remove('is-copied');
+      }, 1600);
+    } catch {
+      copyEmail.textContent = 'Copy unavailable';
+      window.setTimeout(() => { copyEmail.textContent = original; }, 1800);
+    }
+  });
+}
+
+const backToTop = document.createElement('button');
+backToTop.type = 'button';
+backToTop.className = 'back-to-top';
+backToTop.textContent = '↑';
+backToTop.setAttribute('aria-label', 'Back to top');
+backToTop.title = 'Back to top';
+document.body.append(backToTop);
+const updateBackToTop = () => backToTop.classList.toggle('is-visible', window.scrollY > 520);
+window.addEventListener('scroll', updateBackToTop, {passive:true});
+updateBackToTop();
+backToTop.addEventListener('click', () => window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'}));
