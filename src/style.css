@@ -2349,13 +2349,21 @@ p {
 }
 
 
-/* Minimal monochrome capsule tabs */
+/* Clean floating capsule tabs */
 .portfolio-tabs {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 9px;
-  margin: 28px 0 30px;
+  justify-content: center;
+  width: fit-content;
+  max-width: 100%;
+  gap: 10px;
+  margin: 28px auto 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 .portfolio-tabs .portfolio-tab {
   width: auto;
@@ -2365,20 +2373,22 @@ p {
   align-items: center;
   justify-content: center;
   padding: 10px 19px;
-  border: 1px solid #171717;
+  border: 1px solid #d8d8d8;
   border-radius: 999px;
-  background: transparent;
-  color: #171717;
+  background: #ffffff;
+  color: #252525;
   font: inherit;
   font-size: .88rem;
   font-weight: 600;
   line-height: 1.2;
   cursor: pointer;
-  transition: background .2s ease, color .2s ease, transform .2s ease;
+  box-shadow: none;
+  transition: background .2s ease, color .2s ease, border-color .2s ease, transform .2s ease;
 }
 .portfolio-tabs .portfolio-tab:hover {
-  background: #171717;
-  color: #ffffff;
+  border-color: #171717;
+  background: #f7f7f7;
+  color: #171717;
   transform: translateY(-1px);
 }
 .portfolio-tabs .portfolio-tab.is-active {
@@ -2389,7 +2399,7 @@ p {
 @media (max-width: 520px) {
   .portfolio-tabs {
     gap: 8px;
-    margin: 22px 0 24px;
+    margin: 22px auto 24px;
   }
   .portfolio-tabs .portfolio-tab {
     padding: 10px 15px;
