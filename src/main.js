@@ -176,92 +176,14 @@ if (!reduceMotion && finePointer.matches) {
   requestAnimationFrame(raf);
 }
 
-/* Portfolio tabs */
-$$('.portfolio-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    $$('.portfolio-tab').forEach(item => {
-      const active = item === tab;
-      item.classList.toggle('is-active', active);
-      item.setAttribute('aria-selected', String(active));
-    });
-    $$('.portfolio-panel').forEach(panel => {
-      const active = panel.id === tab.dataset.panel;
-      panel.hidden = !active;
-      panel.classList.toggle('is-active', active);
-    });
-  });
-});
-
-/* Projects: one data source for cards, filters, archive, and detail views */
-const projectCard = (project, index, animate = false) => `
-  <article class="work-card${animate ? ' filter-enter' : ''}"${animate ? ` style="--filter-index:${index}"` : ''}>
-    <a class="work-image" href="?project=${project.slug}" aria-label="Lihat detail ${project.name}">
-      <img src="${project.image}" alt="${project.alt}" width="${project.width}" height="${project.height}" loading="lazy" decoding="async" />
-      <span class="work-image-overlay">VIEW DETAILS ↗</span>
-      <span class="work-number">${String(index + 1).padStart(2, '0')}</span>
-      <span class="work-arrow" aria-hidden="true">↗</span>
-    </a>
-    <div class="work-card-body">
-      <div class="work-meta"><span>${project.category}</span><span>${project.year}</span></div>
-      <h3><a href="?project=${project.slug}">${project.name}</a></h3>
-      <p>${project.description}</p>
-      <div class="work-tags">${project.stack.map(tag => `<span>${tag}</span>`).join('')}</div>
-      <div class="work-card-links">
-        <a href="?project=${project.slug}">Project details ↗</a>
-        <a href="${GITHUB_URL}" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-      </div>
-    </div>
-  </article>`;
-
+/* Portfolio: show three featured projects on the homepage.
+   The archive page below continues to use the complete projects array. */
 const projectGrid = $('#projectGrid');
-const projectFilters = $('#projectFilters');
-if (projectGrid && projectFilters) {
-  const categories = ['All', ...new Set(projects.map(project => project.category))];
-  const renderProjects = active => {
-    projectFilters.innerHTML = categories.map(category => `
-      <button class="project-filter-chip${category === active ? ' is-active' : ''}" type="button"
-        aria-pressed="${String(category === active)}" data-filter="${category}">${category}</button>`).join('');
-    const visible = projects.filter(project => active === 'All' || project.category === active);
-    projectGrid.innerHTML = visible
-      .map(project => projectCard(project, projects.indexOf(project), true))
-      .join('');
-  };
-
-  renderProjects('All');
-  projectFilters.addEventListener('click', event => {
-    const button = event.target.closest('[data-filter]');
-    if (button) renderProjects(button.dataset.filter);
-  });
-}
-
-/* Tech stack grouped by category */
-const stackPanel = $('#portfolio-stack');
-if (stackPanel) {
-  const groups = [
-    { title: 'Frontend Development', items: [['HTML', 'html5', 'Markup'], ['CSS', 'css3', 'Styling'], ['JavaScript', 'javascript', 'Language'], ['TypeScript', 'typescript', 'Language'], ['Tailwind CSS', 'tailwindcss', 'CSS framework'], ['React', 'react', 'Library']] },
-    { title: 'Backend Development', items: [['PHP', 'php', 'Language'], ['Laravel', 'laravel', 'Framework']] },
-    { title: 'Database', items: [['MySQL', 'mysql', 'Relational database']] },
-    { title: 'Tools & Design', items: [['Figma', 'figma', 'UI design'], ['Git', 'git', 'Version control'], ['GitHub', 'github', 'Repositories'], ['Vite', 'vite', 'Build tool'], ['Vercel', 'vercel', 'Deployment'], ['Firebase', 'firebase', 'Services']] },
-  ];
-
-  stackPanel.innerHTML = `
-    <div class="stack-intro">
-      <p class="eyebrow">Tools I work with</p>
-      <h3>Skills &amp; Tools<span class="period">.</span></h3>
-      <p>Technologies I use to design, build, and ship projects.</p>
-    </div>
-    ${groups.map((group, groupIndex) => `
-      <section class="stack-category">
-        <div class="stack-category-heading"><span>${String(groupIndex + 1).padStart(2, '0')}</span><h4>${group.title}</h4></div>
-        <div class="stack-grid">
-          ${group.items.map(([name, icon, type]) => `
-            <div class="skill-card">
-              <span class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${icon}/${icon}-original.svg" alt="" width="26" height="26" loading="lazy" decoding="async" /></span>
-              <span class="skill-name">${name}</span>
-              <span class="skill-type">${type}</span>
-            </div>`).join('')}
-        </div>
-      </section>`).join('')}`;
+if (projectGrid) {
+  projectGrid.innerHTML = projects
+    .slice(0, 3)
+    .map((project, index) => projectCard(project, index))
+    .join('');
 }
 
 /* Contact form and copy-email feedback */
