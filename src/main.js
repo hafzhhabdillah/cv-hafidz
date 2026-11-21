@@ -137,7 +137,7 @@ document.addEventListener('click', event => {
 
 let scrollTicking = false;
 const updateScrollState = () => {
-  nav?.classList.toggle('is-scrolled', window.scrollY > 16);
+  nav?.classList.toggle('is-scrolled', window.scrollY > 48);
 
   let current = 'home';
   ['home', 'about', 'portfolio', 'contact'].forEach(id => {
