@@ -222,25 +222,35 @@
             </div>
           </div>
 
-          <section class="portfolio-extra-section" id="certificates">
-            <div class="portfolio-extra-heading">
-              <p class="eyebrow">04 / Learning milestones</p>
-              <h3 class="section-title">Certificates<span class="period">.</span></h3>
-            </div>
-            <div class="empty-card">
-              <p class="eyebrow">Certificates</p>
-              <h3>Belum ada sertifikat.</h3>
-              <p>Sertifikat akan ditampilkan di sini setelah tersedia.</p>
-            </div>
-          </section>
+          <div class="portfolio-accordion-list">
+            <section class="portfolio-accordion" id="certificates">
+              <h3 class="portfolio-accordion-heading">
+                <button class="portfolio-pill" type="button" aria-expanded="false" aria-controls="certificates-content">
+                  <span>Certificates</span>
+                  <span class="portfolio-pill-icon" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="portfolio-accordion-content" id="certificates-content" hidden>
+                <div class="empty-card">
+                  <p class="eyebrow">Learning milestones</p>
+                  <h3>Belum ada sertifikat.</h3>
+                  <p>Sertifikat akan ditampilkan di sini setelah tersedia.</p>
+                </div>
+              </div>
+            </section>
 
-          <section class="portfolio-extra-section" id="tech-stack">
-            <div class="portfolio-extra-heading">
-              <p class="eyebrow">05 / Tools I work with</p>
-              <h3 class="section-title">Tech Stack<span class="period">.</span></h3>
-            </div>
-            <div id="portfolio-stack"></div>
-          </section>
+            <section class="portfolio-accordion" id="tech-stack">
+              <h3 class="portfolio-accordion-heading">
+                <button class="portfolio-pill" type="button" aria-expanded="false" aria-controls="tech-stack-content">
+                  <span>Tech Stack</span>
+                  <span class="portfolio-pill-icon" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="portfolio-accordion-content" id="tech-stack-content" hidden>
+                <div id="portfolio-stack"></div>
+              </div>
+            </section>
+          </div>
         </div>
       </section>
 
