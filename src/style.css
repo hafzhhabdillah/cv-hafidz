@@ -704,8 +704,9 @@ p {
 .profile-badge {
   position: absolute;
   z-index: 2;
-  bottom: -20px;
-  left: -20px;
+  right: 0;
+  bottom: -54px;
+  left: auto;
   padding: 14px 18px;
   border: 1px solid var(--line);
   border-radius: 14px;
@@ -1919,8 +1920,9 @@ p {
   }
 
   .profile-badge {
-    bottom: -14px;
-    left: -8px;
+    right: 0;
+    bottom: -54px;
+    left: auto;
   }
 
   .hero-title {
