@@ -176,7 +176,7 @@ if (!reduceMotion && finePointer.matches) {
   requestAnimationFrame(raf);
 }
 
-/* Portfolio tabs */
+/* Portfolio pill tabs */
 $$('.portfolio-tab').forEach(tab => {
   tab.addEventListener('click', () => {
     $$('.portfolio-tab').forEach(item => {
@@ -220,18 +220,6 @@ if (projectGrid) {
     .map((project, index) => projectCard(project, index))
     .join('');
 }
-
-/* Certificates and tech stack accordion pills */
-$('.portfolio-pill').forEach(button => {
-  button.addEventListener('click', () => {
-    const isExpanded = button.getAttribute('aria-expanded') === 'true';
-    const content = document.getElementById(button.getAttribute('aria-controls'));
-    button.setAttribute('aria-expanded', String(!isExpanded));
-    if (content) content.hidden = isExpanded;
-    const icon = button.querySelector('.portfolio-pill-icon');
-    if (icon) icon.textContent = isExpanded ? '+' : '−';
-  });
-});
 
 /* Tech stack grouped by category */
 const stackPanel = $('#portfolio-stack');
