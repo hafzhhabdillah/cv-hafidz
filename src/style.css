@@ -2173,3 +2173,11 @@ p {
     transition: none;
   }
 }
+
+
+/* Keep the brand's layout space, but make the HAFIDZ wordmark unobtrusive */
+.site-nav .brand {
+  opacity: 0;
+  pointer-events: none;
+  user-select: none;
+}
