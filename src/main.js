@@ -194,7 +194,7 @@ $$('.portfolio-tab').forEach(tab => {
 
 /* Projects: one data source for cards, filters, archive, and detail views */
 const projectCard = (project, index, animate = false) => `
-  <article class="work-card${animate ? ' filter-enter' : ''}"${animate ? ` style="--filter-index:${index}"` : ''}>
+  <article class="work-card reveal${animate ? ' filter-enter' : ''}" style="--motion-index:${index % 3};${animate ? ` --filter-index:${index};` : ''}">
     <a class="work-image" href="?project=${project.slug}" aria-label="Lihat detail ${project.name}">
       <img src="${project.image}" alt="${project.alt}" width="${project.width}" height="${project.height}" loading="lazy" decoding="async" />
       <span class="work-image-overlay">VIEW DETAILS ↗</span>
@@ -242,7 +242,7 @@ if (stackPanel) {
         <div class="stack-category-heading"><span>${String(groupIndex + 1).padStart(2, '0')}</span><h4>${group.title}</h4></div>
         <div class="stack-grid">
           ${group.items.map(([name, icon, type]) => `
-            <div class="skill-card">
+            <div class="skill-card reveal" style="--motion-index:${groupIndex % 4}">
               <span class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${icon}/${icon}-original.svg" alt="" width="26" height="26" loading="lazy" decoding="async" /></span>
               <span class="skill-name">${name}</span>
               <span class="skill-type">${type}</span>
