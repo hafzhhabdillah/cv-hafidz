@@ -2349,7 +2349,7 @@ p {
 }
 
 
-/* Compact, subtle capsule tabs: Projects, Certificates, Tech Stack */
+/* Minimal monochrome capsule tabs */
 .portfolio-tabs {
   display: flex;
   flex-wrap: wrap;
@@ -2365,29 +2365,26 @@ p {
   align-items: center;
   justify-content: center;
   padding: 10px 19px;
-  border: 1px solid #dedede;
+  border: 1px solid #171717;
   border-radius: 999px;
-  background: #ffffff;
-  color: #666666;
+  background: transparent;
+  color: #171717;
   font: inherit;
   font-size: .88rem;
   font-weight: 600;
   line-height: 1.2;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(17, 17, 17, .025);
-  transition: background .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+  transition: background .2s ease, color .2s ease, transform .2s ease;
 }
 .portfolio-tabs .portfolio-tab:hover {
-  color: #171717;
-  border-color: #bdbdbd;
-  background: #fafafa;
+  background: #171717;
+  color: #ffffff;
   transform: translateY(-1px);
 }
 .portfolio-tabs .portfolio-tab.is-active {
+  border-color: #171717;
+  background: #171717;
   color: #ffffff;
-  border-color: #242424;
-  background: #242424;
-  box-shadow: 0 4px 12px rgba(17, 17, 17, .10);
 }
 @media (max-width: 520px) {
   .portfolio-tabs {
