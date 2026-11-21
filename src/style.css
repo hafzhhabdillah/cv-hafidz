@@ -2266,3 +2266,15 @@ p {
     object-position: center 18%;
   }
 }
+
+
+/* Portfolio supporting sections */
+.portfolio-extra-section {
+  margin-top: clamp(72px, 9vw, 112px);
+}
+.portfolio-extra-heading {
+  margin-bottom: 28px;
+}
+.portfolio-extra-heading .section-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
