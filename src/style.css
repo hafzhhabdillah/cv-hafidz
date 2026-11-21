@@ -2177,3 +2177,37 @@ p {
     transition: none;
   }
 }
+
+
+/* Refined portrait treatment inside the 3D profile card */
+.id-card-photo {
+  object-fit: cover;
+  object-position: center 20%;
+  transform: translateZ(8px) scale(1.045);
+  filter: brightness(1.08) contrast(1.04) saturate(1.06);
+}
+
+.id-card-shade {
+  background:
+    linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.78) 0%,
+      rgba(0, 0, 0, 0.34) 34%,
+      rgba(0, 0, 0, 0.04) 72%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(0, 0, 0, 0.10),
+      transparent 48%
+    );
+}
+
+.id-card-front {
+  background: #171717;
+}
+
+@media (max-width: 767px) {
+  .id-card-photo {
+    object-position: center 18%;
+  }
+}
