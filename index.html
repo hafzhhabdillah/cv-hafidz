@@ -215,41 +215,27 @@
             <h2 class="section-title">Portfolio<span class="period">.</span></h2>
           </div>
 
+          <div class="portfolio-tabs" role="tablist" aria-label="Portfolio categories">
+            <button class="portfolio-tab portfolio-pill is-active" id="tab-projects" type="button" role="tab" aria-selected="true" aria-controls="portfolio-projects" data-panel="portfolio-projects">Projects</button>
+            <button class="portfolio-tab portfolio-pill" id="tab-certificates" type="button" role="tab" aria-selected="false" aria-controls="portfolio-certificates" data-panel="portfolio-certificates">Certificates</button>
+            <button class="portfolio-tab portfolio-pill" id="tab-stack" type="button" role="tab" aria-selected="false" aria-controls="portfolio-stack-panel" data-panel="portfolio-stack-panel">Tech Stack</button>
+          </div>
+
           <div class="portfolio-panels">
-            <div id="portfolio-projects" class="portfolio-panel is-active">
+            <div id="portfolio-projects" class="portfolio-panel is-active" role="tabpanel" aria-labelledby="tab-projects">
               <div class="project-grid" id="projectGrid"></div>
               <div class="view-all-wrap"><a class="btn btn-ghost" href="?page=projects">View all projects <span aria-hidden="true">→</span></a></div>
             </div>
-          </div>
-
-          <div class="portfolio-accordion-list">
-            <section class="portfolio-accordion" id="certificates">
-              <h3 class="portfolio-accordion-heading">
-                <button class="portfolio-pill" type="button" aria-expanded="false" aria-controls="certificates-content">
-                  <span>Certificates</span>
-                  <span class="portfolio-pill-icon" aria-hidden="true">+</span>
-                </button>
-              </h3>
-              <div class="portfolio-accordion-content" id="certificates-content" hidden>
-                <div class="empty-card">
-                  <p class="eyebrow">Learning milestones</p>
-                  <h3>Belum ada sertifikat.</h3>
-                  <p>Sertifikat akan ditampilkan di sini setelah tersedia.</p>
-                </div>
+            <div id="portfolio-certificates" class="portfolio-panel" role="tabpanel" aria-labelledby="tab-certificates" hidden>
+              <div class="empty-card">
+                <p class="eyebrow">Learning milestones</p>
+                <h3>Belum ada sertifikat.</h3>
+                <p>Sertifikat akan ditampilkan di sini setelah tersedia.</p>
               </div>
-            </section>
-
-            <section class="portfolio-accordion" id="tech-stack">
-              <h3 class="portfolio-accordion-heading">
-                <button class="portfolio-pill" type="button" aria-expanded="false" aria-controls="tech-stack-content">
-                  <span>Tech Stack</span>
-                  <span class="portfolio-pill-icon" aria-hidden="true">+</span>
-                </button>
-              </h3>
-              <div class="portfolio-accordion-content" id="tech-stack-content" hidden>
-                <div id="portfolio-stack"></div>
-              </div>
-            </section>
+            </div>
+            <div id="portfolio-stack-panel" class="portfolio-panel" role="tabpanel" aria-labelledby="tab-stack" hidden>
+              <div id="portfolio-stack"></div>
+            </div>
           </div>
         </div>
       </section>
