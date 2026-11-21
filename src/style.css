@@ -2055,7 +2055,7 @@ p {
   max-width: calc(100% - 28px);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 999px;
-  background: rgba(17, 17, 17, 0.94);
+  background: rgba(17, 17, 17, 0.58);
   box-shadow: 0 14px 38px rgba(0, 0, 0, 0.16);
   -webkit-backdrop-filter: blur(18px);
   backdrop-filter: blur(18px);
@@ -2072,7 +2072,7 @@ p {
 
 .site-nav.is-scrolled {
   border-color: rgba(255, 255, 255, 0.14);
-  background: rgba(17, 17, 17, 0.94);
+  background: rgba(17, 17, 17, 0.58);
   box-shadow: 0 14px 38px rgba(0, 0, 0, 0.16);
   opacity: 1;
   visibility: visible;
@@ -2080,10 +2080,14 @@ p {
   transform: translate(-50%, 0);
 }
 
+.site-nav .brand {
+  display: none;
+}
+
 .site-nav .nav-shell {
   min-height: 58px;
   gap: 24px;
-  padding: 0 10px 0 22px;
+  padding: 0 12px;
 }
 
 .site-nav .brand {
@@ -2151,7 +2155,7 @@ p {
     padding: 10px;
     border: 1px solid #414141;
     border-radius: 20px;
-    background: rgba(17, 17, 17, 0.97);
+    background: rgba(17, 17, 17, 0.78);
     box-shadow: 0 16px 34px rgba(0, 0, 0, 0.2);
   }
 
@@ -2172,12 +2176,4 @@ p {
   .site-nav {
     transition: none;
   }
-}
-
-
-/* Keep the brand's layout space, but make the HAFIDZ wordmark unobtrusive */
-.site-nav .brand {
-  opacity: 0;
-  pointer-events: none;
-  user-select: none;
 }
