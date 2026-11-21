@@ -2349,12 +2349,12 @@ p {
 }
 
 
-/* Compact capsule tabs: Projects, Certificates, Tech Stack */
+/* Compact, subtle capsule tabs: Projects, Certificates, Tech Stack */
 .portfolio-tabs {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 10px;
+  gap: 9px;
   margin: 28px 0 30px;
 }
 .portfolio-tabs .portfolio-tab {
@@ -2364,26 +2364,30 @@ p {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 11px 21px;
-  border: 1px solid var(--line);
+  padding: 10px 19px;
+  border: 1px solid #dedede;
   border-radius: 999px;
-  background: var(--white);
-  color: var(--black);
+  background: #ffffff;
+  color: #666666;
   font: inherit;
-  font-size: .9rem;
+  font-size: .88rem;
   font-weight: 600;
   line-height: 1.2;
   cursor: pointer;
-  transition: background .22s ease, color .22s ease, border-color .22s ease, transform .22s ease;
+  box-shadow: 0 2px 8px rgba(17, 17, 17, .025);
+  transition: background .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease;
 }
 .portfolio-tabs .portfolio-tab:hover {
-  border-color: var(--black);
+  color: #171717;
+  border-color: #bdbdbd;
+  background: #fafafa;
   transform: translateY(-1px);
 }
 .portfolio-tabs .portfolio-tab.is-active {
-  border-color: var(--black);
-  background: var(--black);
-  color: var(--white);
+  color: #ffffff;
+  border-color: #242424;
+  background: #242424;
+  box-shadow: 0 4px 12px rgba(17, 17, 17, .10);
 }
 @media (max-width: 520px) {
   .portfolio-tabs {
@@ -2391,7 +2395,7 @@ p {
     margin: 22px 0 24px;
   }
   .portfolio-tabs .portfolio-tab {
-    padding: 10px 16px;
+    padding: 10px 15px;
     font-size: .84rem;
   }
 }
