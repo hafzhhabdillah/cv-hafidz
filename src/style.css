@@ -2347,3 +2347,51 @@ p {
     padding: 18px 2px 4px;
   }
 }
+
+
+/* Compact capsule tabs: Projects, Certificates, Tech Stack */
+.portfolio-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 28px 0 30px;
+}
+.portfolio-tabs .portfolio-tab {
+  width: auto;
+  min-height: 0;
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 21px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--black);
+  font: inherit;
+  font-size: .9rem;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background .22s ease, color .22s ease, border-color .22s ease, transform .22s ease;
+}
+.portfolio-tabs .portfolio-tab:hover {
+  border-color: var(--black);
+  transform: translateY(-1px);
+}
+.portfolio-tabs .portfolio-tab.is-active {
+  border-color: var(--black);
+  background: var(--black);
+  color: var(--white);
+}
+@media (max-width: 520px) {
+  .portfolio-tabs {
+    gap: 8px;
+    margin: 22px 0 24px;
+  }
+  .portfolio-tabs .portfolio-tab {
+    padding: 10px 16px;
+    font-size: .84rem;
+  }
+}
