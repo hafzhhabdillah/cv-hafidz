@@ -2278,3 +2278,72 @@ p {
 .portfolio-extra-heading .section-title {
   font-size: clamp(2rem, 4vw, 3rem);
 }
+
+
+/* Clickable pill accordions for Certificates and Tech Stack */
+.portfolio-accordion-list {
+  display: grid;
+  gap: 14px;
+  margin-top: clamp(64px, 8vw, 96px);
+}
+.portfolio-accordion {
+  min-width: 0;
+}
+.portfolio-accordion-heading {
+  margin: 0;
+}
+.portfolio-pill {
+  width: 100%;
+  min-height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 26px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--black);
+  font: inherit;
+  font-size: clamp(1rem, 2vw, 1.12rem);
+  font-weight: 650;
+  text-align: left;
+  cursor: pointer;
+  transition: background .25s ease, color .25s ease, border-color .25s ease, transform .25s ease;
+}
+.portfolio-pill:hover {
+  border-color: var(--black);
+  transform: translateY(-2px);
+}
+.portfolio-pill[aria-expanded="true"] {
+  border-color: var(--black);
+  background: var(--black);
+  color: var(--white);
+}
+.portfolio-pill-icon {
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  display: grid;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1;
+}
+.portfolio-accordion-content {
+  padding: 24px 10px 8px;
+}
+.portfolio-accordion-content[hidden] {
+  display: none;
+}
+@media (max-width: 767px) {
+  .portfolio-pill {
+    min-height: 60px;
+    padding: 0 20px;
+  }
+  .portfolio-accordion-content {
+    padding: 18px 2px 4px;
+  }
+}
