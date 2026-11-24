@@ -178,25 +178,25 @@ if (!reduceMotion && finePointer.matches) {
 }
 
 /* Projects: one data source for cards, filters, archive, and detail views */
-const projectCard = (project, index, animate = false) => \`
-  <article class="work-card reveal\${animate ? ' filter-enter' : ''}" style="--motion-index:\${index % 3};\${animate ? \` --filter-index:\${index};\` : ''}">
-    <a class="work-image" href="?project=\${project.slug}" aria-label="Lihat detail \${project.name}">
-      <img src="\${project.image}" alt="\${project.alt}" width="\${project.width}" height="\${project.height}" loading="lazy" decoding="async" />
+const projectCard = (project, index, animate = false) => `
+  <article class="work-card reveal${animate ? ' filter-enter' : ''}" style="--motion-index:${index % 3};${animate ? ` --filter-index:${index};` : ''}">
+    <a class="work-image" href="?project=${project.slug}" aria-label="Lihat detail ${project.name}">
+      <img src="${project.image}" alt="${project.alt}" width="${project.width}" height="${project.height}" loading="lazy" decoding="async" />
       <span class="work-image-overlay">LIHAT DETAIL ↗</span>
-      <span class="work-number">\${String(index + 1).padStart(2, '0')}</span>
+      <span class="work-number">${String(index + 1).padStart(2, '0')}</span>
       <span class="work-arrow" aria-hidden="true">↗</span>
     </a>
     <div class="work-card-body">
-      <div class="work-meta"><span>\${project.category}</span><span>\${project.year}</span></div>
-      <h3><a href="?project=\${project.slug}">\${project.name}</a></h3>
-      <p>\${project.description}</p>
-      <div class="work-tags">\${project.stack.map(tag => \`<span>\${tag}</span>\`).join('')}</div>
+      <div class="work-meta"><span>${project.category}</span><span>${project.year}</span></div>
+      <h3><a href="?project=${project.slug}">${project.name}</a></h3>
+      <p>${project.description}</p>
+      <div class="work-tags">${project.stack.map(tag => `<span>${tag}</span>`).join('')}</div>
       <div class="work-card-links project-actions">
-        \${project.demo ? \`<a class="project-action project-action-primary" href="\${project.demo}" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>\` : '<span class="project-action project-action-disabled" aria-disabled="true">Live Demo belum tersedia</span>'}
-        <a class="project-action" href="\${project.github || GITHUB_URL}" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        ${project.demo ? `<a class="project-action project-action-primary" href="${project.demo}" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>` : '<span class="project-action project-action-disabled" aria-disabled="true">Live Demo belum tersedia</span>'}
+        <a class="project-action" href="${project.github || GITHUB_URL}" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
       </div>
     </div>
-  </article>\`;
+  </article>`;
 
 const projectGrid = $('#projectGrid');
 if (projectGrid) {
