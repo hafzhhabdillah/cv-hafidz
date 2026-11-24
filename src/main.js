@@ -560,19 +560,26 @@ if (lanyardStage) {
   const flip = reduce ? () => toggle() : spin;
 
   if (!reduce) {
-    tag.addEventListener('pointerdown', e => {
+    /* Drag can start anywhere inside the expanded home-stage, not only on the card. */
+    stage.addEventListener('pointerdown', e => {
       if (e.pointerType === 'mouse' && e.button !== 0) return;
-      if (e.target.closest('a')) return; // links on the back stay clickable
+      if (e.target.closest('a')) return; // keep the card's back-side links usable
       const s = toStage(e);
       drag = true;
       tag.classList.add('is-dragging');
-      tag.setPointerCapture(e.pointerId);
+      stage.setPointerCapture(e.pointerId);
       ox = s.x - P[SEG].x; oy = s.y - P[SEG].y;
       tx = P[SEG].x; ty = P[SEG].y; lastX = e.clientX;
-      down = { x: e.clientX, y: e.clientY, t: performance.now(), moved: 0 };
+      down = {
+        x: e.clientX,
+        y: e.clientY,
+        t: performance.now(),
+        moved: 0,
+        startedOnCard: Boolean(e.target.closest('[data-lanyard-card]'))
+      };
       hideHint();
     });
-    tag.addEventListener('pointermove', e => {
+    stage.addEventListener('pointermove', e => {
       if (!drag) return;
       const s = toStage(e);
       tx = s.x - ox; ty = s.y - oy;
@@ -587,13 +594,13 @@ if (lanyardStage) {
       drag = false;
       tag.classList.remove('is-dragging');
       spinTarget = Math.round((ayaw + vyaw * 6) / 180) * 180; // release: settle on the nearest side
-      if (e.type === 'pointerup' && down.moved < 6 && performance.now() - down.t < 350) {
+      if (e.type === 'pointerup' && down.startedOnCard && down.moved < 6 && performance.now() - down.t < 350) {
         const r = tag.getBoundingClientRect();
-        flip(e.clientX < r.left + r.width / 2 ? -1 : 1); // tap flips toward the side you touched
+        flip(e.clientX < r.left + r.width / 2 ? -1 : 1); // tap on the card flips toward the touched side
       }
     };
-    tag.addEventListener('pointerup', end);
-    tag.addEventListener('pointercancel', end);
+    stage.addEventListener('pointerup', end);
+    stage.addEventListener('pointercancel', end);
   } else {
     tag.addEventListener('click', e => { if (!e.target.closest('a')) toggle(); });
   }
