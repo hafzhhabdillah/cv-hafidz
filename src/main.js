@@ -383,19 +383,20 @@ if (!reduceMotion && 'IntersectionObserver' in window) {
   revealTargets.forEach(target => target.classList.add('is-visible'));
 }
 
-/* Draggable 3D profile card: mouse tilt, drag, touch, and keyboard */
+/* Lightweight 3D profile card: pointer tilt, touch sway, glare, and keyboard flip */
 const idCard = $('[data-id-card]');
-if (idCard && !reduceMotion) {
+if (idCard) {
   const stage = idCard.parentElement;
-  const maxTilt = 16;
+  const maxTilt = 14;
+  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+  const front = $('.id-card-front', idCard);
+  const back = $('.id-card-back', idCard);
   let frame = 0;
-  let dragging = false;
+  let pointerDown = false;
+  let pointerMoved = false;
   let pointerId = null;
-  let lastX = 0;
-  let lastY = 0;
-  let lastTime = 0;
-  let velocityX = 0;
-  let velocityY = 0;
+  let startX = 0;
+  let startY = 0;
   let targetX = 0;
   let targetY = 0;
   let currentX = 0;
@@ -404,128 +405,139 @@ if (idCard && !reduceMotion) {
   let lightY = 50;
   let targetLightX = 50;
   let targetLightY = 50;
-  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+  const isTouchLayout = () => !finePointer.matches;
 
-  const render = () => {
-    const ease = dragging ? 0.22 : 0.12;
+  const setFlipped = flipped => {
+    idCard.classList.toggle('is-flipped', flipped);
+    idCard.setAttribute('aria-pressed', String(flipped));
+    front?.setAttribute('aria-hidden', String(flipped));
+    back?.setAttribute('aria-hidden', String(!flipped));
+    if (front) front.inert = flipped;
+    if (back) back.inert = !flipped;
+  };
+
+  const render = time => {
+    if (reduceMotion) return;
+    if (isTouchLayout() && !pointerDown) {
+      targetX = Math.sin(time / 2100) * 2.2;
+      targetY = Math.cos(time / 2600) * 3.2;
+      targetLightX = 50 + Math.sin(time / 2600) * 10;
+      targetLightY = 48 + Math.cos(time / 2200) * 8;
+      stage?.classList.add('is-card-active');
+    }
+    const ease = pointerDown ? 0.2 : 0.095;
     currentX += (targetX - currentX) * ease;
     currentY += (targetY - currentY) * ease;
-    lightX += (targetLightX - lightX) * 0.18;
-    lightY += (targetLightY - lightY) * 0.18;
-    idCard.style.setProperty('--tilt-x', `${currentX.toFixed(2)}deg`);
-    idCard.style.setProperty('--tilt-y', `${currentY.toFixed(2)}deg`);
-    idCard.style.setProperty('--light-x', `${lightX.toFixed(1)}%`);
-    idCard.style.setProperty('--light-y', `${lightY.toFixed(1)}%`);
-    idCard.style.setProperty('--shadow-x', `${(-currentY * 0.5).toFixed(1)}px`);
-    idCard.style.setProperty('--shadow-y', `${(22 + Math.abs(currentX) * 0.6).toFixed(1)}px`);
+    lightX += (targetLightX - lightX) * 0.14;
+    lightY += (targetLightY - lightY) * 0.14;
 
-    const showingBack = Math.abs(currentY) > 90;
-    $('.id-card-front', idCard)?.setAttribute('aria-hidden', String(showingBack));
-    $('.id-card-back', idCard)?.setAttribute('aria-hidden', String(!showingBack));
+    idCard.style.setProperty('--tilt-x', currentX.toFixed(2) + 'deg');
+    idCard.style.setProperty('--tilt-y', currentY.toFixed(2) + 'deg');
+    idCard.style.setProperty('--light-x', lightX.toFixed(1) + '%');
+    idCard.style.setProperty('--light-y', lightY.toFixed(1) + '%');
+    idCard.style.setProperty('--shadow-x', (-currentY * 0.75).toFixed(1) + 'px');
+    idCard.style.setProperty('--shadow-y', (22 + Math.abs(currentX) * 0.8).toFixed(1) + 'px');
 
-    const moving = Math.abs(targetX - currentX) > 0.04 || Math.abs(targetY - currentY) > 0.04 ||
-      Math.abs(targetLightX - lightX) > 0.2 || Math.abs(targetLightY - lightY) > 0.2;
-    frame = moving ? requestAnimationFrame(render) : 0;
+    const settled = Math.abs(targetX - currentX) < 0.025 &&
+      Math.abs(targetY - currentY) < 0.025 &&
+      Math.abs(targetLightX - lightX) < 0.12 &&
+      Math.abs(targetLightY - lightY) < 0.12;
+    if (isTouchLayout() || !settled || pointerDown) {
+      frame = requestAnimationFrame(render);
+    } else {
+      frame = 0;
+    }
   };
 
-  const schedule = () => { if (!frame) frame = requestAnimationFrame(render); };
-  const setLighting = event => {
+  const schedule = () => {
+    if (!frame && !reduceMotion) frame = requestAnimationFrame(render);
+  };
+
+  const updatePointer = event => {
     const rect = idCard.getBoundingClientRect();
-    targetLightX = clamp((event.clientX - rect.left) / rect.width, 0, 1) * 100;
-    targetLightY = clamp((event.clientY - rect.top) / rect.height, 0, 1) * 100;
+    const x = clamp((event.clientX - rect.left) / rect.width, 0, 1);
+    const y = clamp((event.clientY - rect.top) / rect.height, 0, 1);
+    targetX = (0.5 - y) * maxTilt * 1.7;
+    targetY = (x - 0.5) * maxTilt * 2;
+    targetLightX = x * 100;
+    targetLightY = y * 100;
+    stage?.classList.add('is-card-active');
+    schedule();
   };
 
-  idCard.addEventListener('pointerdown', event => {
-    if (event.pointerType === 'mouse' && event.button !== 0) return;
-    dragging = true;
-    pointerId = event.pointerId;
-    lastX = event.clientX;
-    lastY = event.clientY;
-    lastTime = performance.now();
-    velocityX = 0;
-    velocityY = 0;
-    idCard.setPointerCapture?.(pointerId);
-    idCard.classList.add('is-card-dragging');
-    stage?.classList.add('is-card-active');
-    setLighting(event);
-    schedule();
-  });
-
-  idCard.addEventListener('pointermove', event => {
-    if (dragging && event.pointerId === pointerId) {
-      const now = performance.now();
-      const dx = event.clientX - lastX;
-      const dy = event.clientY - lastY;
-      const dt = Math.max(8, now - lastTime);
-      targetY = clamp(targetY + dx * 0.62, -180, 180);
-      targetX = clamp(targetX - dy * 0.48, -maxTilt, maxTilt);
-      velocityY = (dx / dt) * 16;
-      velocityX = (-dy / dt) * 12;
-      lastX = event.clientX;
-      lastY = event.clientY;
-      lastTime = now;
-      setLighting(event);
+  if (!reduceMotion) {
+    idCard.addEventListener('pointerenter', event => {
+      if (event.pointerType === 'mouse') updatePointer(event);
+    });
+    idCard.addEventListener('pointermove', event => {
+      if (event.pointerType === 'mouse' && !pointerDown) updatePointer(event);
+      else if (pointerDown && event.pointerId === pointerId) {
+        if (Math.abs(event.clientX - startX) + Math.abs(event.clientY - startY) > 5) pointerMoved = true;
+        updatePointer(event);
+      }
+    });
+    idCard.addEventListener('pointerdown', event => {
+      if (event.pointerType === 'mouse' && event.button !== 0) return;
+      if (event.target.closest('a')) return;
+      pointerDown = true;
+      pointerMoved = false;
+      pointerId = event.pointerId;
+      startX = event.clientX;
+      startY = event.clientY;
+      if (event.pointerType !== 'mouse') idCard.setPointerCapture?.(pointerId);
+      updatePointer(event);
+    });
+    const releasePointer = event => {
+      if (!pointerDown || (event && event.pointerId !== pointerId)) return;
+      pointerDown = false;
+      pointerId = null;
+      targetX = isTouchLayout() ? 0 : 0;
+      targetY = 0;
+      targetLightX = 50;
+      targetLightY = 50;
+      if (!isTouchLayout()) stage?.classList.remove('is-card-active');
       schedule();
-      return;
-    }
-
-    if (!dragging && finePointer.matches) {
-      const rect = idCard.getBoundingClientRect();
-      const x = clamp((event.clientX - rect.left) / rect.width, 0, 1);
-      const y = clamp((event.clientY - rect.top) / rect.height, 0, 1);
-      targetX = (0.5 - y) * 8;
-      targetY = (x - 0.5) * 10;
-      setLighting(event);
-      stage?.classList.add('is-card-active');
-      schedule();
-    }
-  }, { passive: true });
-
-  const finishDrag = event => {
-    if (!dragging || (event && event.pointerId !== pointerId)) return;
-    dragging = false;
-    if (pointerId !== null && idCard.hasPointerCapture?.(pointerId)) idCard.releasePointerCapture(pointerId);
-    pointerId = null;
-    targetX = clamp(targetX + velocityX * 0.16, -maxTilt, maxTilt);
-    targetY = clamp(targetY + velocityY * 0.18, -180, 180);
-    velocityX = 0;
-    velocityY = 0;
-    idCard.classList.remove('is-card-dragging');
-    targetLightX = 50;
-    targetLightY = 50;
-    window.setTimeout(() => {
-      if (dragging) return;
+    };
+    idCard.addEventListener('pointerup', releasePointer);
+    idCard.addEventListener('pointercancel', releasePointer);
+    idCard.addEventListener('lostpointercapture', releasePointer);
+    idCard.addEventListener('pointerleave', event => {
+      if (event.pointerType !== 'mouse' || pointerDown) return;
       targetX = 0;
       targetY = 0;
+      targetLightX = 50;
+      targetLightY = 50;
       stage?.classList.remove('is-card-active');
       schedule();
-    }, 650);
-    schedule();
-  };
+    });
+    if (isTouchLayout()) schedule();
+  }
 
-  idCard.addEventListener('pointerup', finishDrag);
-  idCard.addEventListener('pointercancel', finishDrag);
-  idCard.addEventListener('lostpointercapture', finishDrag);
-  idCard.addEventListener('pointerleave', () => {
-    if (dragging) return;
-    targetX = 0;
-    targetY = 0;
-    targetLightX = 50;
-    targetLightY = 50;
-    stage?.classList.remove('is-card-active');
-    schedule();
+  idCard.addEventListener('click', event => {
+    if (event.target.closest('a') || pointerMoved) {
+      pointerMoved = false;
+      return;
+    }
+    setFlipped(!idCard.classList.contains('is-flipped'));
   });
-  window.addEventListener('blur', () => finishDrag());
 
   idCard.addEventListener('keydown', event => {
-    if (event.key === 'ArrowLeft') targetY = clamp(targetY - 12, -180, 180);
-    else if (event.key === 'ArrowRight') targetY = clamp(targetY + 12, -180, 180);
-    else if (event.key === 'ArrowUp') targetX = clamp(targetX - 8, -maxTilt, maxTilt);
-    else if (event.key === 'ArrowDown') targetX = clamp(targetX + 8, -maxTilt, maxTilt);
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      setFlipped(!idCard.classList.contains('is-flipped'));
+      return;
+    }
+    if (reduceMotion) return;
+    if (event.key === 'ArrowLeft') targetY = clamp(targetY - 5, -maxTilt, maxTilt);
+    else if (event.key === 'ArrowRight') targetY = clamp(targetY + 5, -maxTilt, maxTilt);
+    else if (event.key === 'ArrowUp') targetX = clamp(targetX - 5, -maxTilt, maxTilt);
+    else if (event.key === 'ArrowDown') targetX = clamp(targetX + 5, -maxTilt, maxTilt);
     else if (event.key === 'Home') { targetX = 0; targetY = 0; }
     else return;
     event.preventDefault();
     stage?.classList.add('is-card-active');
     schedule();
   });
+
+  setFlipped(false);
 }
