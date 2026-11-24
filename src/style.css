@@ -2731,3 +2731,85 @@ p {
 .lanyard-card {
   filter: none;
 }
+
+
+/* Editorial cover layout for the reverse side of the lanyard card */
+.lanyard-back {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0;
+  padding: 21px 18px 15px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 0;
+  color: #f5f4f0;
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(255,255,255,.12), transparent 44%),
+    linear-gradient(145deg, #252525 0%, #101010 72%);
+  transform: rotateY(180deg) translateZ(2.5px);
+}
+.lanyard-cover-top,
+.lanyard-cover-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: rgba(255,255,255,.48);
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: .14em;
+}
+.lanyard-cover-heading { margin: 24px 0 22px; }
+.lanyard-cover-kicker {
+  margin: 0 0 7px;
+  color: #aaa;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .22em;
+}
+.lanyard-cover-heading h2 {
+  margin: 0;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: clamp(2.3rem, 8vw, 3rem);
+  font-weight: 800;
+  line-height: .92;
+  letter-spacing: -.09em;
+}
+.lanyard-cover-heading h2 span { color: #929292; }
+.lanyard-cover-role {
+  margin: 10px 0 0;
+  color: rgba(255,255,255,.62);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .18em;
+}
+.lanyard-back-links { display: grid; gap: 0; border-top: 1px solid rgba(255,255,255,.2); }
+.lanyard-back-links a {
+  display: grid;
+  grid-template-columns: 68px minmax(0,1fr);
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  padding: 10px 0;
+  border: 0;
+  border-bottom: 1px solid rgba(255,255,255,.16);
+  border-radius: 0;
+  color: #f3f3f3;
+  background: transparent;
+  font-size: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: color .2s ease, padding .2s ease;
+}
+.lanyard-back-links a:hover,
+.lanyard-back-links a:focus-visible {
+  padding-left: 4px;
+  color: #aaa;
+  background: transparent;
+  transform: none;
+}
+.lanyard-link-label { color: rgba(255,255,255,.42); font-size: 7px; letter-spacing: .13em; }
+.lanyard-cover-bottom { padding-top: 12px; }
+.lanyard-cover-bottom span:first-child { color: rgba(255,255,255,.78); }
