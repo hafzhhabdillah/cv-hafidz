@@ -409,7 +409,6 @@ if (idCard) {
 
   const setFlipped = flipped => {
     idCard.classList.toggle('is-flipped', flipped);
-    idCard.setAttribute('aria-pressed', String(flipped));
     front?.setAttribute('aria-hidden', String(flipped));
     back?.setAttribute('aria-hidden', String(!flipped));
     if (front) front.inert = flipped;
@@ -514,6 +513,7 @@ if (idCard) {
   }
 
   idCard.addEventListener('click', event => {
+    if (reduceMotion) return;
     if (event.target.closest('a') || pointerMoved) {
       pointerMoved = false;
       return;
@@ -523,6 +523,7 @@ if (idCard) {
 
   idCard.addEventListener('keydown', event => {
     if (event.key === 'Enter' || event.key === ' ') {
+      if (reduceMotion) return;
       event.preventDefault();
       setFlipped(!idCard.classList.contains('is-flipped'));
       return;
