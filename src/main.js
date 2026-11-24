@@ -400,7 +400,7 @@ if (lanyardStage) {
 
   /* values you can tweak */
   const SEG = 11;             // rope segments
-  const ROPE = 560;           // longer rope so the photo can travel across the expanded stage
+  const ROPE = 400;           // enough reach for the expanded stage without starting below the hero
   const STRAP_W = 22;         // strap width (px)
   const AY = -100;            // anchor height relative to the stage top (strap fades in from here)
   const GRAV = 0.55;          // higher = heavier
