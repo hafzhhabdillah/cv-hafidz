@@ -383,24 +383,240 @@ if (!reduceMotion && 'IntersectionObserver' in window) {
   revealTargets.forEach(target => target.classList.add('is-visible'));
 }
 
-/* Lanyard ID card: damped pendulum, drag and accessible flip */
+/* Lanyard name tag: Verlet rope physics, drag-to-spin 3D card, tap / Enter to flip */
 const lanyardStage = $('[data-lanyard-stage]');
 if (lanyardStage) {
- const card=$('[data-lanyard-card]',lanyardStage), inner=$('[data-lanyard-inner]',card), front=$('[data-lanyard-front]',card), back=$('[data-lanyard-back]',card), flipButton=$('[data-lanyard-flip]',lanyardStage);
- const ribbonPaths=$$('[data-lanyard-path], [data-lanyard-path-texture]',lanyardStage), reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
- const CONFIG={gravity:.0019,damping:.986,stiffness:.000085,length:260,maxAngle:.48};
- let angle=reduced?0:.13,velocity=0,dragging=false,moved=false,pointerId=null,startX=0,startY=0,lastTime=0,flipped=false,raf=0;
- const clamp=(v,min,max)=>Math.min(max,Math.max(min,v));
- const setFlip=value=>{flipped=value;inner.classList.toggle('is-flipped',flipped);front.setAttribute('aria-hidden',String(flipped));back.setAttribute('aria-hidden',String(!flipped));front.inert=flipped;back.inert=!flipped;flipButton.setAttribute('aria-pressed',String(flipped));};
- const draw=()=>{card.style.transform=`translateX(calc(-50% + ${Math.sin(angle)*25}px)) rotate(${angle*57.2958}deg)`;card.style.setProperty('--lanyard-gloss-x',`${50+angle*75}%`);card.style.setProperty('--lanyard-shadow-x',`${-angle*28}px`);const x=180+Math.sin(angle)*72,d=`M145 0 C145 90 ${180+Math.sin(angle)*24} 112 ${x} 280`;ribbonPaths.forEach(p=>p.setAttribute('d',d));};
- const animate=()=>{if(reduced)return;velocity+=(-CONFIG.stiffness*angle-CONFIG.gravity*Math.sin(angle))*16.67;velocity*=CONFIG.damping;angle+=velocity*16.67;if(!dragging&&Math.abs(angle)<.0008&&Math.abs(velocity)<.00008){angle=0;velocity=0;draw();raf=0;return;}draw();raf=requestAnimationFrame(animate);};
- const wake=()=>{if(!reduced&&!raf)raf=requestAnimationFrame(animate);};
- const angleFromX=x=>{const r=lanyardStage.getBoundingClientRect();return clamp(((x-r.left-r.width/2)/CONFIG.length)*.48,-CONFIG.maxAngle,CONFIG.maxAngle);};
- card.addEventListener('pointerdown',e=>{if(e.target.closest('a,button')||(e.pointerType==='mouse'&&e.button!==0))return;dragging=true;moved=false;pointerId=e.pointerId;startX=e.clientX;startY=e.clientY;lastTime=performance.now();card.setPointerCapture?.(pointerId);card.classList.add('is-dragging');if(raf)cancelAnimationFrame(raf);raf=0;});
- card.addEventListener('pointermove',e=>{if(!dragging||e.pointerId!==pointerId)return;if(Math.hypot(e.clientX-startX,e.clientY-startY)>7)moved=true;const next=angleFromX(e.clientX),now=performance.now();velocity=(next-angle)/Math.max(1,now-lastTime);angle=next;lastTime=now;draw();});
- const release=e=>{if(!dragging||(e&&e.pointerId!==pointerId))return;dragging=false;pointerId=null;card.classList.remove('is-dragging');velocity=clamp(velocity*18,-.045,.045);wake();};
- card.addEventListener('pointerup',release);card.addEventListener('pointercancel',release);card.addEventListener('lostpointercapture',release);
- card.addEventListener('click',e=>{if(e.target.closest('a,button'))return;if(moved){moved=false;return;}setFlip(!flipped);});
- card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();setFlip(!flipped);}});
- flipButton.addEventListener('click',()=>setFlip(!flipped));setFlip(false);draw();if(!reduced)wake();
+  const stage = lanyardStage;
+  const tag = $('[data-lanyard-card]', stage);
+  const inner = $('[data-lanyard-inner]', tag);
+  const front = $('[data-lanyard-front]', tag);
+  const back = $('[data-lanyard-back]', tag);
+  const hint = $('[data-lanyard-hint]', stage);
+  const elBody = $('[data-lanyard-body]', stage);
+  const elSL = $('[data-lanyard-stitch-l]', stage);
+  const elSR = $('[data-lanyard-stitch-r]', stage);
+  const elCenter = $('[data-lanyard-center]', stage);
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* values you can tweak */
+  const SEG = 11;             // rope segments
+  const ROPE = 250;           // rope length (px)
+  const STRAP_W = 22;         // strap width (px)
+  const AY = -100;            // anchor height relative to the stage top (strap fades in from here)
+  const GRAV = 0.55;          // higher = heavier
+  const AIR = 0.992;          // rope air resistance (1 = none)
+  const SPIN_K = 0.035;       // snap strength to front/back
+  const SPIN_FRICTION = 0.8;  // higher = bouncier flip, lower = stiffer
+  const DRAG_TO_DEG = 0.6;    // degrees of spin per px dragged
+
+  const SL = ROPE / SEG, STEP = 1000 / 60, ITER = 16;
+  const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+
+  let W = 260, ax = 0, stageW = 460;
+  const P = [], Q = [], IM = [];
+  for (let i = 0; i <= SEG; i++) {
+    P.push({ x: 0, y: 0 });
+    Q.push({ x: 0, y: 0 });
+    IM.push(i === 0 ? 0 : i === SEG ? 0.35 : 1); // the card end is heavier
+  }
+
+  let az = 0, vz = 0;          // card tilt (rotateZ)
+  let ayaw = 0, vyaw = 0;      // card spin (rotateY)
+  let spinTarget = 0;          // multiples of 180 = front / back
+  let drag = false, tx = 0, ty = 0, ox = 0, oy = 0, lastX = 0, down = null;
+  let frontUp = true, ready = false;
+
+  const initRope = () => {
+    const a = reduce ? 0 : (20 * Math.PI) / 180; // start tilted so it swings in on load
+    for (let i = 0; i <= SEG; i++) {
+      P[i].x = ax + Math.sin(a) * i * SL;
+      P[i].y = AY + Math.cos(a) * i * SL;
+      Q[i].x = P[i].x;
+      Q[i].y = P[i].y;
+    }
+  };
+
+  const layout = () => {
+    const w = stage.clientWidth;
+    if (!w) return;
+    stageW = w;
+    W = tag.offsetWidth;
+    tag.style.transformOrigin = `${W / 2}px 0px`;
+    const nax = w / 2;
+    if (!ready) {
+      ax = nax;
+      initRope();
+      ready = true;
+    } else if (nax !== ax) {
+      const d = nax - ax;
+      ax = nax;
+      for (let i = 0; i <= SEG; i++) { P[i].x += d; Q[i].x += d; }
+    }
+    if (reduce) render();
+  };
+
+  const step = () => {
+    for (let i = 1; i <= SEG; i++) {
+      const p = P[i], q = Q[i];
+      let vx = (p.x - q.x) * AIR, vy = (p.y - q.y) * AIR;
+      const sp = Math.hypot(vx, vy);
+      if (sp > 45) { vx *= 45 / sp; vy *= 45 / sp; }
+      q.x = p.x; q.y = p.y;
+      p.x += vx; p.y += vy + GRAV;
+    }
+    if (drag) {
+      const p = P[SEG];
+      p.x += (tx - p.x) * 0.5;
+      p.y += (ty - p.y) * 0.5;
+    }
+    for (let k = 0; k < ITER; k++) {
+      P[0].x = ax; P[0].y = AY;
+      for (let i = 0; i < SEG; i++) {
+        const a = P[i], b = P[i + 1];
+        const dx = b.x - a.x, dy = b.y - a.y;
+        const d = Math.hypot(dx, dy) || 1e-4;
+        const diff = (d - SL) / d, wa = IM[i], wb = IM[i + 1], s = wa + wb;
+        a.x += (dx * diff * wa) / s; a.y += (dy * diff * wa) / s;
+        b.x -= (dx * diff * wb) / s; b.y -= (dy * diff * wb) / s;
+      }
+    }
+
+    // keep the card inside the stage so it never causes horizontal scroll
+    const lim = Math.max(20, stageW / 2 - W * 0.375 - 6);
+    const off = P[SEG].x - ax;
+    if (Math.abs(off) > lim) {
+      P[SEG].x = ax + Math.sign(off) * lim;
+      Q[SEG].x = P[SEG].x;
+    }
+
+    // card tilt follows the rope direction, with a little lag so it feels heavy
+    const a = P[SEG - 2], b = P[SEG];
+    let tz = (-Math.atan2(b.x - a.x, b.y - a.y) * 180) / Math.PI;
+    if (drag) tz += clamp((b.x - Q[SEG].x) * 0.9, -22, 22);
+    vz += (tz - az) * 0.09; vz *= 0.86; az += vz;
+
+    // card spin: angle is set by the drag; on release it snaps to the nearest side
+    if (drag) {
+      vyaw *= 0.8;
+    } else {
+      vyaw += (spinTarget - ayaw) * SPIN_K;
+      vyaw *= SPIN_FRICTION;
+      vyaw = clamp(vyaw, -45, 45);
+      ayaw += vyaw;
+    }
+  };
+
+  const offs = o => P.map((p, i) => {
+    const a = P[Math.max(i - 1, 0)], b = P[Math.min(i + 1, SEG)];
+    const tx_ = b.x - a.x, ty_ = b.y - a.y, l = Math.hypot(tx_, ty_) || 1;
+    return { x: p.x - (ty_ / l) * o, y: p.y + (tx_ / l) * o };
+  });
+  const smooth = (pts, move = true) => {
+    const f = n => n.toFixed(1);
+    let d = (move ? 'M' : 'L') + f(pts[0].x) + ' ' + f(pts[0].y);
+    for (let i = 1; i < pts.length - 1; i++) {
+      const mx = (pts[i].x + pts[i + 1].x) / 2, my = (pts[i].y + pts[i + 1].y) / 2;
+      d += ` Q${f(pts[i].x)} ${f(pts[i].y)} ${f(mx)} ${f(my)}`;
+    }
+    const l = pts[pts.length - 1];
+    return d + ` L${f(l.x)} ${f(l.y)}`;
+  };
+  const drawStrap = () => {
+    const h = STRAP_W / 2;
+    elBody.setAttribute('d', smooth(offs(h)) + smooth(offs(-h).reverse(), false) + 'Z');
+    elSL.setAttribute('d', smooth(offs(h - 3.5)));
+    elSR.setAttribute('d', smooth(offs(-(h - 3.5))));
+    elCenter.setAttribute('d', smooth(P));
+  };
+
+  function render() {
+    const x = P[SEG].x, y = P[SEG].y;
+    tag.style.transform = `translate3d(${x - W / 2}px, ${y}px, 0) rotate(${az}deg)`;
+    const swing = clamp((P[SEG].x - Q[SEG].x) * 1.2, -14, 14);
+    const deg = ayaw + swing;
+    inner.style.transform = `perspective(1100px) rotateY(${deg}deg)`;
+    const r = (deg * Math.PI) / 180, c = Math.cos(r), s = Math.sin(r);
+    inner.style.setProperty('--lanyard-gx', (50 + 60 * s).toFixed(1) + '%');
+    inner.style.setProperty('--lanyard-shade', ((1 - Math.abs(c)) * 0.38).toFixed(3));
+    const f = c >= 0;
+    if (f !== frontUp) {
+      frontUp = f;
+      front.inert = !f; back.inert = f;
+      front.setAttribute('aria-hidden', String(!f));
+      back.setAttribute('aria-hidden', String(f));
+    }
+    drawStrap();
+  }
+
+  const toStage = e => { const r = stage.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; };
+  const hideHint = () => hint && hint.classList.add('is-hidden');
+
+  const spin = dir => {
+    spinTarget = (Math.round(ayaw / 180) + dir) * 180;
+    vyaw = clamp(vyaw + dir * 8, -45, 45);
+    hideHint();
+  };
+  const toggle = () => { ayaw = Math.round(ayaw / 180) * 180 + 180; hideHint(); render(); };
+  const flip = reduce ? () => toggle() : spin;
+
+  if (!reduce) {
+    tag.addEventListener('pointerdown', e => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      if (e.target.closest('a')) return; // links on the back stay clickable
+      const s = toStage(e);
+      drag = true;
+      tag.classList.add('is-dragging');
+      tag.setPointerCapture(e.pointerId);
+      ox = s.x - P[SEG].x; oy = s.y - P[SEG].y;
+      tx = P[SEG].x; ty = P[SEG].y; lastX = e.clientX;
+      down = { x: e.clientX, y: e.clientY, t: performance.now(), moved: 0 };
+      hideHint();
+    });
+    tag.addEventListener('pointermove', e => {
+      if (!drag) return;
+      const s = toStage(e);
+      tx = s.x - ox; ty = s.y - oy;
+      const dAng = (e.clientX - lastX) * DRAG_TO_DEG;
+      lastX = e.clientX;
+      ayaw += dAng;
+      vyaw = 0.5 * vyaw + 0.5 * dAng;
+      down.moved = Math.max(down.moved, Math.hypot(e.clientX - down.x, e.clientY - down.y));
+    });
+    const end = e => {
+      if (!drag) return;
+      drag = false;
+      tag.classList.remove('is-dragging');
+      spinTarget = Math.round((ayaw + vyaw * 6) / 180) * 180; // release: settle on the nearest side
+      if (e.type === 'pointerup' && down.moved < 6 && performance.now() - down.t < 350) {
+        const r = tag.getBoundingClientRect();
+        flip(e.clientX < r.left + r.width / 2 ? -1 : 1); // tap flips toward the side you touched
+      }
+    };
+    tag.addEventListener('pointerup', end);
+    tag.addEventListener('pointercancel', end);
+  } else {
+    tag.addEventListener('click', e => { if (!e.target.closest('a')) toggle(); });
+  }
+
+  tag.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowRight') { e.preventDefault(); flip(1); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); flip(-1); }
+  });
+
+  new ResizeObserver(layout).observe(stage);
+  layout();
+
+  if (!reduce) {
+    let last = performance.now(), acc = 0, visible = true;
+    new IntersectionObserver(entries => { visible = entries[0].isIntersecting; }).observe(stage);
+    const frame = now => {
+      requestAnimationFrame(frame);
+      if (!visible || document.hidden) { last = now; return; }
+      acc += Math.min(now - last, 50);
+      last = now;
+      while (acc >= STEP) { step(); acc -= STEP; }
+      render();
+    };
+    requestAnimationFrame(frame);
+  }
 }
