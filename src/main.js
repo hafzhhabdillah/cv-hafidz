@@ -16,13 +16,14 @@ const projects = [
     width: 1910,
     height: 997,
     alt: 'Meowketplace project screenshot',
-    description: 'Website e-commerce untuk kebutuhan kucing kesayangan.',
+    description: 'Website e-commerce yang berfokus pada kebutuhan kucing dan hewan peliharaan. Katalog produk disusun agar pengunjung dapat menjelajahi kebutuhan hewan dengan lebih mudah.',
     overview: 'Meowketplace merupakan project e-commerce yang berfokus pada kebutuhan hewan peliharaan, khususnya kucing. Project ini menggabungkan perancangan antarmuka dan implementasi halaman web.',
     goal: 'Menyajikan pengalaman katalog produk yang mudah dipahami dan nyaman dijelajahi.',
     process: 'Perancangan UI dilakukan dengan Figma, kemudian tampilan dibangun menggunakan HTML, CSS, Tailwind CSS, dan JavaScript.',
     features: ['Tampilan katalog produk', 'Layout responsif', 'Antarmuka e-commerce'],
     stack: ['HTML', 'CSS', 'Figma', 'Tailwind CSS', 'JavaScript'],
     demo: null,
+    github: GITHUB_URL,
   },
   {
     slug: 'landing-page-bbil-furniture',
@@ -33,7 +34,7 @@ const projects = [
     width: 1908,
     height: 994,
     alt: 'Bbil Furniture landing page screenshot',
-    description: 'Konsep landing page untuk menampilkan produk furniture dan kebutuhan rumah.',
+    description: 'Konsep landing page untuk memperkenalkan produk furniture dan kebutuhan rumah. Tata letak dibuat dengan fokus pada visual produk serta informasi yang mudah dipindai.',
     overview: 'Project konsep e-commerce yang berfokus pada presentasi produk furniture melalui landing page.',
     goal: 'Membuat tampilan produk rumah tangga yang terstruktur dan mudah dipindai.',
     process: 'Desain antarmuka disusun dengan Figma dan diimplementasikan menggunakan HTML, CSS, Tailwind CSS, serta JavaScript.',
@@ -50,7 +51,7 @@ const projects = [
     width: 1923,
     height: 982,
     alt: 'Student violation application screenshot',
-    description: 'Aplikasi web untuk membantu pencatatan pelanggaran siswa.',
+    description: 'Aplikasi web untuk membantu pencatatan data pelanggaran siswa. Antarmukanya menyajikan informasi pencatatan agar lebih terorganisasi dan mudah dipantau.',
     overview: 'Aplikasi web yang dibuat untuk mendukung pencatatan data pelanggaran siswa.',
     goal: 'Membantu menyusun informasi pelanggaran agar lebih terorganisasi.',
     process: 'Project dikembangkan menggunakan HTML, CSS, Tailwind CSS, dan JavaScript.',
@@ -176,42 +177,26 @@ if (!reduceMotion && finePointer.matches) {
   requestAnimationFrame(raf);
 }
 
-/* Portfolio pill tabs */
-$$('.portfolio-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    $$('.portfolio-tab').forEach(item => {
-      const active = item === tab;
-      item.classList.toggle('is-active', active);
-      item.setAttribute('aria-selected', String(active));
-    });
-    $$('.portfolio-panel').forEach(panel => {
-      const active = panel.id === tab.dataset.panel;
-      panel.hidden = !active;
-      panel.classList.toggle('is-active', active);
-    });
-  });
-});
-
 /* Projects: one data source for cards, filters, archive, and detail views */
-const projectCard = (project, index, animate = false) => `
-  <article class="work-card reveal${animate ? ' filter-enter' : ''}" style="--motion-index:${index % 3};${animate ? ` --filter-index:${index};` : ''}">
-    <a class="work-image" href="?project=${project.slug}" aria-label="Lihat detail ${project.name}">
-      <img src="${project.image}" alt="${project.alt}" width="${project.width}" height="${project.height}" loading="lazy" decoding="async" />
-      <span class="work-image-overlay">VIEW DETAILS ↗</span>
-      <span class="work-number">${String(index + 1).padStart(2, '0')}</span>
+const projectCard = (project, index, animate = false) => \`
+  <article class="work-card reveal\${animate ? ' filter-enter' : ''}" style="--motion-index:\${index % 3};\${animate ? \` --filter-index:\${index};\` : ''}">
+    <a class="work-image" href="?project=\${project.slug}" aria-label="Lihat detail \${project.name}">
+      <img src="\${project.image}" alt="\${project.alt}" width="\${project.width}" height="\${project.height}" loading="lazy" decoding="async" />
+      <span class="work-image-overlay">LIHAT DETAIL ↗</span>
+      <span class="work-number">\${String(index + 1).padStart(2, '0')}</span>
       <span class="work-arrow" aria-hidden="true">↗</span>
     </a>
     <div class="work-card-body">
-      <div class="work-meta"><span>${project.category}</span><span>${project.year}</span></div>
-      <h3><a href="?project=${project.slug}">${project.name}</a></h3>
-      <p>${project.description}</p>
-      <div class="work-tags">${project.stack.map(tag => `<span>${tag}</span>`).join('')}</div>
-      <div class="work-card-links">
-        <a href="?project=${project.slug}">Project details ↗</a>
-        <a href="${GITHUB_URL}" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+      <div class="work-meta"><span>\${project.category}</span><span>\${project.year}</span></div>
+      <h3><a href="?project=\${project.slug}">\${project.name}</a></h3>
+      <p>\${project.description}</p>
+      <div class="work-tags">\${project.stack.map(tag => \`<span>\${tag}</span>\`).join('')}</div>
+      <div class="work-card-links project-actions">
+        \${project.demo ? \`<a class="project-action project-action-primary" href="\${project.demo}" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>\` : '<span class="project-action project-action-disabled" aria-disabled="true">Live Demo belum tersedia</span>'}
+        <a class="project-action" href="\${project.github || GITHUB_URL}" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
       </div>
     </div>
-  </article>`;
+  </article>\`;
 
 const projectGrid = $('#projectGrid');
 if (projectGrid) {
@@ -258,16 +243,15 @@ form?.addEventListener('submit', event => {
   event.preventDefault();
   const data = new FormData(form);
   const name = String(data.get('name') || '').trim();
-  const email = String(data.get('email') || '').trim();
   const message = String(data.get('message') || '').trim();
 
-  if (!form.checkValidity() || !name || !email || !message) {
-    if (formStatus) formStatus.textContent = 'Lengkapi nama, email yang valid, dan pesan terlebih dahulu.';
+  if (!form.checkValidity() || !name || !message) {
+    if (formStatus) formStatus.textContent = 'Lengkapi nama dan pesan terlebih dahulu.';
     form.reportValidity();
     return;
   }
 
-  const text = `Halo Hafidz, saya ${name} (${email}).\n\n${message}`;
+  const text = `Halo Hafidz, saya ${name}.\n\n${message}`;
   const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
   const opened = window.open(url, '_blank', 'noopener,noreferrer');
   if (formStatus) {
