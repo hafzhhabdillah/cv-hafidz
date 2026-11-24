@@ -403,13 +403,13 @@ if (lanyardStage) {
   const ROPE = 360;           // slightly shorter strap
   const STRAP_W = 22;         // strap width (px)
   const AY = -100;            // anchor height relative to the stage top (strap fades in from here)
-  const GRAV = 0.55;          // higher = heavier
-  const AIR = 0.992;          // rope air resistance (1 = none)
-  const SPIN_K = 0.035;       // snap strength to front/back
-  const SPIN_FRICTION = 0.8;  // higher = bouncier flip, lower = stiffer
+  const GRAV = 0.14;          // higher = heavier
+  const AIR = 0.996;          // rope air resistance (1 = none)
+  const SPIN_K = 0.025;       // snap strength to front/back
+  const SPIN_FRICTION = 0.88;  // higher = bouncier flip, lower = stiffer
   const DRAG_TO_DEG = 0.6;    // degrees of spin per px dragged
 
-  const SL = ROPE / SEG, STEP = 1000 / 60, ITER = 16;
+  const SL = ROPE / SEG, STEP = 1000 / 120, ITER = 10;
   const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
 
   let W = 260, ax = 0, stageW = 460;
@@ -466,8 +466,8 @@ if (lanyardStage) {
     }
     if (drag) {
       const p = P[SEG];
-      p.x += (tx - p.x) * 0.5;
-      p.y += (ty - p.y) * 0.5;
+      p.x += (tx - p.x) * 0.38;
+      p.y += (ty - p.y) * 0.38;
     }
     for (let k = 0; k < ITER; k++) {
       P[0].x = ax; P[0].y = AY;
@@ -495,7 +495,7 @@ if (lanyardStage) {
     const a = P[SEG - 2], b = P[SEG];
     let tz = (-Math.atan2(b.x - a.x, b.y - a.y) * 180) / Math.PI;
     if (drag) tz += clamp((b.x - Q[SEG].x) * 0.9, -22, 22);
-    vz += (tz - az) * 0.09; vz *= 0.86; az += vz;
+    vz += (tz - az) * 0.075; vz *= 0.9; az += vz;
 
     // card spin: angle is set by the drag; on release it snaps to the nearest side
     if (drag) {
