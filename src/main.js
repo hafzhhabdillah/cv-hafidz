@@ -16,14 +16,13 @@ const projects = [
     width: 1910,
     height: 997,
     alt: 'Meowketplace project screenshot',
-    description: 'Website e-commerce yang berfokus pada kebutuhan kucing dan hewan peliharaan. Katalog produk disusun agar pengunjung dapat menjelajahi kebutuhan hewan dengan lebih mudah.',
+    description: 'Website e-commerce untuk kebutuhan kucing kesayangan.',
     overview: 'Meowketplace merupakan project e-commerce yang berfokus pada kebutuhan hewan peliharaan, khususnya kucing. Project ini menggabungkan perancangan antarmuka dan implementasi halaman web.',
     goal: 'Menyajikan pengalaman katalog produk yang mudah dipahami dan nyaman dijelajahi.',
     process: 'Perancangan UI dilakukan dengan Figma, kemudian tampilan dibangun menggunakan HTML, CSS, Tailwind CSS, dan JavaScript.',
     features: ['Tampilan katalog produk', 'Layout responsif', 'Antarmuka e-commerce'],
     stack: ['HTML', 'CSS', 'Figma', 'Tailwind CSS', 'JavaScript'],
     demo: null,
-    github: GITHUB_URL,
   },
   {
     slug: 'landing-page-bbil-furniture',
@@ -34,7 +33,7 @@ const projects = [
     width: 1908,
     height: 994,
     alt: 'Bbil Furniture landing page screenshot',
-    description: 'Konsep landing page untuk memperkenalkan produk furniture dan kebutuhan rumah. Tata letak dibuat dengan fokus pada visual produk serta informasi yang mudah dipindai.',
+    description: 'Konsep landing page untuk menampilkan produk furniture dan kebutuhan rumah.',
     overview: 'Project konsep e-commerce yang berfokus pada presentasi produk furniture melalui landing page.',
     goal: 'Membuat tampilan produk rumah tangga yang terstruktur dan mudah dipindai.',
     process: 'Desain antarmuka disusun dengan Figma dan diimplementasikan menggunakan HTML, CSS, Tailwind CSS, serta JavaScript.',
@@ -51,7 +50,7 @@ const projects = [
     width: 1923,
     height: 982,
     alt: 'Student violation application screenshot',
-    description: 'Aplikasi web untuk membantu pencatatan data pelanggaran siswa. Antarmukanya menyajikan informasi pencatatan agar lebih terorganisasi dan mudah dipantau.',
+    description: 'Aplikasi web untuk membantu pencatatan pelanggaran siswa.',
     overview: 'Aplikasi web yang dibuat untuk mendukung pencatatan data pelanggaran siswa.',
     goal: 'Membantu menyusun informasi pelanggaran agar lebih terorganisasi.',
     process: 'Project dikembangkan menggunakan HTML, CSS, Tailwind CSS, dan JavaScript.',
@@ -177,12 +176,28 @@ if (!reduceMotion && finePointer.matches) {
   requestAnimationFrame(raf);
 }
 
+/* Portfolio pill tabs */
+$$('.portfolio-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    $$('.portfolio-tab').forEach(item => {
+      const active = item === tab;
+      item.classList.toggle('is-active', active);
+      item.setAttribute('aria-selected', String(active));
+    });
+    $$('.portfolio-panel').forEach(panel => {
+      const active = panel.id === tab.dataset.panel;
+      panel.hidden = !active;
+      panel.classList.toggle('is-active', active);
+    });
+  });
+});
+
 /* Projects: one data source for cards, filters, archive, and detail views */
 const projectCard = (project, index, animate = false) => `
   <article class="work-card reveal${animate ? ' filter-enter' : ''}" style="--motion-index:${index % 3};${animate ? ` --filter-index:${index};` : ''}">
     <a class="work-image" href="?project=${project.slug}" aria-label="Lihat detail ${project.name}">
       <img src="${project.image}" alt="${project.alt}" width="${project.width}" height="${project.height}" loading="lazy" decoding="async" />
-      <span class="work-image-overlay">LIHAT DETAIL ↗</span>
+      <span class="work-image-overlay">VIEW DETAILS ↗</span>
       <span class="work-number">${String(index + 1).padStart(2, '0')}</span>
       <span class="work-arrow" aria-hidden="true">↗</span>
     </a>
@@ -191,9 +206,9 @@ const projectCard = (project, index, animate = false) => `
       <h3><a href="?project=${project.slug}">${project.name}</a></h3>
       <p>${project.description}</p>
       <div class="work-tags">${project.stack.map(tag => `<span>${tag}</span>`).join('')}</div>
-      <div class="work-card-links project-actions">
-        ${project.demo ? `<a class="project-action project-action-primary" href="${project.demo}" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>` : '<span class="project-action project-action-disabled" aria-disabled="true">Live Demo belum tersedia</span>'}
-        <a class="project-action" href="${project.github || GITHUB_URL}" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+      <div class="work-card-links">
+        <a href="?project=${project.slug}">Project details ↗</a>
+        <a href="${GITHUB_URL}" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
       </div>
     </div>
   </article>`;
@@ -243,15 +258,16 @@ form?.addEventListener('submit', event => {
   event.preventDefault();
   const data = new FormData(form);
   const name = String(data.get('name') || '').trim();
+  const email = String(data.get('email') || '').trim();
   const message = String(data.get('message') || '').trim();
 
-  if (!form.checkValidity() || !name || !message) {
-    if (formStatus) formStatus.textContent = 'Lengkapi nama dan pesan terlebih dahulu.';
+  if (!form.checkValidity() || !name || !email || !message) {
+    if (formStatus) formStatus.textContent = 'Lengkapi nama, email yang valid, dan pesan terlebih dahulu.';
     form.reportValidity();
     return;
   }
 
-  const text = `Halo Hafidz, saya ${name}.\n\n${message}`;
+  const text = `Halo Hafidz, saya ${name} (${email}).\n\n${message}`;
   const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
   const opened = window.open(url, '_blank', 'noopener,noreferrer');
   if (formStatus) {
@@ -367,162 +383,24 @@ if (!reduceMotion && 'IntersectionObserver' in window) {
   revealTargets.forEach(target => target.classList.add('is-visible'));
 }
 
-/* Lightweight 3D profile card: pointer tilt, touch sway, glare, and keyboard flip */
-const idCard = $('[data-id-card]');
-if (idCard) {
-  const stage = idCard.parentElement;
-  const maxTilt = 14;
-  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
-  const front = $('.id-card-front', idCard);
-  const back = $('.id-card-back', idCard);
-  let frame = 0;
-  let pointerDown = false;
-  let pointerMoved = false;
-  let pointerId = null;
-  let startX = 0;
-  let startY = 0;
-  let targetX = 0;
-  let targetY = 0;
-  let currentX = 0;
-  let currentY = 0;
-  let lightX = 50;
-  let lightY = 50;
-  let targetLightX = 50;
-  let targetLightY = 50;
-  const isTouchLayout = () => !finePointer.matches;
-
-  const setFlipped = flipped => {
-    idCard.classList.toggle('is-flipped', flipped);
-    front?.setAttribute('aria-hidden', String(flipped));
-    back?.setAttribute('aria-hidden', String(!flipped));
-    if (front) front.inert = flipped;
-    if (back) back.inert = !flipped;
-  };
-
-  const render = time => {
-    if (reduceMotion) return;
-    if (isTouchLayout() && !pointerDown) {
-      targetX = Math.sin(time / 2100) * 2.2;
-      targetY = Math.cos(time / 2600) * 3.2;
-      targetLightX = 50 + Math.sin(time / 2600) * 10;
-      targetLightY = 48 + Math.cos(time / 2200) * 8;
-      stage?.classList.add('is-card-active');
-    }
-    const ease = pointerDown ? 0.2 : 0.095;
-    currentX += (targetX - currentX) * ease;
-    currentY += (targetY - currentY) * ease;
-    lightX += (targetLightX - lightX) * 0.14;
-    lightY += (targetLightY - lightY) * 0.14;
-
-    idCard.style.setProperty('--tilt-x', currentX.toFixed(2) + 'deg');
-    idCard.style.setProperty('--tilt-y', currentY.toFixed(2) + 'deg');
-    idCard.style.setProperty('--light-x', lightX.toFixed(1) + '%');
-    idCard.style.setProperty('--light-y', lightY.toFixed(1) + '%');
-    idCard.style.setProperty('--shadow-x', (-currentY * 0.75).toFixed(1) + 'px');
-    idCard.style.setProperty('--shadow-y', (22 + Math.abs(currentX) * 0.8).toFixed(1) + 'px');
-
-    const settled = Math.abs(targetX - currentX) < 0.025 &&
-      Math.abs(targetY - currentY) < 0.025 &&
-      Math.abs(targetLightX - lightX) < 0.12 &&
-      Math.abs(targetLightY - lightY) < 0.12;
-    if (isTouchLayout() || !settled || pointerDown) {
-      frame = requestAnimationFrame(render);
-    } else {
-      frame = 0;
-    }
-  };
-
-  const schedule = () => {
-    if (!frame && !reduceMotion) frame = requestAnimationFrame(render);
-  };
-
-  const updatePointer = event => {
-    const rect = idCard.getBoundingClientRect();
-    const x = clamp((event.clientX - rect.left) / rect.width, 0, 1);
-    const y = clamp((event.clientY - rect.top) / rect.height, 0, 1);
-    targetX = (0.5 - y) * maxTilt * 1.7;
-    targetY = (x - 0.5) * maxTilt * 2;
-    targetLightX = x * 100;
-    targetLightY = y * 100;
-    stage?.classList.add('is-card-active');
-    schedule();
-  };
-
-  if (!reduceMotion) {
-    idCard.addEventListener('pointerenter', event => {
-      if (event.pointerType === 'mouse') updatePointer(event);
-    });
-    idCard.addEventListener('pointermove', event => {
-      if (event.pointerType === 'mouse' && !pointerDown) updatePointer(event);
-      else if (pointerDown && event.pointerId === pointerId) {
-        if (Math.abs(event.clientX - startX) + Math.abs(event.clientY - startY) > 5) pointerMoved = true;
-        updatePointer(event);
-      }
-    });
-    idCard.addEventListener('pointerdown', event => {
-      if (event.pointerType === 'mouse' && event.button !== 0) return;
-      if (event.target.closest('a')) return;
-      pointerDown = true;
-      pointerMoved = false;
-      pointerId = event.pointerId;
-      startX = event.clientX;
-      startY = event.clientY;
-      if (event.pointerType !== 'mouse') idCard.setPointerCapture?.(pointerId);
-      updatePointer(event);
-    });
-    const releasePointer = event => {
-      if (!pointerDown || (event && event.pointerId !== pointerId)) return;
-      pointerDown = false;
-      pointerId = null;
-      targetX = isTouchLayout() ? 0 : 0;
-      targetY = 0;
-      targetLightX = 50;
-      targetLightY = 50;
-      if (!isTouchLayout()) stage?.classList.remove('is-card-active');
-      schedule();
-    };
-    idCard.addEventListener('pointerup', releasePointer);
-    idCard.addEventListener('pointercancel', releasePointer);
-    idCard.addEventListener('lostpointercapture', releasePointer);
-    idCard.addEventListener('pointerleave', event => {
-      if (event.pointerType !== 'mouse' || pointerDown) return;
-      targetX = 0;
-      targetY = 0;
-      targetLightX = 50;
-      targetLightY = 50;
-      stage?.classList.remove('is-card-active');
-      schedule();
-    });
-    if (isTouchLayout()) schedule();
-  }
-
-  idCard.addEventListener('click', event => {
-    if (reduceMotion) return;
-    if (event.target.closest('a') || pointerMoved) {
-      pointerMoved = false;
-      return;
-    }
-    setFlipped(!idCard.classList.contains('is-flipped'));
-  });
-
-  idCard.addEventListener('keydown', event => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      if (reduceMotion) return;
-      event.preventDefault();
-      setFlipped(!idCard.classList.contains('is-flipped'));
-      return;
-    }
-    if (reduceMotion) return;
-    if (event.key === 'ArrowLeft') targetY = clamp(targetY - 5, -maxTilt, maxTilt);
-    else if (event.key === 'ArrowRight') targetY = clamp(targetY + 5, -maxTilt, maxTilt);
-    else if (event.key === 'ArrowUp') targetX = clamp(targetX - 5, -maxTilt, maxTilt);
-    else if (event.key === 'ArrowDown') targetX = clamp(targetX + 5, -maxTilt, maxTilt);
-    else if (event.key === 'Home') { targetX = 0; targetY = 0; }
-    else return;
-    event.preventDefault();
-    stage?.classList.add('is-card-active');
-    schedule();
-  });
-
-  setFlipped(false);
+/* Lanyard ID card: damped pendulum, drag and accessible flip */
+const lanyardStage = $('[data-lanyard-stage]');
+if (lanyardStage) {
+ const card=$('[data-lanyard-card]',lanyardStage), inner=$('[data-lanyard-inner]',card), front=$('[data-lanyard-front]',card), back=$('[data-lanyard-back]',card), flipButton=$('[data-lanyard-flip]',lanyardStage);
+ const ribbonPaths=$$('[data-lanyard-path], [data-lanyard-path-texture]',lanyardStage), reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const CONFIG={gravity:.0019,damping:.986,stiffness:.000085,length:260,maxAngle:.48};
+ let angle=reduced?0:.13,velocity=0,dragging=false,moved=false,pointerId=null,startX=0,startY=0,lastTime=0,flipped=false,raf=0;
+ const clamp=(v,min,max)=>Math.min(max,Math.max(min,v));
+ const setFlip=value=>{flipped=value;inner.classList.toggle('is-flipped',flipped);front.setAttribute('aria-hidden',String(flipped));back.setAttribute('aria-hidden',String(!flipped));front.inert=flipped;back.inert=!flipped;flipButton.setAttribute('aria-pressed',String(flipped));};
+ const draw=()=>{card.style.transform=`translateX(calc(-50% + ${Math.sin(angle)*25}px)) rotate(${angle*57.2958}deg)`;card.style.setProperty('--lanyard-gloss-x',`${50+angle*75}%`);card.style.setProperty('--lanyard-shadow-x',`${-angle*28}px`);const x=180+Math.sin(angle)*72,d=`M145 0 C145 90 ${180+Math.sin(angle)*24} 112 ${x} 280`;ribbonPaths.forEach(p=>p.setAttribute('d',d));};
+ const animate=()=>{if(reduced)return;velocity+=(-CONFIG.stiffness*angle-CONFIG.gravity*Math.sin(angle))*16.67;velocity*=CONFIG.damping;angle+=velocity*16.67;if(!dragging&&Math.abs(angle)<.0008&&Math.abs(velocity)<.00008){angle=0;velocity=0;draw();raf=0;return;}draw();raf=requestAnimationFrame(animate);};
+ const wake=()=>{if(!reduced&&!raf)raf=requestAnimationFrame(animate);};
+ const angleFromX=x=>{const r=lanyardStage.getBoundingClientRect();return clamp(((x-r.left-r.width/2)/CONFIG.length)*.48,-CONFIG.maxAngle,CONFIG.maxAngle);};
+ card.addEventListener('pointerdown',e=>{if(e.target.closest('a,button')||(e.pointerType==='mouse'&&e.button!==0))return;dragging=true;moved=false;pointerId=e.pointerId;startX=e.clientX;startY=e.clientY;lastTime=performance.now();card.setPointerCapture?.(pointerId);card.classList.add('is-dragging');if(raf)cancelAnimationFrame(raf);raf=0;});
+ card.addEventListener('pointermove',e=>{if(!dragging||e.pointerId!==pointerId)return;if(Math.hypot(e.clientX-startX,e.clientY-startY)>7)moved=true;const next=angleFromX(e.clientX),now=performance.now();velocity=(next-angle)/Math.max(1,now-lastTime);angle=next;lastTime=now;draw();});
+ const release=e=>{if(!dragging||(e&&e.pointerId!==pointerId))return;dragging=false;pointerId=null;card.classList.remove('is-dragging');velocity=clamp(velocity*18,-.045,.045);wake();};
+ card.addEventListener('pointerup',release);card.addEventListener('pointercancel',release);card.addEventListener('lostpointercapture',release);
+ card.addEventListener('click',e=>{if(e.target.closest('a,button'))return;if(moved){moved=false;return;}setFlip(!flipped);});
+ card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();setFlip(!flipped);}});
+ flipButton.addEventListener('click',()=>setFlip(!flipped));setFlip(false);draw();if(!reduced)wake();
 }
