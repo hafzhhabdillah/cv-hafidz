@@ -2544,30 +2544,162 @@ p {
   }
 }
 
+/* Lanyard name tag: rope physics + drag-to-spin 3D card (see "Lanyard" block in main.js) */
+.lanyard-stage {
+  --lanyard-cw: clamp(220px, 62vw, 280px);
+  --lanyard-ch: calc(var(--lanyard-cw) * 1.4);
+  position: relative;
+  isolation: isolate;
+  width: min(100%, 460px);
+  height: calc(var(--lanyard-ch) + 250px);
+  margin: auto;
+  clip-path: inset(-400px -24px -80px -24px);
+  user-select: none;
+  -webkit-user-select: none;
+}
 
+.lanyard-strap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.lanyard-strap-body { fill: var(--ink); }
+.lanyard-strap-stitch { fill: none; stroke: rgba(255, 255, 255, 0.3); stroke-width: 1; stroke-dasharray: 3 3; }
+.lanyard-strap-text { font: 800 8.5px/1 var(--font-display); letter-spacing: 0.3em; fill: rgba(255, 255, 255, 0.9); }
 
-/* Suspended lanyard ID card */
-.lanyard-stage{position:relative;width:min(100%,430px);min-height:570px;margin:auto;perspective:1100px;isolation:isolate}
-.lanyard-ribbon{position:absolute;z-index:1;top:-150px;left:50%;width:100%;height:460px;overflow:visible;transform:translateX(-50%);pointer-events:none;filter:drop-shadow(0 4px 3px rgba(0,0,0,.08))}
-.lanyard-hanger{position:absolute;z-index:3;top:264px;left:50%;width:44px;height:54px;transform:translateX(-50%);pointer-events:none}
-.lanyard-loop{position:absolute;top:0;left:13px;width:18px;height:23px;border:4px solid #b7b7b7;border-bottom:0;border-radius:12px 12px 0 0}
-.lanyard-clip{position:absolute;top:18px;left:7px;width:30px;height:24px;border:1px solid #aaa;border-radius:5px 5px 9px 9px;background:linear-gradient(100deg,#999,#f8f8f8 32%,#aaa 62%,#fff);box-shadow:0 3px 7px rgba(0,0,0,.14),inset 0 1px 1px #fff}
-.lanyard-ring{position:absolute;top:36px;left:15px;width:14px;height:15px;border:3px solid #aaa;border-radius:50%;background:#eee}
-.lanyard-card{position:absolute;z-index:2;top:308px;left:50%;width:clamp(220px,68%,286px);aspect-ratio:5/7;transform:translateX(-50%);transform-origin:50% -42px;cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;filter:drop-shadow(var(--lanyard-shadow-x,0) 18px 22px rgba(0,0,0,.16));will-change:transform}
-.lanyard-card.is-dragging{cursor:grabbing}.lanyard-card-inner{position:absolute;inset:0;transform-style:preserve-3d;transition:transform 720ms cubic-bezier(.2,.75,.2,1)}.lanyard-card-inner.is-flipped{transform:rotateY(180deg)}
-.lanyard-face{position:absolute;inset:0;overflow:hidden;border:1px solid rgba(255,255,255,.85);border-radius:19px;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:#fff}
-.lanyard-front img{width:100%;height:100%;object-fit:cover;object-position:center 18%;pointer-events:none;-webkit-user-drag:none}
-.lanyard-front-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.02) 25%,rgba(0,0,0,.78))}
-.lanyard-code{position:absolute;top:15px;left:15px;padding:7px 10px;border:1px solid rgba(255,255,255,.7);border-radius:8px;background:rgba(255,255,255,.92);color:#161616;font-size:10px;font-weight:800;letter-spacing:.12em}
-.lanyard-name{position:absolute;right:17px;bottom:42px;left:17px;color:#fff;font-family:var(--font-display);font-size:clamp(1.22rem,3vw,1.7rem);font-weight:800;line-height:1.04;letter-spacing:-.045em}
-.lanyard-front-foot{position:absolute;right:17px;bottom:17px;left:17px;color:rgba(255,255,255,.78);font-size:7px;font-weight:700;letter-spacing:.16em}
-.lanyard-gloss{position:absolute;inset:0;pointer-events:none;background:linear-gradient(125deg,transparent 24%,rgba(255,255,255,.22) 48%,transparent 65%);opacity:.55;transform:translateX(calc(var(--lanyard-gloss-x,50%) - 50%));mix-blend-mode:screen}
-.lanyard-back{display:flex;flex-direction:column;justify-content:space-between;padding:25px 21px 19px;transform:rotateY(180deg);background:linear-gradient(155deg,#fff,#f4f4f4);color:#151515}
-.lanyard-brand{font-family:var(--font-display);font-size:2rem;font-weight:800;letter-spacing:-.08em}.lanyard-brand span{color:#999}
-.lanyard-back-links{display:grid;gap:10px}.lanyard-back-links a{display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border:1px solid #dedede;border-radius:9px;color:#161616;font-size:12px;font-weight:700;text-decoration:none;transition:background .2s ease,color .2s ease,transform .2s ease}
-.lanyard-back-links a:hover,.lanyard-back-links a:focus-visible{background:#171717;color:#fff;transform:translateX(3px)}
-.lanyard-back-foot{color:#777;font-size:9px;letter-spacing:.04em}
-.lanyard-flip{position:absolute;z-index:4;top:535px;right:max(6%,calc((100% - 286px)/2 - 12px));padding:8px 13px;border:1px solid #ddd;border-radius:999px;background:#fff;color:#171717;font:inherit;font-size:11px;font-weight:700;cursor:pointer;box-shadow:0 5px 15px rgba(0,0,0,.06)}
-.lanyard-flip:focus-visible{outline:3px solid #171717;outline-offset:4px}
-@media(max-width:767px){.lanyard-stage{min-height:555px;width:100%}.lanyard-ribbon{top:-140px;height:440px}.lanyard-hanger{top:254px}.lanyard-card{top:298px;width:min(72%,270px)}.lanyard-flip{top:520px;right:9%}}
-@media(prefers-reduced-motion:reduce){.lanyard-card-inner,.lanyard-back-links a{transition-duration:.01ms!important}.lanyard-card{filter:drop-shadow(0 12px 18px rgba(0,0,0,.13))}}
+.lanyard-card {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: var(--lanyard-cw);
+  height: var(--lanyard-ch);
+  cursor: grab;
+  touch-action: pan-y;
+  outline: none;
+  will-change: transform;
+  filter: drop-shadow(0 18px 22px rgba(0, 0, 0, 0.16)) drop-shadow(0 2px 3px rgba(0, 0, 0, 0.1));
+}
+.lanyard-card.is-dragging { cursor: grabbing; }
+.lanyard-card:focus-visible .lanyard-card-inner { outline: 3px solid var(--ink); outline-offset: 6px; border-radius: 19px; }
+
+.lanyard-card-inner {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform-origin: 50% 40%;
+}
+
+.lanyard-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 19px;
+  background: #fff;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+/* shade when the card turns away + glare that follows the angle (values set from JS) */
+.lanyard-face::before { content: ""; position: absolute; inset: 0; z-index: 5; pointer-events: none; background: rgba(0, 0, 0, var(--lanyard-shade, 0)); }
+.lanyard-face::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent calc(var(--lanyard-gx, 50%) - 24%), rgba(255, 255, 255, 0.34) var(--lanyard-gx, 50%), transparent calc(var(--lanyard-gx, 50%) + 24%));
+}
+
+/* card thickness: faces are pushed out, the side edges fill the gap */
+.lanyard-front { transform: translateZ(2.5px); }
+.lanyard-back {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 25px 21px 19px;
+  background: linear-gradient(155deg, #fff, #f4f4f4);
+  color: #151515;
+  transform: rotateY(180deg) translateZ(2.5px);
+}
+.lanyard-edge {
+  position: absolute;
+  top: 22px;
+  bottom: 22px;
+  width: 5px;
+  border-radius: 3px;
+  background: linear-gradient(#e5e5e5, #a3a3a3 50%, #d4d4d4);
+}
+.lanyard-edge-l { left: -2.5px; transform: rotateY(90deg); }
+.lanyard-edge-r { right: -2.5px; transform: rotateY(90deg); }
+
+.lanyard-front img { width: 100%; height: 100%; object-fit: cover; object-position: center 18%; pointer-events: none; -webkit-user-drag: none; }
+.lanyard-front-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0.02) 25%, rgba(0, 0, 0, 0.78)); }
+.lanyard-code { position: absolute; top: 15px; left: 15px; padding: 7px 10px; border: 1px solid rgba(255, 255, 255, 0.7); border-radius: 8px; background: rgba(255, 255, 255, 0.92); color: #161616; font-size: 10px; font-weight: 800; letter-spacing: 0.12em; }
+.lanyard-name { position: absolute; right: 17px; bottom: 42px; left: 17px; color: #fff; font-family: var(--font-display); font-size: clamp(1.22rem, 3vw, 1.7rem); font-weight: 800; line-height: 1.04; letter-spacing: -0.045em; }
+.lanyard-front-foot { position: absolute; right: 17px; bottom: 17px; left: 17px; color: rgba(255, 255, 255, 0.78); font-size: 7px; font-weight: 700; letter-spacing: 0.16em; }
+
+.lanyard-slot {
+  position: absolute;
+  z-index: 4;
+  top: 12px;
+  left: 50%;
+  width: 38px;
+  height: 8px;
+  margin-left: -19px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.45), 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+.lanyard-back .lanyard-slot { background: #dcdcdc; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px 0 #fff; }
+
+.lanyard-brand { font-family: var(--font-display); font-size: 2rem; font-weight: 800; letter-spacing: -0.08em; }
+.lanyard-brand span { color: #999; }
+.lanyard-back-links { display: grid; gap: 10px; }
+.lanyard-back-links a { display: flex; align-items: center; justify-content: space-between; padding: 11px 12px; border: 1px solid #dedede; border-radius: 9px; color: #161616; font-size: 12px; font-weight: 700; text-decoration: none; transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease; }
+.lanyard-back-links a:hover,
+.lanyard-back-links a:focus-visible { background: #171717; color: #fff; transform: translateX(3px); }
+.lanyard-back-foot { margin: 0; color: #777; font-size: 9px; letter-spacing: 0.04em; }
+
+/* metal clip where the strap enters the card */
+.lanyard-clip {
+  position: absolute;
+  z-index: 3;
+  top: -34px;
+  left: 50%;
+  width: 26px;
+  height: 52px;
+  margin-left: -13px;
+  border: 5px solid transparent;
+  border-radius: 10px;
+  pointer-events: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(transparent, transparent) padding-box, linear-gradient(145deg, #fafafa, #9a9a9a 45%, #e5e5e5 70%, #6b6b6b) border-box;
+}
+
+.lanyard-hint {
+  position: absolute;
+  right: 0;
+  bottom: 6px;
+  left: 0;
+  z-index: 3;
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-align: center;
+  text-transform: uppercase;
+  pointer-events: none;
+  transition: opacity 0.6s;
+}
+.lanyard-hint.is-hidden { opacity: 0; }
+
+/* in the single-column layout the strap fades in above the card, so leave room for it */
+@media (max-width: 1023px) {
+  .hero-visual { margin-top: 4.5rem; }
+}
