@@ -400,7 +400,7 @@ if (lanyardStage) {
 
   /* values you can tweak */
   const SEG = 11;             // rope segments
-  const ROPE = 250;           // rope length (px)
+  const ROPE = 560;           // longer rope so the photo can travel across the expanded stage
   const STRAP_W = 22;         // strap width (px)
   const AY = -100;            // anchor height relative to the stage top (strap fades in from here)
   const GRAV = 0.55;          // higher = heavier
@@ -479,15 +479,17 @@ if (lanyardStage) {
         a.x += (dx * diff * wa) / s; a.y += (dy * diff * wa) / s;
         b.x -= (dx * diff * wb) / s; b.y -= (dy * diff * wb) / s;
       }
+      if (drag) {
+        P[SEG].x = tx;
+        P[SEG].y = ty;
+      }
     }
 
-    // keep the card inside the stage so it never causes horizontal scroll
-    const lim = Math.max(20, stageW / 2 - W * 0.375 - 6);
-    const off = P[SEG].x - ax;
-    if (Math.abs(off) > lim) {
-      P[SEG].x = ax + Math.sign(off) * lim;
-      Q[SEG].x = P[SEG].x;
-    }
+    // Keep the photo endpoint within the visible stage, but let it reach both sides.
+    const minX = W / 2 + 4;
+    const maxX = stageW - W / 2 - 4;
+    P[SEG].x = clamp(P[SEG].x, minX, maxX);
+    Q[SEG].x = clamp(Q[SEG].x, minX, maxX);
 
     // card tilt follows the rope direction, with a little lag so it feels heavy
     const a = P[SEG - 2], b = P[SEG];
@@ -582,7 +584,8 @@ if (lanyardStage) {
     stage.addEventListener('pointermove', e => {
       if (!drag) return;
       const s = toStage(e);
-      tx = s.x - ox; ty = s.y - oy;
+      tx = clamp(s.x - ox, W / 2 + 4, stageW - W / 2 - 4);
+      ty = clamp(s.y - oy, 0, stage.clientHeight - tag.offsetHeight);
       const dAng = (e.clientX - lastX) * DRAG_TO_DEG;
       lastX = e.clientX;
       ayaw += dAng;
