@@ -400,7 +400,7 @@ if (lanyardStage) {
 
   /* values you can tweak */
   const SEG = 11;             // rope segments
-  const ROPE = 360;           // slightly shorter strap
+  const ROPE = 330;           // slightly shorter strap
   const STRAP_W = 22;         // strap width (px)
   const AY = -100;            // anchor height relative to the stage top (strap fades in from here)
   const GRAV = 0.14;          // higher = heavier
