@@ -2546,7 +2546,7 @@ p {
 
 /* Lanyard name tag: rope physics + drag-to-spin 3D card (see "Lanyard" block in main.js) */
 .lanyard-stage {
-  --lanyard-cw: clamp(220px, 62vw, 280px);
+  --lanyard-cw: clamp(240px, 66vw, 300px);
   --lanyard-ch: calc(var(--lanyard-cw) * 1.4);
   position: relative;
   isolation: isolate;
